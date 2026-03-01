@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Tarot - Test Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #1a0f2e;
+        color: #f5e6ff;
+        padding: 20px;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #2d1b4e;
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid #d4af37;
+      }
+      h1 {
+        color: #d4af37;
+        margin-bottom: 20px;
+      }
+      .status {
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .success {
+        background: #27ae60;
+      }
+      .error {
+        background: #e74c3c;
+      }
+      .info {
+        background: #3498db;
+      }
+      button {
+        background: #d4af37;
+        color: #1a0f2e;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 5px;
+      }
+      button:hover {
+        background: #f5d76e;
+      }
+      #testResults {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🔮 Crypto Tarot - Site Test</h1>
+
+      <div class="status info">
+        <strong>Testing site functionality...</strong>
+      </div>
+
+      <button onclick="testCardData()">Test Card Data</button>
+      <button onclick="testScripts()">Test Scripts</button>
+      <button onclick="testStyles()">Test Styles</button>
+      <button onclick="openMainSite()">Open Main Site</button>
+
+      <div id="testResults"></div>
+    </div>
+
+    <script type="module">
+      async function testCardData() {
+        const results = document.getElementById('testResults');
+        results.innerHTML = '<div class="status info">Loading card data...</div>';
+
+        try {
+          const module = await import('./data/card-meanings.js');
+          const cards = Object.keys(module.CARD_MEANINGS);
+          results.innerHTML = `
+                    <div class="status success">
+                        ✅ Card data loaded successfully!<br>
+                        Found ${cards.length} cards<br>
+                        Sample: ${cards.slice(0, 3).join(', ')}
+                    </div>
+                `;
+        } catch (error) {
+          results.innerHTML = `
+                    <div class="status error">
+                        ❌ Card data error: ${error.message}
+                    </div>
+                `;
+        }
+      }
+
+      async function testScripts() {
+        const results = document.getElementById('testResults');
+        results.innerHTML = '<div class="status info">Testing scripts...</div>';
+
+        const scripts = [
+          'js/cosmic-data.js',
+          'js/shuffle-randomizer.js',
+          'js/fortune-teller-content.js',
+          'js/enhanced-effects.js',
+          'script.js',
+        ];
+
+        let loaded = 0;
+        let errors = [];
+
+        for (const src of scripts) {
+          try {
+            const script = document.createElement('script');
+            script.src = src;
+            script.type = src === 'script.js' ? 'module' : 'text/javascript';
+            await new Promise((resolve, reject) => {
+              script.onload = resolve;
+              script.onerror = () => reject(new Error(`Failed to load ${src}`));
+              document.head.appendChild(script);
+            });
+            loaded++;
+          } catch (error) {
+            errors.push(`${src}: ${error.message}`);
+          }
+        }
+
+        if (errors.length === 0) {
+          results.innerHTML = `
+                    <div class="status success">
+                        ✅ All scripts loaded successfully!<br>
+                        Loaded ${loaded}/${scripts.length} scripts
+                    </div>
+                `;
+        } else {
+          results.innerHTML = `
+                    <div class="status error">
+                        ❌ Script errors:<br>
+                        ${errors.join('<br>')}
+                    </div>
+                `;
+        }
+      }
+
+      function testStyles() {
+        const results = document.getElementById('testResults');
+        const link = document.querySelector('link[href="styles.css"]');
+
+        if (link) {
+          results.innerHTML = `
+                    <div class="status success">
+                        ✅ CSS link found in main page
+                    </div>
+                `;
+        } else {
+          // Test if styles.css exists
+          fetch('styles.css')
+            .then(r => {
+              if (r.ok) {
+                results.innerHTML = `
+                                <div class="status success">
+                                    ✅ styles.css file exists and is accessible
+                                </div>
+                            `;
+              } else {
+                results.innerHTML = `
+                                <div class="status error">
+                                    ❌ styles.css not accessible (${r.status})
+                                </div>
+                            `;
+              }
+            })
+            .catch(e => {
+              results.innerHTML = `
+                            <div class="status error">
+                                ❌ Cannot access styles.css: ${e.message}
+                            </div>
+                        `;
+            });
+        }
+      }
+
+      function openMainSite() {
+        window.location.href = 'index.html';
+      }
+
+      // Make functions available globally
+      window.testCardData = testCardData;
+      window.testScripts = testScripts;
+      window.testStyles = testStyles;
+      window.openMainSite = openMainSite;
+
+      // Auto-run basic test
+      testCardData();
+    </script>
+  </body>
+</html>

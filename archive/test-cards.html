@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Tarot - Card Preview Test</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(180deg, #0b0f15 0%, #070a10 100%);
+        color: #e6f1ff;
+        font-family: 'Inter', system-ui, sans-serif;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: rgba(0, 245, 160, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(0, 245, 160, 0.3);
+      }
+
+      .header h1 {
+        font-size: 36px;
+        color: #00f5a0;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        color: #9bb0c8;
+        font-size: 16px;
+      }
+
+      .controls {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        background: linear-gradient(90deg, #00f5a0, #07f7d1);
+        border: none;
+        border-radius: 8px;
+        color: #0b0f15;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid #00f5a0;
+        color: #00f5a0;
+      }
+
+      .filters {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        background: rgba(0, 245, 160, 0.1);
+        border: 1px solid rgba(0, 245, 160, 0.3);
+        border-radius: 6px;
+        color: #00f5a0;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .filter-btn.active {
+        background: #00f5a0;
+        color: #0b0f15;
+        border-color: #00f5a0;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .card-preview {
+        background: #0f1520;
+        border: 1px solid #152034;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .card-preview:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 245, 160, 0.3);
+        border-color: #00f5a0;
+      }
+
+      .card-preview img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        background: #0b0f15;
+      }
+
+      .card-preview .card-name {
+        font-size: 14px;
+        color: #e6f1ff;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .card-preview .card-type {
+        font-size: 12px;
+        color: #9bb0c8;
+      }
+
+      .stats {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #9bb0c8;
+      }
+
+      .export-section {
+        background: rgba(139, 92, 246, 0.1);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 30px auto;
+        max-width: 600px;
+        text-align: center;
+      }
+
+      .export-section h3 {
+        color: #8b5cf6;
+        margin-bottom: 15px;
+      }
+
+      .export-section p {
+        color: #9bb0c8;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🔮 Crypto Tarot Card Preview</h1>
+      <p>Test all 78 cards on localhost - Click any card to view full size</p>
+    </div>
+
+    <div class="controls">
+      <button class="btn" onclick="exportAllAsPNG()">📥 Export All as PNG</button>
+      <button class="btn btn-outline" onclick="downloadAllSVGs()">💾 Download All SVGs</button>
+      <button class="btn btn-outline" onclick="testCardFlip()">🃏 Test Card Flip Animation</button>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all" onclick="filterCards('all')">
+        All Cards
+      </button>
+      <button class="filter-btn" data-filter="major" onclick="filterCards('major')">
+        Major Arcana
+      </button>
+      <button class="filter-btn" data-filter="tokens" onclick="filterCards('tokens')">
+        Tokens
+      </button>
+      <button class="filter-btn" data-filter="liquidity" onclick="filterCards('liquidity')">
+        Liquidity
+      </button>
+      <button class="filter-btn" data-filter="security" onclick="filterCards('security')">
+        Security
+      </button>
+      <button class="filter-btn" data-filter="nodes" onclick="filterCards('nodes')">Nodes</button>
+    </div>
+
+    <div class="stats" id="stats">Loading cards...</div>
+
+    <div class="card-grid" id="cardGrid"></div>
+
+    <div class="export-section">
+      <h3>📸 Export Options</h3>
+      <p>Use the export buttons above to generate PNG/JPG versions of all cards for testing.</p>
+      <p style="font-size: 12px; color: #5f7494">
+        Note: Browser-based export requires user interaction. For batch conversion, use the Node.js
+        script.
+      </p>
+    </div>
+
+    <script>
+      // Card data
+      const MAJOR_ARCANA = [
+        'The HODLer',
+        'The Miner',
+        'The Oracle',
+        'The Empress Node',
+        'The Emperor Chain',
+        'The Hierophant Whale',
+        'The Lovers Fork',
+        'The Chariot Pump',
+        'Strength HODL',
+        'The Hermit Dev',
+        'Wheel of Fortune Cycle',
+        'Justice Ledger',
+        'The Hanged Man Flip',
+        'Death Rug',
+        'Temperance Mix',
+        'The Devil Scam',
+        'The Tower Hack',
+        'The Star Airdrop',
+        'The Moon Illusion',
+        'The Sun Bull',
+        'Judgment Halving',
+        'The World Ecosystem',
+      ];
+
+      const SUITS = ['Tokens', 'Liquidity', 'Security', 'Nodes'];
+      const RANKS = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+      const COURTS = ['Page', 'Knight', 'Queen', 'King'];
+
+      function fileSafe(name) {
+        return name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+      }
+
+      function buildDeck() {
+        const deck = [];
+
+        // Major Arcana
+        MAJOR_ARCANA.forEach(title => {
+          const id = `major-${fileSafe(title)}`;
+          deck.push({
+            id,
+            name: title,
+            type: 'major',
+            suit: 'Major',
+            img: `assets/cards/${id}.svg`,
+          });
+        });
+
+        // Minor Arcana
+        SUITS.forEach(suit => {
+          RANKS.forEach(rank => {
+            const name = `${rank} of ${suit}`;
+            const id = `minor-${fileSafe(name)}`;
+            deck.push({
+              id,
+              name,
+              type: 'minor',
+              suit,
+              img: `assets/cards/${id}.svg`,
+            });
+          });
+
+          COURTS.forEach(court => {
+            const name = `${court} of ${suit}`;
+            const id = `minor-${fileSafe(name)}`;
+            deck.push({
+              id,
+              name,
+              type: 'minor',
+              suit,
+              img: `assets/cards/${id}.svg`,
+            });
+          });
+        });
+
+        return deck;
+      }
+
+      const FULL_DECK = buildDeck();
+      let currentFilter = 'all';
+
+      function renderCards(filter = 'all') {
+        const grid = document.getElementById('cardGrid');
+        const stats = document.getElementById('stats');
+
+        const filtered = FULL_DECK.filter(card => {
+          if (filter === 'all') return true;
+          if (filter === 'major') return card.type === 'major';
+          return card.suit.toLowerCase() === filter.toLowerCase();
+        });
+
+        stats.textContent = `Showing ${filtered.length} of ${FULL_DECK.length} cards`;
+
+        grid.innerHTML = '';
+
+        filtered.forEach(card => {
+          const cardEl = document.createElement('div');
+          cardEl.className = 'card-preview';
+          cardEl.setAttribute('data-type', card.type);
+          cardEl.setAttribute('data-suit', card.suit);
+
+          cardEl.innerHTML = `
+                    <img src="${card.img}" alt="${card.name}" 
+                         onerror="this.src='assets/cosmic-journey-card.svg'; this.onerror=null;"
+                         loading="lazy" />
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-type">${card.type === 'major' ? 'Major Arcana' : card.suit}</div>
+                `;
+
+          cardEl.addEventListener('click', () => {
+            window.open(card.img, '_blank');
+          });
+
+          grid.appendChild(cardEl);
+        });
+      }
+
+      function filterCards(filter) {
+        currentFilter = filter;
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+        renderCards(filter);
+      }
+
+      async function exportAllAsPNG() {
+        alert(
+          'Exporting all cards as PNG...\n\nThis will open each card in a new window.\nUse browser extensions or the Node.js script for batch export.'
+        );
+
+        // For each card, create a canvas and download
+        for (const card of FULL_DECK) {
+          try {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.src = card.img;
+
+            await new Promise((resolve, reject) => {
+              img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 700;
+                canvas.height = 1000;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                canvas.toBlob(blob => {
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${card.id}.png`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                  resolve();
+                }, 'image/png');
+              };
+              img.onerror = reject;
+            });
+
+            // Small delay between downloads
+            await new Promise(resolve => setTimeout(resolve, 100));
+          } catch (error) {
+            console.error(`Error exporting ${card.name}:`, error);
+          }
+        }
+      }
+
+      function downloadAllSVGs() {
+        FULL_DECK.forEach(card => {
+          const a = document.createElement('a');
+          a.href = card.img;
+          a.download = `${card.id}.svg`;
+          a.click();
+        });
+      }
+
+      function testCardFlip() {
+        alert(
+          'Card flip test: Go to the main page and use the "Draw 3 Cards" button to test the interactive card flip feature!'
+        );
+        window.location.href = 'index.html#reading';
+      }
+
+      // Initialize
+      renderCards('all');
+
+      // Update stats on load
+      window.addEventListener('load', () => {
+        const loaded = document.querySelectorAll('.card-preview img').length;
+        document.getElementById('stats').textContent =
+          `Loaded ${loaded} of ${FULL_DECK.length} cards`;
+      });
+    </script>
+  </body>
+</html>

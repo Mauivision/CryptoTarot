@@ -1,0 +1,104 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #67",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/three-of-nodes.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/three-of-nodes.html",
+  "external_url": "https://cryptotarot.app/card/three-of-nodes",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Minor"
+    },
+    {
+      "trait_type": "Suit",
+      "value": "Nodes"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "Three"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Mercury"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 3
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Team shipping core modules."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Merge conflict drama."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Co-authoring a key upgrade with core devs."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Collaboration, code reviews, and shipping MVPs."
+    },
+    {
+      "trait_type": "Title",
+      "value": "Three of Nodes"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/three-of-nodes.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/three-of-nodes.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

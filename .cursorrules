@@ -1,0 +1,55 @@
+# Crypto Tarot Project Rules for Cursor AI
+
+## Project Context
+This is a crypto-themed tarot card reading web application. It's a single-page application with 78 cards (22 Major Arcana + 56 Minor Arcana).
+
+## Code Style
+- Use ES6 modules (import/export)
+- Prefer single quotes for strings
+- Use camelCase for variables and functions
+- Use descriptive names that reflect crypto/tarot theme
+- Format code with Prettier (configured in .prettierrc)
+
+## File Structure
+- `data/card-meanings.js` - Canonical source of truth for all card data
+- `script.js` - Main application logic
+- `js/` - Utility modules (spread types, combinations, history, AI service, card-utils)
+- `scripts/build/` - Build scripts (cardmap, book generation)
+- `scripts/game/` - Game mechanics scripts
+- `scripts/export/` - Export scripts (PDF, Markdown, LaTeX)
+- `scripts/fix/` - One-time fix scripts (archived)
+- `scripts/utils/` - Utility scripts
+- `assets/` - Images, cardmap.json, etc.
+- `print/book/` - Generated book files
+- `docs/` - Documentation (guides, status, development)
+
+## Key Conventions
+- Card images: `tools/CryptoTarot1-78/major-{title}-{number}.jpg` or `minor-{rank}-of-{suit}-{number}.jpg`
+- Card IDs: Use `fileSafe()` function to convert titles to IDs
+- Image resolution: Use `getCardImagePath(card)` function for consistent image paths
+- Card data structure: Each card in CARD_MEANINGS has: title, type, suit, upright, reversed, bookChapter, etc.
+
+## Important Functions
+- `getCardImagePath(card)` - Resolves card image path using hash-based variant selection
+- `fileSafe(name)` - Converts card titles to file-safe IDs
+- `buildDeck()` - Creates the full 78-card deck
+- `resolveCardImage(card)` - Resolves card image with cardmap.json fallback
+
+## When Editing
+- Always update `data/card-meanings.js` for card data changes
+- Run `npm run generate:cardmap` after adding new card images
+- Use `npm run format` before committing
+- Test in browser at `http://localhost:8000`
+- Use shared utilities from `js/card-utils.js` (fileSafe, getCardImagePath, escapeHtml)
+
+## AI/LLM Context
+- This is entertainment only, not financial advice
+- Crypto terminology should be accurate but accessible
+- Tarot meanings should blend traditional tarot with crypto concepts
+
+## Common Patterns
+- Cards are objects with: `{ id, title, type, suit, img, borderColor }`
+- Major Arcana: type='Major', suit='Major'
+- Minor Arcana: type='Minor', suit is one of: Tokens, Wallets, Blocks, Nodes
+- Card meanings come from `CARD_MEANINGS[card.title]`
+

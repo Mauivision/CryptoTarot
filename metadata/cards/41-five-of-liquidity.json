@@ -1,0 +1,104 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #41",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/five-of-liquidity.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/five-of-liquidity.html",
+  "external_url": "https://cryptotarot.app/card/five-of-liquidity",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Minor"
+    },
+    {
+      "trait_type": "Suit",
+      "value": "Liquidity"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "Five"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Mars"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 5
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Pool drained, attack response."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Flash loan defense recovery."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Mitigating a sudden exploit in a DeFi pool."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Conflict, drained reserves, and emergency response."
+    },
+    {
+      "trait_type": "Title",
+      "value": "Five of Liquidity"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/five-of-liquidity.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/five-of-liquidity.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

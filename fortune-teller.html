@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Tarot Fortune Teller - Interactive Card Reading</title>
+    <meta
+      name="description"
+      content="Interactive Crypto Tarot card reading. Draw cards, flip them to reveal meanings, and get personalized crypto guidance."
+    />
+    <link rel="icon" href="assets/cosmic-journey-card.svg" />
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: var(--body-gradient);
+        background-attachment: fixed;
+      }
+      .fortune-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .fortune-hero {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        position: relative;
+        background:
+          radial-gradient(circle at 15% 35%, rgba(155, 89, 182, 0.25), transparent 55%),
+          radial-gradient(circle at 85% 25%, rgba(212, 175, 55, 0.18), transparent 60%),
+          linear-gradient(180deg, #0f0519 0%, #140a24 60%, rgba(15, 5, 25, 0) 100%);
+        background-attachment: fixed;
+      }
+      .fortune-container {
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .fortune-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .fortune-header h1 {
+        font-size: clamp(32px, 6vw, 48px);
+        margin: 0 0 16px;
+        color: var(--primary);
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      }
+      .fortune-header p {
+        font-size: 18px;
+        color: var(--muted);
+        margin: 0;
+      }
+      .reading-panel {
+        background: rgba(14, 12, 28, 0.75);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        border-radius: 28px;
+        padding: 40px 32px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(10px);
+        margin-bottom: 24px;
+      }
+      .controls-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .action-buttons .btn {
+        min-width: 140px;
+        padding: 12px 16px;
+        font-size: 16px;
+      }
+      @media (max-width: 640px) {
+        .action-buttons .btn {
+          flex: 1 1 45%;
+        }
+      }
+      .question-section {
+        margin-bottom: 24px;
+      }
+      .question-label {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .question-input {
+        width: 100%;
+        padding: 14px 18px;
+        background: rgba(45, 27, 78, 0.4);
+        border: 2px solid rgba(212, 175, 55, 0.2);
+        border-radius: 16px;
+        color: var(--text);
+        font-family: 'Crimson Text', serif;
+        font-size: 15px;
+        resize: vertical;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-sizing: border-box;
+      }
+      .question-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+      }
+      .controls-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .spread-select {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px 14px;
+        background: rgba(45, 27, 78, 0.4);
+        border: 2px solid rgba(212, 175, 55, 0.2);
+        border-radius: 12px;
+        color: var(--text);
+        font-family: 'Crimson Text', serif;
+        font-size: 14px;
+      }
+      .spread-select:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .action-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      #readingStatus {
+        margin: 20px 0;
+        min-height: 24px;
+      }
+      #readingCards {
+        display: flex !important;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px 0;
+        min-height: 200px;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      .back-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fortune-page">
+      <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px">
+        <a href="index.html" class="btn btn-outline back-link">← Back to Main</a>
+        <a href="story.html" class="btn btn-outline">📖 Story</a>
+      </div>
+
+      <section class="fortune-hero">
+        <div class="fortune-container">
+          <div class="fortune-header">
+            <h1>🔮 Crypto Tarot Fortune Teller</h1>
+            <p>Focus your question, shuffle the cosmic deck, and flip your destiny</p>
+          </div>
+
+          <div class="reading-panel">
+            <div class="question-section">
+              <label for="questionInput" class="question-label">What guidance do you seek?</label>
+              <textarea
+                id="questionInput"
+                class="question-input"
+                placeholder="e.g. Where is my next crypto breakthrough?"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="controls-row">
+              <select id="spreadType" class="spread-select">
+                <option value="3-card">Past • Present • Future (3 cards)</option>
+                <option value="1-card">Daily Oracle (1 card)</option>
+                <option value="5-card">Celtic Cross (5 cards)</option>
+              </select>
+              <div class="action-buttons">
+                <button id="drawCardsBtn" class="btn btn-primary">🔮 Draw Cards</button>
+                <button id="shuffleBtn" class="btn btn-outline">✨ Shuffle Deck</button>
+                <button id="revealAllBtn" class="btn btn-outline" title="Reveal all cards">
+                  👁️ Reveal All
+                </button>
+                <button id="viewHistoryBtn" class="btn btn-outline">📜 History</button>
+                <button id="copyLinkBtn" class="btn btn-outline" title="Copy shareable link">
+                  🔗 Copy Link
+                </button>
+                <button id="printReadingBtn" class="btn btn-outline" title="Print or save as PDF">
+                  🖨️ Print
+                </button>
+              </div>
+            </div>
+
+            <div id="readingStatus" class="reading-status" role="status" aria-live="polite"></div>
+
+            <div id="readingCards" class="reading-cards" role="list"></div>
+            <div
+              id="readingSkeleton"
+              class="reading-skeleton"
+              aria-hidden="true"
+              style="display: none"
+            >
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+              <div class="skeleton-card"></div>
+            </div>
+            <div id="readingText" class="reading-hint"></div>
+          </div>
+
+          <div id="fortuneReading" class="fortune-reading"></div>
+          <div id="cardCombinations" class="card-combinations" style="display: none"></div>
+          <div id="aiReading" class="ai-reading"></div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,499 @@
+{
+  "generatedAt": "2025-11-15T10:15:22.312Z",
+  "totalCards": 78,
+  "cards": [
+    {
+      "title": "The HODLer",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-hodler-13.jpg",
+        "tools/CryptoTarot1-78/major-the-hodler-14.jpg",
+        "tools/CryptoTarot1-78/major-the-hodler-15.jpg",
+        "tools/CryptoTarot1-78/major-the-hodler-16.jpg"
+      ]
+    },
+    {
+      "title": "The Miner",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-miner-02.jpg",
+        "tools/CryptoTarot1-78/major-the-miner-05.jpg",
+        "tools/CryptoTarot1-78/major-the-miner-06.jpg"
+      ]
+    },
+    {
+      "title": "The Oracle",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-oracle-02.jpg",
+        "tools/CryptoTarot1-78/major-the-oracle-03.jpg",
+        "tools/CryptoTarot1-78/major-the-oracle-04.jpg"
+      ]
+    },
+    {
+      "title": "The Empress Node",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-empress-node-07.jpg",
+        "tools/CryptoTarot1-78/major-the-empress-node-08.jpg"
+      ]
+    },
+    {
+      "title": "The Emperor Chain",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-emperor-chain-02.jpg",
+        "tools/CryptoTarot1-78/major-the-emperor-chain-04.jpg"
+      ]
+    },
+    {
+      "title": "The Hierophant Whale",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-hierophant-whale-02.jpg",
+        "tools/CryptoTarot1-78/major-the-hierophant-whale-04.jpg"
+      ]
+    },
+    {
+      "title": "The Lovers Fork",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-lovers-fork-02.jpg",
+        "tools/CryptoTarot1-78/major-the-lovers-fork-04.jpg"
+      ]
+    },
+    {
+      "title": "The Chariot Pump",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-chariot-pump-02.jpg",
+        "tools/CryptoTarot1-78/major-the-chariot-pump-04.jpg"
+      ]
+    },
+    {
+      "title": "Strength HODL",
+      "variants": [
+        "tools/CryptoTarot1-78/major-strength-hodl-02.jpg",
+        "tools/CryptoTarot1-78/major-strength-hodl-04.jpg"
+      ]
+    },
+    {
+      "title": "The Hermit Dev",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-hermit-dev-07.jpg",
+        "tools/CryptoTarot1-78/major-the-hermit-dev-08.jpg"
+      ]
+    },
+    {
+      "title": "Wheel of Fortune Cycle",
+      "variants": [
+        "tools/CryptoTarot1-78/Major-wheel-of-fortune-cycle-03.jpg",
+        "tools/CryptoTarot1-78/Major-wheel-of-fortune-cycle-04.jpg"
+      ]
+    },
+    {
+      "title": "Justice Ledger",
+      "variants": [
+        "tools/CryptoTarot1-78/major-justice-ledger-07.jpg",
+        "tools/CryptoTarot1-78/major-justice-ledger-08.jpg"
+      ]
+    },
+    {
+      "title": "The Hanged Man Flip",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-hanged-man-flip-02.jpg",
+        "tools/CryptoTarot1-78/major-the-hanged-man-flip-03.jpg"
+      ]
+    },
+    {
+      "title": "Death Rug",
+      "variants": [
+        "tools/CryptoTarot1-78/major-death-rug-07.jpg",
+        "tools/CryptoTarot1-78/major-death-rug-08.jpg"
+      ]
+    },
+    {
+      "title": "Temperance Mix",
+      "variants": [
+        "tools/CryptoTarot1-78/major-temperance-mix-02.jpg",
+        "tools/CryptoTarot1-78/major-temperance-mix-04.jpg"
+      ]
+    },
+    {
+      "title": "The Devil Scam",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-devil-scam-07.jpg",
+        "tools/CryptoTarot1-78/major-the-devil-scam-08.jpg"
+      ]
+    },
+    {
+      "title": "The Tower Hack",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-tower-hack-07.jpg",
+        "tools/CryptoTarot1-78/major-the-tower-hack-08.jpg"
+      ]
+    },
+    {
+      "title": "The Star Airdrop",
+      "variants": ["tools/CryptoTarot1-78/major-the-star-airdrop-04.jpg"]
+    },
+    {
+      "title": "The Moon Illusion",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-moon-illusion-02.jpg",
+        "tools/CryptoTarot1-78/major-the-moon-illusion-04.jpg"
+      ]
+    },
+    {
+      "title": "The Sun Bull",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-sun-bull-13.jpg",
+        "tools/CryptoTarot1-78/major-the-sun-bull-14.jpg",
+        "tools/CryptoTarot1-78/major-the-sun-bull-15.jpg",
+        "tools/CryptoTarot1-78/major-the-sun-bull-16.jpg"
+      ]
+    },
+    {
+      "title": "Judgment Halving",
+      "variants": [
+        "tools/CryptoTarot1-78/major-judgment-halving-10.jpg",
+        "tools/CryptoTarot1-78/major-judgment-halving-11.jpg",
+        "tools/CryptoTarot1-78/major-judgment-halving-12.jpg"
+      ]
+    },
+    {
+      "title": "The World Ecosystem",
+      "variants": [
+        "tools/CryptoTarot1-78/major-the-world-ecosystem-04.jpg",
+        "tools/CryptoTarot1-78/major-the-world-ecosystem-05.jpg"
+      ]
+    },
+    {
+      "title": "Ace of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-ace-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Two of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-two-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-two-of-tokens-04.jpg"
+      ]
+    },
+    {
+      "title": "Three of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-three-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-three-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Four of Tokens",
+      "variants": ["tools/CryptoTarot1-78/minor-four-of-tokens-04.jpg"]
+    },
+    {
+      "title": "Five of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-five-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-five-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Six of Tokens",
+      "variants": ["tools/CryptoTarot1-78/minor-six-of-tokens-04.jpg"]
+    },
+    {
+      "title": "Seven of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-seven-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-seven-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Eight of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-eight-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-eight-of-tokens-04.jpg"
+      ]
+    },
+    {
+      "title": "Nine of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-nine-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-tokens-03.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-tokens-04.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-tokens-05.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-tokens-06.jpg"
+      ]
+    },
+    {
+      "title": "Ten of Tokens",
+      "variants": ["assets/cards/minor-ten-of-tokens.svg"]
+    },
+    {
+      "title": "Page of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-court-of-tokens-01.jpg",
+        "tools/CryptoTarot1-78/minor-court-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Knight of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-court-of-tokens-01.jpg",
+        "tools/CryptoTarot1-78/minor-court-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-knight-of-tokens-07.jpg",
+        "tools/CryptoTarot1-78/minor-knight-of-tokens-08.jpg"
+      ]
+    },
+    {
+      "title": "Queen of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-court-of-tokens-01.jpg",
+        "tools/CryptoTarot1-78/minor-court-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-queen-of-tokens-04.jpg"
+      ]
+    },
+    {
+      "title": "King of Tokens",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-court-of-tokens-01.jpg",
+        "tools/CryptoTarot1-78/minor-court-of-tokens-02.jpg",
+        "tools/CryptoTarot1-78/minor-king-of-tokens-10.jpg",
+        "tools/CryptoTarot1-78/minor-king-of-tokens-11.jpg",
+        "tools/CryptoTarot1-78/minor-king-of-tokens-12.jpg"
+      ]
+    },
+    {
+      "title": "Ace of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-ace-of-liquidity-03.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-liquidity-09.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-liquidity-10.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-liquidity-11.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-liquidity-12.jpg"
+      ]
+    },
+    {
+      "title": "Two of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-two-of-liquidity-01.jpg",
+        "tools/CryptoTarot1-78/minor-two-of-liquidity-02.jpg"
+      ]
+    },
+    {
+      "title": "Three of Liquidity",
+      "variants": ["tools/CryptoTarot1-78/minor-three-of-liquidity-04.jpg"]
+    },
+    {
+      "title": "Four of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-four-of-liquidity-07.jpg",
+        "tools/CryptoTarot1-78/minor-four-of-liquidity-08.jpg"
+      ]
+    },
+    {
+      "title": "Five of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-five-of-liquidity-02.jpg",
+        "tools/CryptoTarot1-78/minor-five-of-liquidity-04.jpg"
+      ]
+    },
+    {
+      "title": "Six of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-six-of-liquidity-07.jpg",
+        "tools/CryptoTarot1-78/minor-six-of-liquidity-08.jpg"
+      ]
+    },
+    {
+      "title": "Seven of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-seven-of-liquidity-02.jpg",
+        "tools/CryptoTarot1-78/minor-seven-of-liquidity-04.jpg"
+      ]
+    },
+    {
+      "title": "Eight of Liquidity",
+      "variants": ["tools/CryptoTarot1-78/minor-eight-of-liquidity-04.jpg"]
+    },
+    {
+      "title": "Nine of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-nine-of-liquidity-02.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-liquidity-04.jpg"
+      ]
+    },
+    {
+      "title": "Ten of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-ten-of-liquidity-03.jpg",
+        "tools/CryptoTarot1-78/minor-ten-of-liquidity-04.jpg"
+      ]
+    },
+    {
+      "title": "Page of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-page-of-liquidity-03.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-liquidity-04.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-liquidity-08.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-liquidity-09.jpg",
+        "tools/CryptoTarot1-78/minor-page-of-liquidity-10.jpg"
+      ]
+    },
+    {
+      "title": "Knight of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-knight-of-liquidity-07.jpg",
+        "tools/CryptoTarot1-78/minor-knight-of-liquidity-08.jpg"
+      ]
+    },
+    {
+      "title": "Queen of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-queen-of-liquidity-06.jpg",
+        "tools/CryptoTarot1-78/minor-queen-of-liquidity-07.jpg"
+      ]
+    },
+    {
+      "title": "King of Liquidity",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-king-of-liquidity-07.jpg",
+        "tools/CryptoTarot1-78/minor-king-of-liquidity-08.jpg"
+      ]
+    },
+    {
+      "title": "Ace of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-ace-of-security-07.jpg",
+        "tools/CryptoTarot1-78/minor-ace-of-security-08.jpg"
+      ]
+    },
+    {
+      "title": "Two of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-two-of-security-07.jpg",
+        "tools/CryptoTarot1-78/minor-two-of-security-08.jpg"
+      ]
+    },
+    {
+      "title": "Three of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-three-of-security-07.jpg",
+        "tools/CryptoTarot1-78/minor-three-of-security-08.jpg"
+      ]
+    },
+    {
+      "title": "Four of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-four-of-security-02.jpg",
+        "tools/CryptoTarot1-78/minor-four-of-security-04.jpg"
+      ]
+    },
+    {
+      "title": "Five of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-five-of-security-02.jpg",
+        "tools/CryptoTarot1-78/minor-five-of-security-03.jpg",
+        "tools/CryptoTarot1-78/minor-five-of-security-04.jpg"
+      ]
+    },
+    {
+      "title": "Six of Security",
+      "variants": ["tools/CryptoTarot1-78/minor-six-of-security-04.jpg"]
+    },
+    {
+      "title": "Seven of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-seven-of-security-07.jpg",
+        "tools/CryptoTarot1-78/minor-seven-of-security-08.jpg"
+      ]
+    },
+    {
+      "title": "Eight of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-eight-of-security-02.jpg",
+        "tools/CryptoTarot1-78/minor-eight-of-security-04.jpg"
+      ]
+    },
+    {
+      "title": "Nine of Security",
+      "variants": [
+        "tools/CryptoTarot1-78/minor-nine-of-security-07.jpg",
+        "tools/CryptoTarot1-78/minor-nine-of-security-08.jpg"
+      ]
+    },
+    {
+      "title": "Ten of Security",
+      "variants": ["assets/cards/minor-ten-of-security.svg"]
+    },
+    {
+      "title": "Page of Security",
+      "variants": ["assets/cards/minor-page-of-security.svg"]
+    },
+    {
+      "title": "Knight of Security",
+      "variants": ["assets/cards/minor-knight-of-security.svg"]
+    },
+    {
+      "title": "Queen of Security",
+      "variants": ["assets/cards/minor-queen-of-security.svg"]
+    },
+    {
+      "title": "King of Security",
+      "variants": ["assets/cards/minor-king-of-security.svg"]
+    },
+    {
+      "title": "Ace of Nodes",
+      "variants": ["assets/cards/minor-ace-of-nodes.svg"]
+    },
+    {
+      "title": "Two of Nodes",
+      "variants": ["assets/cards/minor-two-of-nodes.svg"]
+    },
+    {
+      "title": "Three of Nodes",
+      "variants": ["assets/cards/minor-three-of-nodes.svg"]
+    },
+    {
+      "title": "Four of Nodes",
+      "variants": ["assets/cards/minor-four-of-nodes.svg"]
+    },
+    {
+      "title": "Five of Nodes",
+      "variants": ["assets/cards/minor-five-of-nodes.svg"]
+    },
+    {
+      "title": "Six of Nodes",
+      "variants": ["assets/cards/minor-six-of-nodes.svg"]
+    },
+    {
+      "title": "Seven of Nodes",
+      "variants": ["assets/cards/minor-seven-of-nodes.svg"]
+    },
+    {
+      "title": "Eight of Nodes",
+      "variants": ["assets/cards/minor-eight-of-nodes.svg"]
+    },
+    {
+      "title": "Nine of Nodes",
+      "variants": ["assets/cards/minor-nine-of-nodes.svg"]
+    },
+    {
+      "title": "Ten of Nodes",
+      "variants": ["assets/cards/minor-ten-of-nodes.svg"]
+    },
+    {
+      "title": "Page of Nodes",
+      "variants": ["assets/cards/minor-page-of-nodes.svg"]
+    },
+    {
+      "title": "Knight of Nodes",
+      "variants": ["assets/cards/minor-knight-of-nodes.svg"]
+    },
+    {
+      "title": "Queen of Nodes",
+      "variants": ["assets/cards/minor-queen-of-nodes.svg"]
+    },
+    {
+      "title": "King of Nodes",
+      "variants": ["assets/cards/minor-king-of-nodes.svg"]
+    }
+  ]
+}

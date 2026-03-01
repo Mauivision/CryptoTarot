@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Crypto Tarot Encyclopedia - Complete Dictionary of Meanings</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        background: linear-gradient(180deg, #0b0f15 0%, #070a10 100%);
+        color: #e6f1ff;
+        line-height: 1.8;
+        padding: 0;
+      }
+
+      .book-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #0f1520;
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        min-height: 100vh;
+      }
+
+      .book-cover {
+        background: linear-gradient(135deg, #0b0f15 0%, #1a1f2e 100%);
+        padding: 60px 40px;
+        text-align: center;
+        border-bottom: 3px solid #00f5a0;
+      }
+
+      .book-cover h1 {
+        font-size: 48px;
+        color: #00f5a0;
+        text-shadow: 0 0 20px rgba(0, 245, 160, 0.5);
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+      }
+
+      .book-cover .subtitle {
+        font-size: 24px;
+        color: #8b5cf6;
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+
+      .book-cover .edition {
+        font-size: 16px;
+        color: #9bb0c8;
+        margin-top: 40px;
+      }
+
+      .table-of-contents {
+        padding: 40px;
+        background: rgba(0, 245, 160, 0.05);
+        border-left: 4px solid #00f5a0;
+      }
+
+      .table-of-contents h2 {
+        color: #00f5a0;
+        font-size: 28px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .toc-section {
+        margin-bottom: 30px;
+      }
+
+      .toc-section h3 {
+        color: #8b5cf6;
+        font-size: 20px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+        padding-bottom: 8px;
+      }
+
+      .toc-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 10px;
+      }
+
+      .toc-links a {
+        color: #9bb0c8;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-left: 2px solid transparent;
+        transition: all 0.3s;
+        display: block;
+      }
+
+      .toc-links a:hover {
+        color: #00f5a0;
+        border-left-color: #00f5a0;
+        background: rgba(0, 245, 160, 0.1);
+        transform: translateX(5px);
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      .section {
+        margin-bottom: 60px;
+        page-break-inside: avoid;
+      }
+
+      .section-header {
+        background: linear-gradient(90deg, rgba(0, 245, 160, 0.1), transparent);
+        padding: 20px 30px;
+        border-left: 5px solid #00f5a0;
+        margin-bottom: 30px;
+      }
+
+      .section-header h2 {
+        font-size: 32px;
+        color: #00f5a0;
+        margin-bottom: 10px;
+      }
+
+      .section-header p {
+        color: #9bb0c8;
+        font-size: 16px;
+        font-style: italic;
+      }
+
+      .card-entry {
+        background: rgba(15, 21, 32, 0.6);
+        border: 1px solid rgba(0, 245, 160, 0.2);
+        border-radius: 8px;
+        padding: 30px;
+        margin-bottom: 40px;
+        page-break-inside: avoid;
+        transition: all 0.3s;
+      }
+
+      .card-entry:hover {
+        border-color: #00f5a0;
+        box-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .card-title {
+        font-size: 28px;
+        color: #00f5a0;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .card-title::before {
+        content: '◆';
+        color: #8b5cf6;
+        font-size: 20px;
+      }
+
+      .card-type {
+        display: inline-block;
+        padding: 6px 14px;
+        background: rgba(139, 92, 246, 0.2);
+        color: #8b5cf6;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+
+      .card-type.major {
+        background: rgba(139, 92, 246, 0.3);
+        border: 1px solid #8b5cf6;
+      }
+
+      .card-type.tokens {
+        background: rgba(0, 245, 160, 0.2);
+        color: #00f5a0;
+        border: 1px solid #00f5a0;
+      }
+
+      .card-type.liquidity {
+        background: rgba(62, 192, 255, 0.2);
+        color: #3ec0ff;
+        border: 1px solid #3ec0ff;
+      }
+
+      .card-type.security {
+        background: rgba(255, 56, 100, 0.2);
+        color: #ff3864;
+        border: 1px solid #ff3864;
+      }
+
+      .card-type.nodes {
+        background: rgba(255, 60, 172, 0.2);
+        color: #ff3cac;
+        border: 1px solid #ff3cac;
+      }
+
+      .meaning-section {
+        margin-bottom: 25px;
+      }
+
+      .meaning-section h3 {
+        font-size: 18px;
+        color: #8b5cf6;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .meaning-section h3::before {
+        content: '▸';
+        color: #00f5a0;
+      }
+
+      .meaning-section.upright h3 {
+        color: #00f5a0;
+      }
+
+      .meaning-section.reversed h3 {
+        color: #ff3864;
+      }
+
+      .meaning-section.foresight h3 {
+        color: #8b5cf6;
+      }
+
+      .meaning-section.cosmic h3 {
+        color: #8b5cf6;
+      }
+
+      .meaning-section.crypto h3 {
+        color: #00f5a0;
+      }
+
+      .meaning-text {
+        color: #e6f1ff;
+        font-size: 16px;
+        line-height: 1.8;
+        padding-left: 20px;
+        border-left: 2px solid rgba(0, 245, 160, 0.3);
+        padding: 15px 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+      }
+
+      .divider {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #00f5a0, transparent);
+        margin: 40px 0;
+        opacity: 0.3;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 40px;
+        color: #9bb0c8;
+        border-top: 2px solid rgba(0, 245, 160, 0.2);
+        margin-top: 60px;
+      }
+
+      .footer p {
+        margin: 10px 0;
+      }
+
+      @media print {
+        .book-container {
+          box-shadow: none;
+        }
+        .card-entry {
+          page-break-inside: avoid;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .book-cover h1 {
+          font-size: 32px;
+        }
+        .content {
+          padding: 20px;
+        }
+        .toc-links {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="book-container">
+      <div class="book-cover">
+        <h1>THE CRYPTO TAROT</h1>
+        <div class="subtitle">Encyclopedia & Dictionary</div>
+        <div class="edition">
+          Complete Guide to Crypto Tarot Card Meanings<br />
+          First Edition • 2024
+        </div>
+      </div>
+
+      <div class="table-of-contents">
+        <h2>Table of Contents</h2>
+
+        <div class="toc-section">
+          <h3>Major Arcana (22 Cards)</h3>
+          <div class="toc-links" id="toc-major"></div>
+        </div>
+
+        <div class="toc-section">
+          <h3>Minor Arcana - Tokens Suit (14 Cards)</h3>
+          <div class="toc-links" id="toc-tokens"></div>
+        </div>
+
+        <div class="toc-section">
+          <h3>Minor Arcana - Liquidity Suit (14 Cards)</h3>
+          <div class="toc-links" id="toc-liquidity"></div>
+        </div>
+
+        <div class="toc-section">
+          <h3>Minor Arcana - Security Suit (14 Cards)</h3>
+          <div class="toc-links" id="toc-security"></div>
+        </div>
+
+        <div class="toc-section">
+          <h3>Minor Arcana - Nodes Suit (14 Cards)</h3>
+          <div class="toc-links" id="toc-nodes"></div>
+        </div>
+      </div>
+
+      <div class="content" id="content">
+        <!-- Content will be generated by JavaScript -->
+      </div>
+
+      <div class="footer">
+        <p><strong>The Crypto Tarot Encyclopedia</strong></p>
+        <p>Complete Dictionary of All 78 Card Meanings</p>
+        <p>© 2024 Crypto Tarot • Neon Wisdom for Web3 Explorers</p>
+      </div>
+    </div>
+
+    <script type="module">
+      import { CARD_MEANINGS } from './data/card-meanings.js';
+
+      // Card organization
+      const MAJOR_ARCANA = [
+        'The HODLer',
+        'The Miner',
+        'The Oracle',
+        'The Empress Node',
+        'The Emperor Chain',
+        'The Hierophant Whale',
+        'The Lovers Fork',
+        'The Chariot Pump',
+        'Strength HODL',
+        'The Hermit Dev',
+        'Wheel of Fortune Cycle',
+        'Justice Ledger',
+        'The Hanged Man Flip',
+        'Death Rug',
+        'Temperance Mix',
+        'The Devil Scam',
+        'The Tower Hack',
+        'The Star Airdrop',
+        'The Moon Illusion',
+        'The Sun Bull',
+        'Judgment Halving',
+        'The World Ecosystem',
+      ];
+
+      const MINOR_TOKENS = [
+        'Ace of Tokens',
+        'Two of Tokens',
+        'Three of Tokens',
+        'Four of Tokens',
+        'Five of Tokens',
+        'Six of Tokens',
+        'Seven of Tokens',
+        'Eight of Tokens',
+        'Nine of Tokens',
+        'Ten of Tokens',
+        'Page of Tokens',
+        'Knight of Tokens',
+        'Queen of Tokens',
+        'King of Tokens',
+      ];
+
+      const MINOR_LIQUIDITY = [
+        'Ace of Liquidity',
+        'Two of Liquidity',
+        'Three of Liquidity',
+        'Four of Liquidity',
+        'Five of Liquidity',
+        'Six of Liquidity',
+        'Seven of Liquidity',
+        'Eight of Liquidity',
+        'Nine of Liquidity',
+        'Ten of Liquidity',
+        'Page of Liquidity',
+        'Knight of Liquidity',
+        'Queen of Liquidity',
+        'King of Liquidity',
+      ];
+
+      const MINOR_SECURITY = [
+        'Ace of Security',
+        'Two of Security',
+        'Three of Security',
+        'Four of Security',
+        'Five of Security',
+        'Six of Security',
+        'Seven of Security',
+        'Eight of Security',
+        'Nine of Security',
+        'Ten of Security',
+        'Page of Security',
+        'Knight of Security',
+        'Queen of Security',
+        'King of Security',
+      ];
+
+      const MINOR_NODES = [
+        'Ace of Nodes',
+        'Two of Nodes',
+        'Three of Nodes',
+        'Four of Nodes',
+        'Five of Nodes',
+        'Six of Nodes',
+        'Seven of Nodes',
+        'Eight of Nodes',
+        'Nine of Nodes',
+        'Ten of Nodes',
+        'Page of Nodes',
+        'Knight of Nodes',
+        'Queen of Nodes',
+        'King of Nodes',
+      ];
+
+      function createTOCLink(cardName, sectionId) {
+        const link = document.createElement('a');
+        link.href = `#${cardName.toLowerCase().replace(/\s+/g, '-')}`;
+        link.textContent = cardName;
+        document.getElementById(sectionId).appendChild(link);
+      }
+
+      function getCardMeta(cardName) {
+        return CARD_MEANINGS[cardName] || {};
+      }
+
+      function formatCosmic(meta, type) {
+        const parts = [];
+        if (typeof meta.number === 'number') {
+          const label = type === 'major' ? 'Major Key' : 'Numerology';
+          parts.push(`${label}: ${meta.number}`);
+        }
+        if (meta.cosmicRuler) {
+          const summary = meta.cosmicSummary ? ` — ${meta.cosmicSummary}` : '';
+          parts.push(`Cosmic Ruler: ${meta.cosmicRuler}${summary}`);
+        }
+        return parts.join('<br>');
+      }
+
+      function createCardEntry(cardName, type, suit = null) {
+        const meanings = getCardMeta(cardName);
+        const entry = document.createElement('div');
+        entry.className = 'card-entry';
+        entry.id = cardName.toLowerCase().replace(/\s+/g, '-');
+
+        const typeClass = type === 'major' ? 'major' : suit.toLowerCase();
+        const arcanaLabel = type === 'major' ? 'Major Arcana' : `${suit} Suit`;
+        const cosmicText = formatCosmic(meanings, type);
+        const cryptoFlavor = meanings.cryptoFlavor || '';
+
+        entry.innerHTML = `
+                <div class="card-title">${cardName}</div>
+                <span class="card-type ${typeClass}">${arcanaLabel}</span>
+                
+                ${
+                  cosmicText
+                    ? `
+                <div class="meaning-section cosmic">
+                    <h3>Cosmic Alignment</h3>
+                    <div class="meaning-text">${cosmicText}</div>
+                </div>`
+                    : ''
+                }
+                
+                ${
+                  cryptoFlavor
+                    ? `
+                <div class="meaning-section crypto">
+                    <h3>Crypto Flavor</h3>
+                    <div class="meaning-text">${cryptoFlavor}</div>
+                </div>`
+                    : ''
+                }
+                
+                <div class="meaning-section upright">
+                    <h3>Upright Meaning</h3>
+                    <div class="meaning-text">${meanings.upright || 'Meaning not available.'}</div>
+                </div>
+                
+                <div class="meaning-section reversed">
+                    <h3>Reversed Meaning</h3>
+                    <div class="meaning-text">${meanings.reversed || 'Meaning not available.'}</div>
+                </div>
+                
+                <div class="meaning-section foresight">
+                    <h3>Crypto Foresight</h3>
+                    <div class="meaning-text">${meanings.foresight || 'Foresight not available.'}</div>
+                </div>
+            `;
+
+        return entry;
+      }
+
+      function renderSection(title, description, cards, type, suit = null) {
+        const section = document.createElement('div');
+        section.className = 'section';
+
+        section.innerHTML = `
+                <div class="section-header">
+                    <h2>${title}</h2>
+                    <p>${description}</p>
+                </div>
+            `;
+
+        cards.forEach(cardName => {
+          const entry = createCardEntry(cardName, type, suit);
+          section.appendChild(entry);
+        });
+
+        document.getElementById('content').appendChild(section);
+      }
+
+      // Generate Table of Contents
+      MAJOR_ARCANA.forEach(card => createTOCLink(card, 'toc-major'));
+      MINOR_TOKENS.forEach(card => createTOCLink(card, 'toc-tokens'));
+      MINOR_LIQUIDITY.forEach(card => createTOCLink(card, 'toc-liquidity'));
+      MINOR_SECURITY.forEach(card => createTOCLink(card, 'toc-security'));
+      MINOR_NODES.forEach(card => createTOCLink(card, 'toc-nodes'));
+
+      // Render content
+      renderSection(
+        'Major Arcana',
+        'The 22 Major Arcana cards represent significant life events, archetypal energies, and major turning points in your crypto journey. These cards hold the most profound meanings and often indicate transformative experiences.',
+        MAJOR_ARCANA,
+        'major'
+      );
+
+      renderSection(
+        'Minor Arcana - Tokens Suit',
+        'The Tokens suit represents material wealth, assets, investments, and financial aspects of your crypto journey. These cards speak to your relationship with money, resources, and tangible value in the blockchain world.',
+        MINOR_TOKENS,
+        'minor',
+        'Tokens'
+      );
+
+      renderSection(
+        'Minor Arcana - Liquidity Suit',
+        'The Liquidity suit represents emotions, flows, community, and the social aspects of crypto. These cards reflect your feelings, relationships, and how you connect with others in the Web3 space.',
+        MINOR_LIQUIDITY,
+        'minor',
+        'Liquidity'
+      );
+
+      renderSection(
+        'Minor Arcana - Security Suit',
+        'The Security suit represents intellect, challenges, protection, and the analytical aspects of crypto. These cards speak to your thinking, decision-making, and how you protect yourself in the digital realm.',
+        MINOR_SECURITY,
+        'minor',
+        'Security'
+      );
+
+      renderSection(
+        'Minor Arcana - Nodes Suit',
+        'The Nodes suit represents creativity, action, innovation, and the active forces in your crypto journey. These cards reflect your drive, passion, and how you create and build in the blockchain ecosystem.',
+        MINOR_NODES,
+        'minor',
+        'Nodes'
+      );
+    </script>
+  </body>
+</html>

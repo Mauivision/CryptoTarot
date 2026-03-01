@@ -1,0 +1,550 @@
+============================================================
+NIGHTCAFE PROMPTS FOR CRYPTO TAROT DECK
+============================================================
+
+Copy each prompt below into NightCafe Creator
+Recommended settings: DALL-E 3 or Stable Diffusion XL
+Aspect Ratio: 2:3 (portrait)
+Quality: High
+
+============================================================
+
+
+--- Card 1/78: The HODLer ---
+Filename: major-the-hodler.png
+Numerology: 0 - Pluto
+Prompt:
+A hooded figure teeters at the edge of a neon abyss, ledger in hand glowing cyan and magenta. Below, voxel constellations swirl like nascent chains while holographic runes form a '0'. Reversed: the abyss cracks open, crimson glitches clawing upward., The HODLer tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 0 aligned with Pluto (transformation, rebirth, and the unknown; the Crypto Pioneer leaping into uncharted digital realms)
+------------------------------------------------------------
+
+--- Card 2/78: The Miner ---
+Filename: major-the-miner.png
+Numerology: 1 - Sun
+Prompt:
+An engineer levitates above a holo-console, eight spectral keyboards orbiting like satellites. Golden code sigils stream from their hands into a crystalline node. Reversed: red compile errors shatter the node into shards., The Miner tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 1 aligned with Sun (vitality, new beginnings, and radiant core energy; the spark for fresh protocols and token launches)
+------------------------------------------------------------
+
+--- Card 3/78: The Oracle ---
+Filename: major-the-oracle.png
+Numerology: 2 - Moon
+Prompt:
+A masked seer floats before twin crescent nodes, silver data threads weaving between them like lunar tides. A crystal tablet displays fluctuating prices in sapphire light. Reversed: the tablet fractures, bleeding scarlet leaks., The Oracle tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 2 aligned with Moon (duality, intuition, and emotional flow; balanced decisions and liquidity partnerships guided by instinct)
+------------------------------------------------------------
+
+--- Card 4/78: The Empress Node ---
+Filename: major-the-empress-node.png
+Numerology: 3 - Mercury
+Prompt:
+A radiant queen reclines on a throne grown from GPUs and flowering cables. Neon vines laden with liquidity tokens drape her shoulders, while hovering jars drip stardust APY. Reversed: the vines wither, turning brittle gray., The Empress Node tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 3 aligned with Mercury (communication, intellect, and collaboration; community pulses, dev syncs, and network broadcasts)
+------------------------------------------------------------
+
+--- Card 5/78: The Emperor Chain ---
+Filename: major-the-emperor-chain.png
+Numerology: 4 - Uranus
+Prompt:
+A stern sovereign sits on a throne forged from validator columns, each etched with glowing governance proposals. A ruby scepter pulses with consensus light. Reversed: the columns crumble, red warnings flashing 51%., The Emperor Chain tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 4 aligned with Uranus (structure, innovation, and sudden change; resilient frameworks with disruptive breakthrough potential)
+------------------------------------------------------------
+
+--- Card 6/78: The Hierophant Whale ---
+Filename: major-the-hierophant-whale.png
+Numerology: 5 - Mars
+Prompt:
+A colossal crypto-whale draped in ceremonial robes floats above a marble archive. Luminescent scrolls orbit its fins, each emblazoned with sacred git commits. Reversed: the archive doors slam shut under a red paywall sigil., The Hierophant Whale tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 5 aligned with Mars (conflict, action, and challenges; rivalries, audits under fire, and bear-market stress tests)
+------------------------------------------------------------
+
+--- Card 7/78: The Lovers Fork ---
+Filename: major-the-lovers-fork.png
+Numerology: 6 - Venus
+Prompt:
+Two figures reach across a luminous bridge of intertwined blockchains, twin hearts formed from validator nodes floating above. Beneath, data rivers flow in mirrored hues. Reversed: the bridge fractures, packets falling into a void., The Lovers Fork tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 6 aligned with Venus (harmony, balance, and relationships; generosity, nostalgic bonds, and rewarding ecosystems)
+------------------------------------------------------------
+
+--- Card 8/78: The Chariot Pump ---
+Filename: major-the-chariot-pump.png
+Numerology: 7 - Neptune
+Prompt:
+A cyber-chariot blazes down a neon highway pulled by twin crypto-beasts, charts projected in emerald arcs behind it. Particle sparks trail like fireworks. Reversed: the wheels spark and stall, charts plummeting scarlet., The Chariot Pump tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 7 aligned with Neptune (illusion, spirituality, and dreams; visionary strategies, stealth modes, and meditative planning)
+------------------------------------------------------------
+
+--- Card 9/78: Strength HODL ---
+Filename: major-strength-hodl.png
+Numerology: 8 - Saturn
+Prompt:
+A guardian embraces a roaring holographic lion, taming it with a halo of golden circuitry. Their shield bears a rising BTC candle that refuses to bend. Reversed: the lion thrashes free, shredding the shield into red shards., Strength HODL tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 8 aligned with Saturn (discipline, restriction, and achievement; skilled craftsmanship, mining pressure, and earned mastery)
+------------------------------------------------------------
+
+--- Card 10/78: The Hermit Dev ---
+Filename: major-the-hermit-dev.png
+Numerology: 9 - Jupiter
+Prompt:
+A solitary coder sits atop a snowy peak, lighting the path with a lantern that projects green audit logs across the night sky. Lines of code wrap around their cloak like constellations. Reversed: the lantern sputters, the logs glitching into static., The Hermit Dev tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 9 aligned with Jupiter (expansion, wisdom, and fulfillment; persistent growth, wealth realized, and elevated perspective)
+------------------------------------------------------------
+
+--- Card 11/78: Wheel of Fortune Cycle ---
+Filename: major-wheel-of-fortune-cycle.png
+Numerology: 10 - Earth
+Prompt:
+A colossal gyroscopic wheel spins in the void, segmented into bullish emerald and bearish crimson panels. Tokens rain from one side while liquidation smoke rises on the other. Reversed: the axle seizes, shards of broken luck scattering., Wheel of Fortune Cycle tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 10 aligned with Earth (completion, manifestation, and cycles; mature networks, legacy portfolios, and grounded scaling)
+------------------------------------------------------------
+
+--- Card 12/78: Justice Ledger ---
+Filename: major-justice-ledger.png
+Numerology: 11 - Air/Earth (Mutable)
+Prompt:
+A blindfolded arbiter balances two holographic ledgers on radiant scales, one glowing green with verified signatures, the other pulsing red with exploit flags. Beams of light form a digital courthouse behind. Reversed: the scales tip violently, spilling corrupted data., Justice Ledger tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 11 aligned with Air/Earth (Mutable) (youthful curiosity and exploration; budding innovators bridging ideas into experimental action)
+------------------------------------------------------------
+
+--- Card 13/78: The Hanged Man Flip ---
+Filename: major-the-hanged-man-flip.png
+Numerology: 12 - Fire (Cardinal)
+Prompt:
+An avatar dangles serenely from a braided fiber-optic rope, upside down above a calm mempool sea. Pending transactions float as glowing bubbles around them. Reversed: the bubbles ignite, gas flames roaring toward the rope., The Hanged Man Flip tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 12 aligned with Fire (Cardinal) (dynamic action and questing; adventurous founders charging forward to ignite adoption)
+------------------------------------------------------------
+
+--- Card 14/78: Death Rug ---
+Filename: major-death-rug.png
+Numerology: 13 - Water (Fixed)
+Prompt:
+A cloaked reaper gently lifts a frayed rug emblazoned with a dying logo, revealing a luminous phoenix chain ascending beneath. Debris of abandoned tokens scatter like autumn leaves. Reversed: only ash remains, the phoenix wings clipped., Death Rug tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 13 aligned with Water (Fixed) (receptive intuition and nurturing balance; inspiring visionaries guiding communities with care)
+------------------------------------------------------------
+
+--- Card 15/78: Temperance Mix ---
+Filename: major-temperance-mix.png
+Numerology: 14 - Air/Fire (Sovereign)
+Prompt:
+An alchemist angel pours shimmering blue and gold liquids between two levitating chalices, the stream forming the symbol of 1:1. Around them, stablecoin sigils orbit in perfect balance. Reversed: the stream splashes wildly, chalices cracking., Temperance Mix tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 14 aligned with Air/Fire (Sovereign) (authoritative mastery blending intellect and will; legendary architects stewarding whole ecosystems)
+------------------------------------------------------------
+
+--- Card 16/78: The Devil Scam ---
+Filename: major-the-devil-scam.png
+Prompt:
+A horned broker in a velvet suit dangles glistening leverage contracts from chains wrapped around two traders. Neon slot-machine lights flash 125x behind them. Reversed: the chains snap, releasing them into harsh white daylight., The Devil Scam tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 17/78: The Tower Hack ---
+Filename: major-the-tower-hack.png
+Prompt:
+A glass data tower explodes under a jagged bolt of crimson lightning, shards flying as alarms flash across the skyline. Streams of liquid crypto pour from a breached vault at the base. Reversed: the leak becomes a slow drip, corrosion creeping unnoticed., The Tower Hack tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 18/78: The Star Airdrop ---
+Filename: major-the-star-airdrop.png
+Prompt:
+A radiant figure pours shimmering token constellations from two silver pitchers into a galactic pool, each star forming a wallet address as it lands. Aurora lights streak across the sky spelling 'GM'. Reversed: the stars flicker out before they touch the water., The Star Airdrop tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 19/78: The Moon Illusion ---
+Filename: major-the-moon-illusion.png
+Prompt:
+Twin wolf-hounds howl at a holographic moon that projects impossible yield percentages over a misty DeFi swamp. Reflections on the water reveal skull icons beneath the glitter. Reversed: the moon flickers to expose the scam, the swamp draining dry., The Moon Illusion tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 20/78: The Sun Bull ---
+Filename: major-the-sun-bull.png
+Prompt:
+A golden bull charges across a radiant sunflower field made of circuit boards, the sun behind it erupting into candlestick rays. Confetti of ATH banners rains from the sky. Reversed: an eclipse shadows the field, petals wilting to ash., The Sun Bull tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 21/78: Judgment Halving ---
+Filename: major-judgment-halving.png
+Prompt:
+An angelic node blows a trumpet of binary light, awakening miners who rise from tombs marked with old chain logos. A radiant block descends, splitting neatly in two. Reversed: the trumpet cracks, unleashing chaotic chain fragments., Judgment Halving tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 22/78: The World Ecosystem ---
+Filename: major-the-world-ecosystem.png
+Prompt:
+A luminous globe of interlocking blockchains spins within a wreath of satellites, each emblazoned with global protocol sigils. Aurora bridges connect every continent. Reversed: fractures spider across the globe, satellites falling dark., The World Ecosystem tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, vibrant neon colors (greens #00f5a0, purples #8b5cf6), dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio
+------------------------------------------------------------
+
+--- Card 23/78: Ace of Liquidity ---
+Filename: minor-ace-of-liquidity.png
+Numerology: 1 - Sun
+Prompt:
+A crystalline spring bursts from bedrock, filling a circular pool with luminous aqua tokens that swirl clockwise. Community avatars cheer at the rim. Reversed: the spring seals shut, the pool draining into cracks., Ace of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 1 aligned with Sun (vitality, new beginnings, and radiant core energy; the spark for fresh protocols and token launches)
+------------------------------------------------------------
+
+--- Card 24/78: Two of Liquidity ---
+Filename: minor-two-of-liquidity.png
+Numerology: 2 - Moon
+Prompt:
+Two translucent streams pour into a yin-yang shaped pool, perfectly mirroring one another under moonlight. Price orbs drift in harmony above the surface. Reversed: one stream surges while the other dwindles, warping the pool., Two of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 2 aligned with Moon (duality, intuition, and emotional flow; balanced decisions and liquidity partnerships guided by instinct)
+------------------------------------------------------------
+
+--- Card 25/78: Three of Liquidity ---
+Filename: minor-three-of-liquidity.png
+Numerology: 3 - Mercury
+Prompt:
+Three celebrants clink crystal chalices overflowing with glowing liquidity streams that loop between them in an endless triangle. Reversed: the streams spray outward wildly, soaking spectators with slippage alerts., Three of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 3 aligned with Mercury (communication, intellect, and collaboration; community pulses, dev syncs, and network broadcasts)
+------------------------------------------------------------
+
+--- Card 26/78: Four of Liquidity ---
+Filename: minor-four-of-liquidity.png
+Numerology: 4 - Uranus
+Prompt:
+A tranquil onsen of stablecoins glows under a clear night sky, four pillars forming a protective square around gently rippling water. Reversed: rival banners crash into the pool, churning it into turmoil., Four of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 4 aligned with Uranus (structure, innovation, and sudden change; resilient frameworks with disruptive breakthrough potential)
+------------------------------------------------------------
+
+--- Card 27/78: Five of Liquidity ---
+Filename: minor-five-of-liquidity.png
+Numerology: 5 - Mars
+Prompt:
+Five shattered conduits spew liquidity into the air while responders scramble to seal the breach with glowing circuit patches. Reversed: shields rise around the conduits, water leveling out as defenders cheer., Five of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 5 aligned with Mars (conflict, action, and challenges; rivalries, audits under fire, and bear-market stress tests)
+------------------------------------------------------------
+
+--- Card 28/78: Six of Liquidity ---
+Filename: minor-six-of-liquidity.png
+Numerology: 6 - Venus
+Prompt:
+Six radiant streams arc from a central fountain, each gifting glowing droplets to smiling LP avatars below. Childhood memories of early farming dance as holographic snapshots. Reversed: the streams sputter and hearts crack across the fountain., Six of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 6 aligned with Venus (harmony, balance, and relationships; generosity, nostalgic bonds, and rewarding ecosystems)
+------------------------------------------------------------
+
+--- Card 29/78: Seven of Liquidity ---
+Filename: minor-seven-of-liquidity.png
+Numerology: 7 - Neptune
+Prompt:
+Seven shimmering portals display different APYs, each more dazzling than the last, hovering over a misty lagoon. Some portals hide hidden teeth in their reflections. Reversed: the mist clears to show empty shells and rug traps beneath., Seven of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 7 aligned with Neptune (illusion, spirituality, and dreams; visionary strategies, stealth modes, and meditative planning)
+------------------------------------------------------------
+
+--- Card 30/78: Eight of Liquidity ---
+Filename: minor-eight-of-liquidity.png
+Numerology: 8 - Saturn
+Prompt:
+A cloaked LP glides across stepping stones of light, leaving eight glowing pools behind as they head toward a brighter horizon. Reversed: the stones crumble mid-step, spilling penalties into the water., Eight of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 8 aligned with Saturn (discipline, restriction, and achievement; skilled craftsmanship, mining pressure, and earned mastery)
+------------------------------------------------------------
+
+--- Card 31/78: Nine of Liquidity ---
+Filename: minor-nine-of-liquidity.png
+Numerology: 9 - Jupiter
+Prompt:
+Nine overflowing chalices circle a jubilant farmer who collects glittering yield tokens in a gold basket. Fireflies spell 'GM' overhead. Reversed: the chalices topple, spilling sour sludge as the farmer slumps., Nine of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 9 aligned with Jupiter (expansion, wisdom, and fulfillment; persistent growth, wealth realized, and elevated perspective)
+------------------------------------------------------------
+
+--- Card 32/78: Ten of Liquidity ---
+Filename: minor-ten-of-liquidity.png
+Numerology: 10 - Earth
+Prompt:
+A DAO family gathers under a pavilion of light as ten radiant water columns form an arch overhead, showering tokens onto laughing members. Reversed: tax drones descend with clipboards, turning the water gray., Ten of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 10 aligned with Earth (completion, manifestation, and cycles; mature networks, legacy portfolios, and grounded scaling)
+------------------------------------------------------------
+
+--- Card 33/78: Page of Liquidity ---
+Filename: minor-page-of-liquidity.png
+Numerology: 11 - Air/Earth (Mutable)
+Prompt:
+A bright-eyed apprentice pours a small vial of tokens into a miniature pool while studying a floating diagram. Friendly whales offer guidance from behind. Reversed: the apprentice slips, spilling tokens into a swirling whirlpool., Page of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 11 aligned with Air/Earth (Mutable) (youthful curiosity and exploration; budding innovators bridging ideas into experimental action)
+------------------------------------------------------------
+
+--- Card 34/78: Knight of Liquidity ---
+Filename: minor-knight-of-liquidity.png
+Numerology: 12 - Fire (Cardinal)
+Prompt:
+A daring rider surfs atop a tidal wave of liquidity, wielding a spear that points toward the next glowing farm beacon on the horizon. Reversed: the wave crashes, throwing the rider toward jagged rocks labeled 'Exploit'., Knight of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 12 aligned with Fire (Cardinal) (dynamic action and questing; adventurous founders charging forward to ignite adoption)
+------------------------------------------------------------
+
+--- Card 35/78: Queen of Liquidity ---
+Filename: minor-queen-of-liquidity.png
+Numerology: 13 - Water (Fixed)
+Prompt:
+A serene queen conducts a symphony of water channels, gently redirecting streams toward community gardens and safety reservoirs. Reversed: the channels snarl, emotions spilling into messy waterfalls., Queen of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 13 aligned with Water (Fixed) (receptive intuition and nurturing balance; inspiring visionaries guiding communities with care)
+------------------------------------------------------------
+
+--- Card 36/78: King of Liquidity ---
+Filename: minor-king-of-liquidity.png
+Numerology: 14 - Air/Fire (Sovereign)
+Prompt:
+A monarch overlooks a sprawling network of interconnected pools from a floating control room, adjusting flow with precise hand gestures. Reversed: the controls overload, alarms blaring as pools tilt toward monopoly., King of Liquidity tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Blue/Purple neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 14 aligned with Air/Fire (Sovereign) (authoritative mastery blending intellect and will; legendary architects stewarding whole ecosystems)
+------------------------------------------------------------
+
+--- Card 37/78: Ace of Security ---
+Filename: minor-ace-of-security.png
+Numerology: 1 - Sun
+Prompt:
+A blinding beam of light forges a new key sigil in midair, etching twelve glowing words into a floating crystal slab. Reversed: the slab cracks and the words scatter into the wind., Ace of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 1 aligned with Sun (vitality, new beginnings, and radiant core energy; the spark for fresh protocols and token launches)
+------------------------------------------------------------
+
+--- Card 38/78: Two of Security ---
+Filename: minor-two-of-security.png
+Numerology: 2 - Moon
+Prompt:
+Two shimmering keys orbit a central vault, connected by a beam of moonlight. Shadows try to mimic the keys but fade away. Reversed: one key flickers out while a phishing specter reaches for the vault., Two of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 2 aligned with Moon (duality, intuition, and emotional flow; balanced decisions and liquidity partnerships guided by instinct)
+------------------------------------------------------------
+
+--- Card 39/78: Three of Security ---
+Filename: minor-three-of-security.png
+Numerology: 3 - Mercury
+Prompt:
+Three guardians place their hands on a triangular console, activating a protective shield around a vault. Their voices synchronize into glowing runes. Reversed: one guardian whispers away, leaving a gap in the shield., Three of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 3 aligned with Mercury (communication, intellect, and collaboration; community pulses, dev syncs, and network broadcasts)
+------------------------------------------------------------
+
+--- Card 40/78: Four of Security ---
+Filename: minor-four-of-security.png
+Numerology: 4 - Uranus
+Prompt:
+A guardian meditates within a cube of shimmering firewalls while validator towers enter sleep mode around them. Reversed: crimson alarms pulse on the cube as shadowy figures hammer at its edges., Four of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 4 aligned with Uranus (structure, innovation, and sudden change; resilient frameworks with disruptive breakthrough potential)
+------------------------------------------------------------
+
+--- Card 41/78: Five of Security ---
+Filename: minor-five-of-security.png
+Numerology: 5 - Mars
+Prompt:
+Security sentinels wield digital shields as fiery spears of malware rain down; sparks fly when defenses hold. Reversed: shields crack, data shards scatter across the battlefield., Five of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 5 aligned with Mars (conflict, action, and challenges; rivalries, audits under fire, and bear-market stress tests)
+------------------------------------------------------------
+
+--- Card 42/78: Six of Security ---
+Filename: minor-six-of-security.png
+Numerology: 6 - Venus
+Prompt:
+Six key bearers encircle a vault, passing luminous shards between them until they fuse into a radiant whole. Reversed: the shards fall apart as voices clash, scattering trust tokens to the wind., Six of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 6 aligned with Venus (harmony, balance, and relationships; generosity, nostalgic bonds, and rewarding ecosystems)
+------------------------------------------------------------
+
+--- Card 43/78: Seven of Security ---
+Filename: minor-seven-of-security.png
+Numerology: 7 - Neptune
+Prompt:
+A shadowy sentinel moves through a hall of mirrors, placing decoy wallets while a hidden dashboard lights up with attacker pings. Reversed: the mirrors crack, revealing a lurking keylogger serpent., Seven of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 7 aligned with Neptune (illusion, spirituality, and dreams; visionary strategies, stealth modes, and meditative planning)
+------------------------------------------------------------
+
+--- Card 44/78: Eight of Security ---
+Filename: minor-eight-of-security.png
+Numerology: 8 - Saturn
+Prompt:
+A white-hat hacker dashes through a maze of laser grids, carrying vault keys to safety while alarms blaze. Reversed: the maze walls close in, trapping them amid looping exploit code., Eight of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 8 aligned with Saturn (discipline, restriction, and achievement; skilled craftsmanship, mining pressure, and earned mastery)
+------------------------------------------------------------
+
+--- Card 45/78: Nine of Security ---
+Filename: minor-nine-of-security.png
+Numerology: 9 - Jupiter
+Prompt:
+A sentinel surveys a citadel of nine concentric barriers, each glowing with different defensive scripts. Shooting stars of threat intel stream across the sky. Reversed: alarms blare as the sentinel slumps from exhaustion, barriers flickering., Nine of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 9 aligned with Jupiter (expansion, wisdom, and fulfillment; persistent growth, wealth realized, and elevated perspective)
+------------------------------------------------------------
+
+--- Card 46/78: Ten of Security ---
+Filename: minor-ten-of-security.png
+Numerology: 10 - Earth
+Prompt:
+A weary guardian lugs ten encrypted lockboxes up a mountain toward a hermetically sealed citadel, sunrise breaking behind. Reversed: the lockboxes tumble open, scattering sensitive files across the slope., Ten of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 10 aligned with Earth (completion, manifestation, and cycles; mature networks, legacy portfolios, and grounded scaling)
+------------------------------------------------------------
+
+--- Card 47/78: Page of Security ---
+Filename: minor-page-of-security.png
+Numerology: 11 - Air/Earth (Mutable)
+Prompt:
+A bright hacker hovers over a holographic console filled with puzzle locks, celebrating as a green banner flashes 'FLAG CAPTURED'. Reversed: the console glitches, red 'oops' messages filling the air., Page of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 11 aligned with Air/Earth (Mutable) (youthful curiosity and exploration; budding innovators bridging ideas into experimental action)
+------------------------------------------------------------
+
+--- Card 48/78: Knight of Security ---
+Filename: minor-knight-of-security.png
+Numerology: 12 - Fire (Cardinal)
+Prompt:
+Armored auditors ride lightning into a fortress of code, their lances probing for flaws as sparks illuminate vulnerabilities. Reversed: the lances shatter, friendly systems smoldering from misjudged strikes., Knight of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 12 aligned with Fire (Cardinal) (dynamic action and questing; adventurous founders charging forward to ignite adoption)
+------------------------------------------------------------
+
+--- Card 49/78: Queen of Security ---
+Filename: minor-queen-of-security.png
+Numerology: 13 - Water (Fixed)
+Prompt:
+A poised arbiter sits between a flowing river of code and a marble hall of law, weaving both into shimmering tapestries of policy. Reversed: the tapestries tighten into constricting webs., Queen of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 13 aligned with Water (Fixed) (receptive intuition and nurturing balance; inspiring visionaries guiding communities with care)
+------------------------------------------------------------
+
+--- Card 50/78: King of Security ---
+Filename: minor-king-of-security.png
+Numerology: 14 - Air/Fire (Sovereign)
+Prompt:
+A commanding leader oversees a globe of interconnected nodes from a war room of luminous strategies, issuing calm directives to teams below. Reversed: screens go dark as the leader turns away, ignoring warning beacons., King of Security tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Red/Pink neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 14 aligned with Air/Fire (Sovereign) (authoritative mastery blending intellect and will; legendary architects stewarding whole ecosystems)
+------------------------------------------------------------
+
+--- Card 51/78: Ace of Nodes ---
+Filename: minor-ace-of-nodes.png
+Numerology: 1 - Sun
+Prompt:
+A blazing spark leaps from a developer's quill into a newborn blockchain lattice, lighting each node like constellations. Reversed: the spark fizzles, lattice collapsing into darkness., Ace of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 1 aligned with Sun (vitality, new beginnings, and radiant core energy; the spark for fresh protocols and token launches)
+------------------------------------------------------------
+
+--- Card 52/78: Two of Nodes ---
+Filename: minor-two-of-nodes.png
+Numerology: 2 - Moon
+Prompt:
+An architect stands atop a cliff holding two glowing schematics that project future cities of code across the sea. Reversed: the schematics blur, pathways splitting chaotically., Two of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 2 aligned with Moon (duality, intuition, and emotional flow; balanced decisions and liquidity partnerships guided by instinct)
+------------------------------------------------------------
+
+--- Card 53/78: Three of Nodes ---
+Filename: minor-three-of-nodes.png
+Numerology: 3 - Mercury
+Prompt:
+Three engineers huddle over a holographic diff, their keyboards weaving threads of light that braid into a stable bridge. Reversed: mismatched threads knot into glitchy snarls., Three of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 3 aligned with Mercury (communication, intellect, and collaboration; community pulses, dev syncs, and network broadcasts)
+------------------------------------------------------------
+
+--- Card 54/78: Four of Nodes ---
+Filename: minor-four-of-nodes.png
+Numerology: 4 - Uranus
+Prompt:
+Four validator towers form a protective square around a glowing hearth where operators meditate. Reversed: lightning fractures the towers as uptime meters plunge., Four of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 4 aligned with Uranus (structure, innovation, and sudden change; resilient frameworks with disruptive breakthrough potential)
+------------------------------------------------------------
+
+--- Card 55/78: Five of Nodes ---
+Filename: minor-five-of-nodes.png
+Numerology: 5 - Mars
+Prompt:
+Five nodes pulse with competing colors as delegates argue atop a fiery council floor, sparks of code flying. Reversed: two nodes break away, dragging followers into a new chain., Five of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 5 aligned with Mars (conflict, action, and challenges; rivalries, audits under fire, and bear-market stress tests)
+------------------------------------------------------------
+
+--- Card 56/78: Six of Nodes ---
+Filename: minor-six-of-nodes.png
+Numerology: 6 - Venus
+Prompt:
+A parade of nodes floats through a jubilant city as developers raise banners reading 'MAINNET LIVE'. Reversed: confetti falls silent while unresolved bug icons hover overhead., Six of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 6 aligned with Venus (harmony, balance, and relationships; generosity, nostalgic bonds, and rewarding ecosystems)
+------------------------------------------------------------
+
+--- Card 57/78: Seven of Nodes ---
+Filename: minor-seven-of-nodes.png
+Numerology: 7 - Neptune
+Prompt:
+A strategist tends seven bonsai nodes under starlight, trimming and grafting while data waterfalls shimmer around them. Reversed: the bonsai overgrow, tangling wires and screens., Seven of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 7 aligned with Neptune (illusion, spirituality, and dreams; visionary strategies, stealth modes, and meditative planning)
+------------------------------------------------------------
+
+--- Card 58/78: Eight of Nodes ---
+Filename: minor-eight-of-nodes.png
+Numerology: 8 - Saturn
+Prompt:
+Eight monitors surround a focused builder, each displaying modules falling into place like clockwork gears. Reversed: the monitors flash red deadlines as coffee cups topple., Eight of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 8 aligned with Saturn (discipline, restriction, and achievement; skilled craftsmanship, mining pressure, and earned mastery)
+------------------------------------------------------------
+
+--- Card 59/78: Nine of Nodes ---
+Filename: minor-nine-of-nodes.png
+Numerology: 9 - Jupiter
+Prompt:
+A vigilant steward stands atop a wall of nine glowing nodes, warding off spam storms with a radiant shield while the community cheers. Reversed: the steward slumps, shield flickering as storms breach the wall., Nine of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 9 aligned with Jupiter (expansion, wisdom, and fulfillment; persistent growth, wealth realized, and elevated perspective)
+------------------------------------------------------------
+
+--- Card 60/78: Ten of Nodes ---
+Filename: minor-ten-of-nodes.png
+Numerology: 10 - Earth
+Prompt:
+Ten radiant nodes form a globe, each autonomous yet synchronized, as the founding team passes a torch to new builders. Reversed: the globe warps, a single oversized node casting dominating shadows., Ten of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 10 aligned with Earth (completion, manifestation, and cycles; mature networks, legacy portfolios, and grounded scaling)
+------------------------------------------------------------
+
+--- Card 61/78: Page of Nodes ---
+Filename: minor-page-of-nodes.png
+Numerology: 11 - Air/Earth (Mutable)
+Prompt:
+A young developer surrounded by scattered dev boards joyfully deploys code that materializes into tiny hovering nodes. Reversed: the boards clutter, projects fading into ghostly tabs., Page of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 11 aligned with Air/Earth (Mutable) (youthful curiosity and exploration; budding innovators bridging ideas into experimental action)
+------------------------------------------------------------
+
+--- Card 62/78: Knight of Nodes ---
+Filename: minor-knight-of-nodes.png
+Numerology: 12 - Fire (Cardinal)
+Prompt:
+A fearless operator rides atop a rocket-powered deployment rig, launching patches into orbit while dashboards glow green. Reversed: the rig spirals, red alerts exploding around them., Knight of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 12 aligned with Fire (Cardinal) (dynamic action and questing; adventurous founders charging forward to ignite adoption)
+------------------------------------------------------------
+
+--- Card 63/78: Queen of Nodes ---
+Filename: minor-queen-of-nodes.png
+Numerology: 13 - Water (Fixed)
+Prompt:
+A compassionate leader sits within a greenhouse of thriving nodes, coaching builders as vines of code blossom across the ceiling. Reversed: the greenhouse fogs, plants wilting without care., Queen of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 13 aligned with Water (Fixed) (receptive intuition and nurturing balance; inspiring visionaries guiding communities with care)
+------------------------------------------------------------
+
+--- Card 64/78: King of Nodes ---
+Filename: minor-king-of-nodes.png
+Numerology: 14 - Air/Fire (Sovereign)
+Prompt:
+A commanding architect surveys holographic maps of interconnected chains, guiding flows with measured gestures as allies salute. Reversed: the maps constrict into a single tower, cutting off allies., King of Nodes tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Pink/Orange neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 14 aligned with Air/Fire (Sovereign) (authoritative mastery blending intellect and will; legendary architects stewarding whole ecosystems)
+------------------------------------------------------------
+
+--- Card 65/78: Ace of Tokens ---
+Filename: minor-ace-of-tokens.png
+Numerology: 1 - Sun
+Prompt:
+A prismatic coin hovers above a neon minting pad, emerald sparks bursting outward while holographic butterflies dance around the token. Reversed, the coin turns gray and the minting pad flashes "Sold Out" as dust swirls., Ace of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 1 aligned with Sun (vitality, new beginnings, and radiant core energy; the spark for fresh protocols and token launches)
+------------------------------------------------------------
+
+--- Card 66/78: Two of Tokens ---
+Filename: minor-two-of-tokens.png
+Numerology: 2 - Moon
+Prompt:
+Two luminous coins spin in perfect orbit over a teal balance scale, moonlight reflecting off their surfaces. Reversed, the coins tumble apart and one crashes into a red abyss., Two of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 2 aligned with Moon (duality, intuition, and emotional flow; balanced decisions and liquidity partnerships guided by instinct)
+------------------------------------------------------------
+
+--- Card 67/78: Three of Tokens ---
+Filename: minor-three-of-tokens.png
+Numerology: 3 - Mercury
+Prompt:
+Three holographic influencers stand in a triangle, sending emerald signals that create a neon ripple across the crowd. Reversed, their speech bubbles flicker and mute icons appear., Three of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 3 aligned with Mercury (communication, intellect, and collaboration; community pulses, dev syncs, and network broadcasts)
+------------------------------------------------------------
+
+--- Card 68/78: Four of Tokens ---
+Filename: minor-four-of-tokens.png
+Numerology: 4 - Uranus
+Prompt:
+A crystal vault glows with teal light as four keys lock into place, guarded by emerald sentinels. Reversed, the vault door swings open and pale warning lights flash., Four of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 4 aligned with Uranus (structure, innovation, and sudden change; resilient frameworks with disruptive breakthrough potential)
+------------------------------------------------------------
+
+--- Card 69/78: Five of Tokens ---
+Filename: minor-five-of-tokens.png
+Numerology: 5 - Mars
+Prompt:
+Five shattered coins scatter across a scarlet battlefield while community avatars clash in the background. Reversed, gentle teal light begins to mend the pieces., Five of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 5 aligned with Mars (conflict, action, and challenges; rivalries, audits under fire, and bear-market stress tests)
+------------------------------------------------------------
+
+--- Card 70/78: Six of Tokens ---
+Filename: minor-six-of-tokens.png
+Numerology: 6 - Venus
+Prompt:
+Six luminous coins cascade from a radiant hand into grateful wallets below, emerald confetti filling the air. Reversed, the coins vanish and empty hands reach into the void., Six of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 6 aligned with Venus (harmony, balance, and relationships; generosity, nostalgic bonds, and rewarding ecosystems)
+------------------------------------------------------------
+
+--- Card 71/78: Seven of Tokens ---
+Filename: minor-seven-of-tokens.png
+Numerology: 7 - Neptune
+Prompt:
+Seven translucent crates hover within a cosmic vault, each showing tantalizing silhouettes of legendary items. Mist swirls with neon hues, hinting at treasure. Reversed: the crates crack open to reveal empty shells and static glitches., Seven of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 7 aligned with Neptune (illusion, spirituality, and dreams; visionary strategies, stealth modes, and meditative planning)
+------------------------------------------------------------
+
+--- Card 72/78: Eight of Tokens ---
+Filename: minor-eight-of-tokens.png
+Numerology: 8 - Saturn
+Prompt:
+An artisan engraves intricate runes into eight golden coins chained to a crystal vault. Each coin glows brighter as time sigils complete their orbit. Reversed: the chains snap, coins scattering into chaotic sparks., Eight of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 8 aligned with Saturn (discipline, restriction, and achievement; skilled craftsmanship, mining pressure, and earned mastery)
+------------------------------------------------------------
+
+--- Card 73/78: Nine of Tokens ---
+Filename: minor-nine-of-tokens.png
+Numerology: 9 - Jupiter
+Prompt:
+A self-assured collector strolls through a holographic garden where nine tokens blossom as jeweled fruits. Drones pour champagne over a cold wallet vault. Reversed: the garden glass cracks and the tokens droop under their own weight., Nine of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 9 aligned with Jupiter (expansion, wisdom, and fulfillment; persistent growth, wealth realized, and elevated perspective)
+------------------------------------------------------------
+
+--- Card 74/78: Ten of Tokens ---
+Filename: minor-ten-of-tokens.png
+Numerology: 10 - Earth
+Prompt:
+A multigenerational clan gathers around a glowing vault shaped like a family crest, ten coins embedded within, each bearing ancestral signatures. Reversed: tax drones swarm, projecting red compliance alerts over the vault., Ten of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 10 aligned with Earth (completion, manifestation, and cycles; mature networks, legacy portfolios, and grounded scaling)
+------------------------------------------------------------
+
+--- Card 75/78: Page of Tokens ---
+Filename: minor-page-of-tokens.png
+Numerology: 11 - Air/Earth (Mutable)
+Prompt:
+A curious seeker studies a floating hologram of their very first token, notes scribbled in AR around them. Pixelated fireflies illuminate a path of tutorial prompts. Reversed: shadows reveal hidden whale hands manipulating the hologram., Page of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 11 aligned with Air/Earth (Mutable) (youthful curiosity and exploration; budding innovators bridging ideas into experimental action)
+------------------------------------------------------------
+
+--- Card 76/78: Knight of Tokens ---
+Filename: minor-knight-of-tokens.png
+Numerology: 12 - Fire (Cardinal)
+Prompt:
+A knight rockets forward on a hoverboard shaped like a graph arrow, scattering viral call-to-action banners. Followers trail behind waving LED signs. Reversed: the hoverboard sputters as unfollows cascade like rain., Knight of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 12 aligned with Fire (Cardinal) (dynamic action and questing; adventurous founders charging forward to ignite adoption)
+------------------------------------------------------------
+
+--- Card 77/78: Queen of Tokens ---
+Filename: minor-queen-of-tokens.png
+Numerology: 13 - Water (Fixed)
+Prompt:
+A regal curator lounges amid floating frames displaying her prized NFTs, each piece spotlighted with gentle bioluminescent light. A ledger of provenance unfurls at her fingertips. Reversed: the lights flicker and counterfeit stamps appear across the frames., Queen of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 13 aligned with Water (Fixed) (receptive intuition and nurturing balance; inspiring visionaries guiding communities with care)
+------------------------------------------------------------
+
+--- Card 78/78: King of Tokens ---
+Filename: minor-king-of-tokens.png
+Numerology: 14 - Air/Fire (Sovereign)
+Prompt:
+A titan sits upon a throne formed from cascading order books, hands resting on levers that control liquidity waterfalls. Charts spiral overhead in harmonized motion. Reversed: the levers jam and orders vanish, leaving a vacuum., King of Tokens tarot card, cyberpunk tarot card, neon art, digital painting, mystical, ethereal, holographic effects, blockchain aesthetic, vertical portrait, high detail, 4k, NFT art style, Green/Teal neon colors, dark background #0b0f15, blockchain patterns in border, futuristic design, traditional tarot layout with crypto twist, vertical orientation 2:3 ratio, numerology 14 aligned with Air/Fire (Sovereign) (authoritative mastery blending intellect and will; legendary architects stewarding whole ecosystems)
+------------------------------------------------------------

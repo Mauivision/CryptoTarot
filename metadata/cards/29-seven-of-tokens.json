@@ -1,0 +1,104 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #29",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/seven-of-tokens.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/seven-of-tokens.html",
+  "external_url": "https://cryptotarot.app/card/seven-of-tokens",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Minor"
+    },
+    {
+      "trait_type": "Suit",
+      "value": "Tokens"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "Seven"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Neptune"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 7
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Mystery box, blind mint patience."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Fake rarity disappointment."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Loot (for Adventurers) speculation."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Illusion, dreams, and strategic patience."
+    },
+    {
+      "trait_type": "Title",
+      "value": "Seven of Tokens"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/seven-of-tokens.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/seven-of-tokens.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

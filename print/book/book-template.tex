@@ -1,0 +1,51 @@
+% Pandoc LaTeX template for Crypto Tarot Book
+% One card per page, left-aligned image, right-aligned text
+
+\documentclass[11pt,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{afterpage}
+
+% Page setup: one card per page
+\geometry{
+  a4paper,
+  margin=2cm,
+  headheight=15pt
+}
+
+% Customize chapter and section titles
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% Force new page after each card section
+\newcommand{\cardbreak}{\newpage}
+
+\begin{document}
+
+% Title page
+\title{Crypto Tarot: Book of Meanings}
+\author{Crypto Tarot}
+\date{\today}
+\maketitle
+
+\tableofcontents
+\newpage
+
+% Content will be inserted here by Pandoc
+% Each card should be on its own page with image left, text right

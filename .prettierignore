@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+*.min.js
+*.min.css
+package-lock.json
+print/book/*.pdf
+print/book/*.tex
+tools/CryptoTarot1-78/
+assets/cards/
+

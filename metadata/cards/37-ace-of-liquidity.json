@@ -1,0 +1,104 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #37",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/ace-of-liquidity.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/ace-of-liquidity.html",
+  "external_url": "https://cryptotarot.app/card/ace-of-liquidity",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Minor"
+    },
+    {
+      "trait_type": "Suit",
+      "value": "Liquidity"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "Ace"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Sun"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 1
+    },
+    {
+      "trait_type": "Upright",
+      "value": "New pool, fresh liquidity."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Dry pool, no flow."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Spinning up a brand-new Uniswap LP."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Vitality and new flow igniting community pools."
+    },
+    {
+      "trait_type": "Title",
+      "value": "Ace of Liquidity"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/ace-of-liquidity.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/ace-of-liquidity.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

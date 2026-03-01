@@ -1,0 +1,61 @@
+% Pandoc LaTeX template for Crypto Tarot Book
+% Custom layout: one card per page, image left, text right
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$author$}
+$endif$
+\date{$date$}
+
+\documentclass[11pt,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage{afterpage}
+\usepackage{float}
+
+% Page setup
+\geometry{
+  a4paper,
+  margin=2cm,
+  headheight=15pt
+}
+
+% Customize titles
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+% Force page break before each card
+\newcommand{\cardbreak}{\clearpage}
+
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+\end{document}
+

@@ -1,0 +1,42 @@
+{
+  "name": "cryptotarot",
+  "version": "1.0.0",
+  "description": "A mystical, interactive tarot card reading experience with crypto-themed cards. For entertainment purposes only - not financial advice!",
+  "main": "card-detail.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000 -c-1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "npm run format:check && npm run lint:data || true",
+    "lint:data": "node scripts/utils/validate-card-data.mjs",
+    "test": "echo \"No tests configured\" && exit 0",
+    "update:cardmap": "node scripts/build/update-cardmap-jpg.mjs"
+  },
+  "keywords": [
+    "tarot",
+    "crypto",
+    "blockchain",
+    "web3",
+    "fortune-telling",
+    "interactive"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "marked": "^17.0.0",
+    "puppeteer": "^24.30.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

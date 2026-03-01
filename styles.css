@@ -1,0 +1,636 @@
+/* ============================================
+   CRYPTO TAROT - MAIN STYLESHEET
+   ============================================ */
+
+/* CSS Variables */
+:root {
+  --primary: #d4af37;
+  --accent: #9b59b6;
+  --secondary: #6c5ce7;
+  --text: #f5e6ff;
+  --muted: #b8a9c9;
+  --bg-dark: #0f0519;
+  --bg-darker: #0a0414;
+  --panel-bg: rgba(14, 12, 28, 0.75);
+  --panel-border: rgba(212, 175, 55, 0.3);
+  --body-gradient: linear-gradient(180deg, #0f0519 0%, #140a24 60%, rgba(15, 5, 25, 0) 100%);
+}
+
+[data-theme='light'] {
+  --primary: #8b5cf6;
+  --accent: #7c3aed;
+  --text: #1a0a2e;
+  --muted: #4a5568;
+  --bg-dark: #f5f3ff;
+  --bg-darker: #ede9fe;
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --panel-border: rgba(139, 92, 246, 0.3);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Crimson Text', serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ============================================
+   BUTTONS - IMPROVED SIZES & STYLING
+   ============================================ */
+
+.btn {
+  display: inline-block;
+  padding: 16px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Crimson Text', serif;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 140px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #b8941f);
+  border-color: var(--primary);
+  color: #0f0519;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #e5c547, var(--primary));
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.6);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #e5c547;
+  color: #e5c547;
+}
+
+/* ============================================
+   FORTUNE READING - IMPROVED VISUALS
+   ============================================ */
+
+.fortune-reading {
+  margin-top: 32px;
+  padding: 36px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(155, 89, 182, 0.1));
+  border: 2px solid rgba(212, 175, 55, 0.35);
+  border-radius: 24px;
+  display: none;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(212, 175, 55, 0.2),
+    inset 0 0 40px rgba(155, 89, 182, 0.15);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.fortune-reading.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fortune-reading::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fortune-reading-intro,
+.fortune-question,
+.fortune-card-section,
+.fortune-synthesis,
+.fortune-closing {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.fortune-reading-intro {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(45, 27, 78, 0.3);
+  border-radius: 16px;
+  border-left: 4px solid var(--primary);
+}
+
+.fortune-question {
+  margin: 24px 0;
+  padding: 18px 24px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.fortune-question strong {
+  color: var(--primary);
+  font-size: 16px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.fortune-question em {
+  color: var(--text);
+  font-size: 17px;
+  font-style: normal;
+}
+
+.fortune-card-section {
+  margin: 28px 0;
+  padding: 24px;
+  background: rgba(26, 15, 46, 0.5);
+  border: 2px solid rgba(212, 175, 55, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.fortune-card-section:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 8px 28px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+.fortune-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.fortune-card-header h4 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.position-chip {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.orientation-chip {
+  padding: 8px 16px;
+  background: rgba(108, 92, 231, 0.2);
+  border: 1px solid var(--secondary);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.orientation-reversed {
+  background: rgba(231, 76, 60, 0.2);
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.card-meaning-main {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--text);
+  margin: 16px 0;
+  font-weight: 500;
+}
+
+.fortune-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.card-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(155, 89, 182, 0.15);
+  border: 1px solid rgba(155, 89, 182, 0.3);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.fortune-synthesis {
+  margin: 32px 0;
+  padding: 28px;
+  background: rgba(45, 27, 78, 0.5);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.fortune-synthesis-title {
+  font-size: 20px;
+  color: var(--primary);
+  margin: 0 0 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.fortune-synthesis-text {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text);
+  margin: 0;
+}
+
+.fortune-closing {
+  margin-top: 32px;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 15px;
+  border-top: 2px solid rgba(212, 175, 55, 0.2);
+  padding-top: 24px;
+}
+
+/* ============================================
+   CARD MEANING POPUP - IMPROVED
+   ============================================ */
+
+.card-meaning-popup {
+  background: rgba(0, 0, 0, 0.75);
+  padding: 18px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  margin-top: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.card-meaning-popup strong {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-meaning-popup p {
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* ============================================
+   CARD COMBINATIONS
+   ============================================ */
+
+.card-combinations {
+  display: none;
+  margin-top: 24px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.card-combinations .combination-item {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* ============================================
+   READING CARDS
+   ============================================ */
+
+.reading-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 0;
+  min-height: 200px;
+}
+
+.reading-card {
+  width: 200px;
+  min-width: 200px;
+  position: relative;
+  perspective: 1000px;
+  cursor: pointer;
+  opacity: 1;
+  animation: cardEntry 0.5s ease forwards;
+  margin-bottom: 20px;
+  visibility: visible;
+  transition: transform 0.2s ease;
+}
+
+.reading-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-inner {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.reading-card.flipping .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.card-front {
+  background: linear-gradient(135deg, rgba(45, 27, 78, 0.9), rgba(26, 15, 46, 0.95));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+.card-back {
+  background: linear-gradient(135deg, rgba(45, 27, 78, 0.85), rgba(26, 15, 46, 0.95));
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 40px rgba(212, 175, 55, 0.1);
+  overflow: hidden;
+}
+
+.card-back.reversed img {
+  transform: rotate(180deg);
+  transform-origin: center center;
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  border-radius: 14px;
+}
+
+.card-back-overlay {
+  position: absolute;
+  inset: 12px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.55) 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 18px 14px;
+  text-align: center;
+  z-index: 2;
+}
+
+.card-back-overlay .card-title {
+  font-size: 15px;
+  color: #f5e6ff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.card-back-overlay .card-orientation {
+  font-size: 11px;
+  color: rgba(245, 230, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+.card-back.reversed .card-orientation {
+  color: rgba(231, 76, 60, 0.9);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-back.reversed::after {
+  content: '↻';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: rgba(231, 76, 60, 0.8);
+  z-index: 3;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.card-front-content {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+
+.card-front-content .card-icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+  animation: pulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+}
+
+@keyframes cardEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.85));
+  }
+}
+
+.rc-meta {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.rc-meaning {
+  margin-top: 16px;
+  width: 100%;
+}
+
+/* ============================================
+   READING STATUS
+   ============================================ */
+
+.reading-status {
+  margin: 20px 0;
+  min-height: 24px;
+  font-size: 16px;
+  color: var(--text);
+  text-align: center;
+  padding: 12px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ============================================
+   CARD ACTIONS
+   ============================================ */
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.card-actions .btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 20px;
+  font-size: 14px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 14px 24px;
+    font-size: 15px;
+    min-width: 120px;
+  }
+
+  .fortune-reading {
+    padding: 24px;
+  }
+
+  .fortune-card-section {
+    padding: 20px;
+  }
+
+  .reading-card {
+    width: 160px;
+    min-width: 160px;
+  }
+
+  .card-inner {
+    height: 260px;
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #3",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/the-oracle.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/the-oracle.html",
+  "external_url": "https://cryptotarot.app/card/the-oracle",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Major"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Moon"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 2
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Intuition, oracle nodes, hidden liquidity."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Secrets leaked, insider dumps."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Chainlink price feeds."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Intuition and oracle nodes revealing hidden liquidity and secret flows."
+    },
+    {
+      "trait_type": "Title",
+      "value": "The Oracle"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/the-oracle.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/the-oracle.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

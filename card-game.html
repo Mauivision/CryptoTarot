@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Tarot Chain Game - Card Mechanics</title>
+    <link rel="icon" href="assets/cosmic-journey-card.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .game-header {
+        text-align: center;
+        padding: 60px 20px 40px;
+        background: linear-gradient(180deg, rgba(45, 27, 78, 0.95) 0%, rgba(26, 15, 46, 0.9) 100%);
+        border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+      }
+      .game-header h1 {
+        font-size: 48px;
+        margin: 0 0 16px;
+        color: var(--primary);
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      }
+      .game-header p {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .game-filters {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 24px 20px;
+        background: rgba(14, 12, 28, 0.6);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+      }
+      .game-filters button {
+        padding: 10px 20px;
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        background: rgba(45, 27, 78, 0.6);
+        color: var(--text);
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: 'Crimson Text', serif;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+      .game-filters button:hover {
+        border-color: var(--primary);
+        background: rgba(45, 27, 78, 0.8);
+      }
+      .game-filters button.active {
+        border-color: var(--primary);
+        background: rgba(212, 175, 55, 0.15);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      }
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+        padding: 40px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .game-card {
+        background: rgba(14, 12, 28, 0.75);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        border-radius: 16px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+      .game-card:hover {
+        border-color: var(--primary);
+        box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+        transform: translateY(-4px);
+      }
+      .game-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      }
+      .game-card-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0;
+      }
+      .game-card-type {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .game-card-rarity {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .rarity-genesis {
+        background: rgba(139, 92, 246, 0.3);
+        color: #bb86fc;
+        border: 1px solid #bb86fc;
+      }
+      .rarity-rare {
+        background: rgba(62, 192, 255, 0.3);
+        color: #3ec0ff;
+        border: 1px solid #3ec0ff;
+      }
+      .rarity-uncommon {
+        background: rgba(0, 245, 160, 0.3);
+        color: #00f5a0;
+        border: 1px solid #00f5a0;
+      }
+      .rarity-common {
+        background: rgba(201, 168, 232, 0.3);
+        color: #c9a8e8;
+        border: 1px solid #c9a8e8;
+      }
+      .game-mechanics {
+        display: grid;
+        gap: 12px;
+      }
+      .mech-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        background: rgba(45, 27, 78, 0.4);
+        border-radius: 8px;
+        border-left: 3px solid var(--primary);
+      }
+      .mech-label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .mech-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .spell-section {
+        margin-top: 16px;
+        padding: 12px;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--primary);
+      }
+      .spell-section h4 {
+        margin: 0 0 8px;
+        font-size: 13px;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .spell-item {
+        font-size: 13px;
+        color: var(--text);
+        margin: 4px 0;
+        padding-left: 12px;
+      }
+      .suit-bonus {
+        margin-top: 12px;
+        padding: 10px;
+        background: rgba(155, 89, 182, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hidden {
+        display: none;
+      }
+      .stats-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        padding: 24px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .stat-box {
+        background: rgba(14, 12, 28, 0.75);
+        border: 2px solid rgba(212, 175, 55, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+      }
+      .stat-box h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .stat-box .stat-number {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav">
+          <div class="brand">
+            <a href="index.html" style="color: inherit; text-decoration: none">Crypto Tarot</a>
+          </div>
+          <div class="nav-actions">
+            <a class="btn btn-outline" href="index.html">← Back to Fortune Teller</a>
+            <a class="btn btn-outline" href="card-detail.html">Card Details</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="game-header">
+      <h1>🔮 Chain Game Card Mechanics</h1>
+      <p>
+        Complete reference for all 78 cards in the Crypto Tarot Chain Game. Filter by type, rarity,
+        or suit to find the perfect card for your strategy.
+      </p>
+    </div>
+
+    <div class="game-filters">
+      <button class="filter-btn active" data-filter="all">All Cards</button>
+      <button class="filter-btn" data-filter="Major">Major Arcana (Spells)</button>
+      <button class="filter-btn" data-filter="Minor">Minor Arcana (Units)</button>
+      <button class="filter-btn" data-filter="Genesis">Genesis Rarity</button>
+      <button class="filter-btn" data-filter="Rare">Rare</button>
+      <button class="filter-btn" data-filter="Uncommon">Uncommon</button>
+      <button class="filter-btn" data-filter="Common">Common</button>
+      <button class="filter-btn" data-filter="Tokens">Tokens Suit</button>
+      <button class="filter-btn" data-filter="Liquidity">Liquidity Suit</button>
+      <button class="filter-btn" data-filter="Security">Security Suit</button>
+      <button class="filter-btn" data-filter="Nodes">Nodes Suit</button>
+    </div>
+
+    <div id="statsSummary" class="stats-summary"></div>
+
+    <div id="cardsGrid" class="cards-grid"></div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> Crypto Tarot • Chain Game Mechanics Reference</p>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { CARD_MEANINGS } from './data/card-meanings.js';
+
+      const cardsGrid = document.getElementById('cardsGrid');
+      const statsSummary = document.getElementById('statsSummary');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      let currentFilter = 'all';
+
+      // Set year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Build full deck
+      function buildDeck() {
+        const deck = [];
+        const majors = [
+          'The HODLer',
+          'The Miner',
+          'The Oracle',
+          'The Empress Node',
+          'The Emperor Chain',
+          'The Hierophant Whale',
+          'The Lovers Fork',
+          'The Chariot Pump',
+          'Strength HODL',
+          'The Hermit Dev',
+          'Wheel of Fortune Cycle',
+          'Justice Ledger',
+          'The Hanged Man Flip',
+          'Death Rug',
+          'Temperance Mix',
+          'The Devil Scam',
+          'The Tower Hack',
+          'The Star Airdrop',
+          'The Moon Illusion',
+          'The Sun Bull',
+          'Judgment Halving',
+          'The World Ecosystem',
+        ];
+        const suits = ['Tokens', 'Liquidity', 'Security', 'Nodes'];
+        const ranks = [
+          'Ace',
+          'Two',
+          'Three',
+          'Four',
+          'Five',
+          'Six',
+          'Seven',
+          'Eight',
+          'Nine',
+          'Ten',
+        ];
+        const courts = ['Page', 'Knight', 'Queen', 'King'];
+
+        majors.forEach(title => {
+          deck.push({ title, type: 'Major', suit: 'Major' });
+        });
+
+        suits.forEach(suit => {
+          ranks.forEach(rank => {
+            deck.push({ title: `${rank} of ${suit}`, type: 'Minor', suit });
+          });
+          courts.forEach(court => {
+            deck.push({ title: `${court} of ${suit}`, type: 'Minor', suit });
+          });
+        });
+
+        return deck;
+      }
+
+      const FULL_DECK = buildDeck();
+
+      function getRarityClass(rarity) {
+        if (!rarity) return 'rarity-common';
+        const r = rarity.toLowerCase();
+        if (r === 'genesis') return 'rarity-genesis';
+        if (r === 'rare') return 'rarity-rare';
+        if (r === 'uncommon') return 'rarity-uncommon';
+        return 'rarity-common';
+      }
+
+      function renderCard(card) {
+        const meanings = CARD_MEANINGS[card.title] || {};
+        const gameMech = meanings.gameMechanics || {};
+
+        if (!gameMech || Object.keys(gameMech).length === 0) {
+          return null; // Skip cards without game mechanics
+        }
+
+        const rarity = gameMech.rarity || 'Common';
+        const isSpell = gameMech.type === 'spell';
+        const isUnit = gameMech.type === 'unit';
+
+        let html = `
+          <div class="game-card" data-type="${card.type}" data-suit="${card.suit}" data-rarity="${rarity}">
+            <div class="game-card-header">
+              <div>
+                <h3 class="game-card-title">${card.title}</h3>
+                <div class="game-card-type">${card.type} Arcana${card.suit !== 'Major' ? ` • ${card.suit}` : ''}</div>
+              </div>
+              <span class="game-card-rarity ${getRarityClass(rarity)}">${rarity}</span>
+            </div>
+            <div class="game-mechanics">
+        `;
+
+        if (isSpell) {
+          html += `
+            <div class="spell-section">
+              <h4>Spell Effects</h4>
+              ${gameMech.spellUpright ? `<div class="spell-item"><strong>Upright:</strong> ${gameMech.spellUpright}</div>` : ''}
+              ${gameMech.spellReversed ? `<div class="spell-item"><strong>Reversed:</strong> ${gameMech.spellReversed}</div>` : ''}
+              ${gameMech.energyCost ? `<div class="spell-item"><strong>Energy Cost:</strong> ${gameMech.energyCost}</div>` : ''}
+            </div>
+          `;
+        }
+
+        if (isUnit) {
+          html += `
+            ${
+              gameMech.value !== undefined
+                ? `
+              <div class="mech-row">
+                <span class="mech-label">Value</span>
+                <span class="mech-value">${gameMech.value}</span>
+              </div>
+            `
+                : ''
+            }
+            ${
+              gameMech.power !== undefined
+                ? `
+              <div class="mech-row">
+                <span class="mech-label">Power</span>
+                <span class="mech-value">${gameMech.power}</span>
+              </div>
+            `
+                : ''
+            }
+            ${
+              gameMech.suitBonus
+                ? `
+              <div class="suit-bonus">
+                <strong>Suit Bonus:</strong> ${typeof gameMech.suitBonus === 'object' ? JSON.stringify(gameMech.suitBonus) : gameMech.suitBonus}
+              </div>
+            `
+                : ''
+            }
+            ${
+              gameMech.courtEffect
+                ? `
+              <div class="mech-row">
+                <span class="mech-label">Court Effect</span>
+                <span class="mech-value">${gameMech.courtEffect}</span>
+              </div>
+            `
+                : ''
+            }
+            ${
+              gameMech.aceEffect
+                ? `
+              <div class="mech-row">
+                <span class="mech-label">Ace Effect</span>
+                <span class="mech-value">${gameMech.aceEffect}</span>
+              </div>
+            `
+                : ''
+            }
+          `;
+        }
+
+        html += `
+            </div>
+          </div>
+        `;
+
+        return html;
+      }
+
+      function renderStats() {
+        const withMech = FULL_DECK.filter(c => {
+          const meanings = CARD_MEANINGS[c.title];
+          return meanings && meanings.gameMechanics;
+        });
+
+        const majors = withMech.filter(c => c.type === 'Major').length;
+        const minors = withMech.filter(c => c.type === 'Minor').length;
+        const genesis = withMech.filter(c => {
+          const mech = CARD_MEANINGS[c.title]?.gameMechanics;
+          return mech && mech.rarity === 'Genesis';
+        }).length;
+        const rare = withMech.filter(c => {
+          const mech = CARD_MEANINGS[c.title]?.gameMechanics;
+          return mech && mech.rarity === 'Rare';
+        }).length;
+
+        statsSummary.innerHTML = `
+          <div class="stat-box">
+            <h3>Total Cards</h3>
+            <div class="stat-number">${withMech.length}</div>
+          </div>
+          <div class="stat-box">
+            <h3>Major Arcana</h3>
+            <div class="stat-number">${majors}</div>
+          </div>
+          <div class="stat-box">
+            <h3>Minor Arcana</h3>
+            <div class="stat-number">${minors}</div>
+          </div>
+          <div class="stat-box">
+            <h3>Genesis</h3>
+            <div class="stat-number">${genesis}</div>
+          </div>
+          <div class="stat-box">
+            <h3>Rare</h3>
+            <div class="stat-number">${rare}</div>
+          </div>
+        `;
+      }
+
+      function renderCards(filter = 'all') {
+        const cards = FULL_DECK.filter(card => {
+          const meanings = CARD_MEANINGS[card.title];
+          if (!meanings || !meanings.gameMechanics) return false;
+
+          if (filter === 'all') return true;
+          if (filter === 'Major') return card.type === 'Major';
+          if (filter === 'Minor') return card.type === 'Minor';
+          if (['Genesis', 'Rare', 'Uncommon', 'Common'].includes(filter)) {
+            const mech = meanings.gameMechanics;
+            return mech && mech.rarity === filter;
+          }
+          if (['Tokens', 'Liquidity', 'Security', 'Nodes'].includes(filter)) {
+            return card.suit === filter;
+          }
+          return true;
+        });
+
+        cardsGrid.innerHTML = cards
+          .map(card => renderCard(card))
+          .filter(html => html !== null)
+          .join('');
+
+        if (cardsGrid.innerHTML === '') {
+          cardsGrid.innerHTML =
+            '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--muted);">No cards found.</p>';
+        }
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter');
+          renderCards(currentFilter);
+        });
+      });
+
+      // Initial render
+      renderStats();
+      renderCards('all');
+    </script>
+  </body>
+</html>

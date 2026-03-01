@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "checkJs": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@data/*": ["./data/*"],
+      "@js/*": ["./js/*"],
+      "@scripts/*": ["./scripts/*"],
+      "@assets/*": ["./assets/*"]
+    }
+  },
+  "include": ["**/*.js", "**/*.mjs", "**/*.html"],
+  "exclude": ["node_modules", "dist", "build", ".next", "archive"]
+}

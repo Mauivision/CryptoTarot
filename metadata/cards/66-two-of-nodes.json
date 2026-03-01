@@ -1,0 +1,104 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #66",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/two-of-nodes.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/two-of-nodes.html",
+  "external_url": "https://cryptotarot.app/card/two-of-nodes",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Minor"
+    },
+    {
+      "trait_type": "Suit",
+      "value": "Nodes"
+    },
+    {
+      "trait_type": "Rank",
+      "value": "Two"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Moon"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 2
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Dual vision, roadmap alignment."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Scope creep confusion."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Architecting a dual-token rollout."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Dual vision, roadmaps, and intuitive planning."
+    },
+    {
+      "trait_type": "Title",
+      "value": "Two of Nodes"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/two-of-nodes.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/two-of-nodes.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

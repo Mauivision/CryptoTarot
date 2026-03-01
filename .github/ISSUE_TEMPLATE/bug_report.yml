@@ -1,0 +1,33 @@
+name: '🐞 Bug report'
+description: Report a problem or regression
+labels: ['bug']
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Describe the issue and expected behavior.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: URL / Page
+      placeholder: e.g. /fortune-teller.html
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Be as specific as possible.
+      placeholder: "1) Go to ...\n2) Click ...\n3) See ..."
+  - type: textarea
+    attributes:
+      label: Screenshots / Console logs
+      description: Paste errors or attach images.
+  - type: dropdown
+    attributes:
+      label: Environment
+      options:
+        - Desktop Chrome
+        - Desktop Firefox
+        - Desktop Safari
+        - Mobile Safari (iOS)
+        - Mobile Chrome (Android)
+        - Other

@@ -1,0 +1,7 @@
+{
+  "instructions": "Map AI-generated images to card IDs",
+  "cards": {
+    "major-the-hodler": "major-the-hodler.png",
+    "major-the-miner": "major-the-miner.png"
+  }
+}

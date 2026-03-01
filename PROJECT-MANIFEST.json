@@ -1,0 +1,162 @@
+{
+  "project": {
+    "name": "Crypto Tarot",
+    "version": "1.0.0",
+    "description": "A mystical, interactive tarot card reading experience with crypto-themed cards",
+    "type": "web-application",
+    "license": "ISC",
+    "status": "production-ready"
+  },
+  "structure": {
+    "entryPoints": {
+      "main": "index.html",
+      "fortuneTeller": "fortune-teller.html",
+      "cardGame": "card-game.html",
+      "cardDetail": "card-detail.html",
+      "encyclopedia": "crypto-tarot-encyclopedia.html"
+    },
+    "coreFiles": {
+      "mainScript": "script.js",
+      "cardDetailScript": "card-detail.js",
+      "styles": "styles.css",
+      "cardData": "data/card-meanings.js"
+    },
+    "modules": {
+      "utilities": "js/card-utils.js",
+      "aiService": "js/ai-service.js",
+      "cardCombinations": "js/card-combinations.js",
+      "cosmicData": "js/cosmic-data.js",
+      "enhancedEffects": "js/enhanced-effects.js",
+      "fortuneTellerContent": "js/fortune-teller-content.js",
+      "readingHistory": "js/reading-history.js",
+      "shuffleRandomizer": "js/shuffle-randomizer.js",
+      "spreadTypes": "js/spread-types.js"
+    },
+    "scripts": {
+      "build": {
+        "cardmap": "scripts/build/generate-cardmap.js",
+        "updateCardmap": "scripts/build/update-cardmap-jpg.mjs",
+        "bookGeneration": "scripts/build/generate-book-of-descriptions.mjs",
+        "bookChapters": "scripts/build/add-book-chapters.mjs"
+      },
+      "game": {
+        "addMechanics": "scripts/game/add-game-mechanics-v2.mjs",
+        "testMechanics": "scripts/game/test-game-mechanics.mjs",
+        "testBalance": "scripts/game/test-game-balance.mjs"
+      },
+      "export": {
+        "markdown": "scripts/export/convert-to-markdown.mjs",
+        "latex": "scripts/export/generate-comprehensive-latex.mjs",
+        "pdf": "scripts/export/export-pdf-puppeteer.mjs"
+      }
+    },
+    "assets": {
+      "images": {
+        "svg": "assets/cards/",
+        "jpg": "tools/CryptoTarot1-78/",
+        "cardBack": "assets/card-back.svg",
+        "cosmicJourney": "assets/cosmic-journey-card.svg"
+      },
+      "data": {
+        "cardmap": "assets/cardmap.json",
+        "cardMeanings": "data/card-meanings.js",
+        "cryptoEducation": "data/crypto-education.js"
+      }
+    },
+    "documentation": {
+      "main": "README.md",
+      "index": "docs/INDEX.md",
+      "guides": {
+        "quickStart": "docs/guides/QUICK-START.md",
+        "startHere": "docs/guides/START-HERE.md",
+        "projectSetup": "docs/guides/PROJECT-SETUP.md",
+        "testing": "docs/guides/TESTING-GUIDE.md"
+      },
+      "status": {
+        "current": "docs/status/PROJECT-STATUS-CURRENT.md",
+        "historical": "docs/status/PROJECT-STATUS.md",
+        "completion": "docs/status/FINAL-COMPLETION-REPORT.md"
+      },
+      "development": {
+        "projectPlan": "docs/development/PROJECT-PLAN.md",
+        "roadmap": "docs/development/ROADMAP.md",
+        "todo": "docs/development/TODO.md",
+        "masterPlan": "docs/development/MASTER-PLAN.md",
+        "ideas": "docs/development/IDEAS.md"
+      },
+      "chainGame": "chain-game/",
+      "audit": "PROJECT-AUDIT.md",
+      "refactor": "REFACTOR-COMPLETE.md"
+    }
+  },
+  "features": {
+    "core": [
+      "78-card crypto-themed tarot deck",
+      "Interactive fortune teller",
+      "Card flipping animations",
+      "Multiple spread types",
+      "Reading history",
+      "Card combinations analysis",
+      "Cosmic correspondences",
+      "Theme toggle (light/dark)"
+    ],
+    "game": [
+      "Chain Game mechanics",
+      "Card rarity system",
+      "Spell effects",
+      "Unit stats",
+      "Suit bonuses"
+    ],
+    "export": ["Markdown export", "LaTeX export", "PDF generation", "Book generation"]
+  },
+  "technology": {
+    "language": "JavaScript (ES6 Modules)",
+    "styling": "CSS3",
+    "buildTools": ["Node.js", "Prettier"],
+    "dependencies": {
+      "marked": "^17.0.0",
+      "puppeteer": "^24.30.0"
+    },
+    "devDependencies": {
+      "prettier": "^3.6.2"
+    }
+  },
+  "commands": {
+    "development": {
+      "start": "npm run start",
+      "dev": "npm run dev",
+      "serve": "npm run serve"
+    },
+    "build": {
+      "cardmap": "npm run generate:cardmap",
+      "updateCardmap": "npm run update:cardmap",
+      "book": "npm run generate:book"
+    },
+    "game": {
+      "addMechanics": "npm run game:add-mechanics",
+      "test": "npm run game:test",
+      "balance": "npm run game:balance"
+    },
+    "export": {
+      "markdown": "npm run export:markdown",
+      "latex": "npm run export:latex",
+      "pdf": "npm run export:pdf"
+    },
+    "quality": {
+      "format": "npm run format",
+      "formatCheck": "npm run format:check"
+    }
+  },
+  "statistics": {
+    "totalCards": 78,
+    "majorArcana": 22,
+    "minorArcana": 56,
+    "suits": 4,
+    "totalImages": 135,
+    "totalScripts": 41,
+    "totalModules": 9,
+    "totalPages": 7
+  },
+  "lastUpdated": "2025-01-15",
+  "maintainer": "Project Team"
+}

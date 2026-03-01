@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Fortune Teller's Palace - Crypto Tarot</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fortune-primary: #d4af37;
+        --fortune-accent: #9b59b6;
+        --fortune-glow: rgba(212, 175, 55, 0.3);
+        --fortune-dark: #0a0e1a;
+        --fortune-purple: #5f3d87;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Crimson Text', serif;
+        background: var(--fortune-dark);
+        color: #e6f1ff;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Animated mystical background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(circle at 20% 50%, rgba(155, 89, 182, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+          linear-gradient(180deg, #0a0e1a 0%, #1a0f2e 100%);
+        z-index: -2;
+        animation: pulse 8s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.8;
+        }
+      }
+
+      /* Floating particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: var(--fortune-primary);
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: float 15s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(-100vh) translateX(50px);
+          opacity: 0;
+        }
+      }
+
+      /* Hero Section */
+      .fortune-hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        text-align: center;
+      }
+
+      .fortune-title {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 700;
+        color: var(--fortune-primary);
+        text-shadow:
+          0 0 20px var(--fortune-glow),
+          0 0 40px var(--fortune-glow),
+          0 0 60px var(--fortune-glow);
+        margin-bottom: 1rem;
+        animation: glow 3s ease-in-out infinite;
+        font-family: 'Crimson Text', serif;
+      }
+
+      @keyframes glow {
+        0%,
+        100% {
+          text-shadow:
+            0 0 20px var(--fortune-glow),
+            0 0 40px var(--fortune-glow),
+            0 0 60px var(--fortune-glow);
+        }
+        50% {
+          text-shadow:
+            0 0 30px var(--fortune-glow),
+            0 0 60px var(--fortune-glow),
+            0 0 90px var(--fortune-glow);
+        }
+      }
+
+      .fortune-subtitle {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        color: #c9a8e8;
+        margin-bottom: 3rem;
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      /* Featured Cards Showcase */
+      .featured-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        width: 100%;
+        margin: 3rem 0;
+        padding: 2rem;
+      }
+
+      .featured-card {
+        position: relative;
+        aspect-ratio: 2/3;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 20px rgba(212, 175, 55, 0.2);
+      }
+
+      .featured-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow:
+          0 20px 40px rgba(0, 0, 0, 0.7),
+          0 0 40px var(--fortune-glow);
+      }
+
+      .featured-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .featured-card:hover img {
+        transform: scale(1.1);
+      }
+
+      .featured-card-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(10, 14, 26, 0.95), transparent);
+        padding: 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+      }
+
+      .featured-card:hover .featured-card-overlay {
+        transform: translateY(0);
+      }
+
+      .featured-card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--fortune-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      /* CTA Section */
+      .fortune-cta {
+        margin-top: 4rem;
+        text-align: center;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.2rem 3rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--fortune-dark);
+        background: linear-gradient(135deg, var(--fortune-primary), #f4d03f);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow:
+          0 10px 30px rgba(212, 175, 55, 0.4),
+          0 0 20px rgba(212, 175, 55, 0.2);
+        font-family: 'Crimson Text', serif;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow:
+          0 15px 40px rgba(212, 175, 55, 0.6),
+          0 0 30px rgba(212, 175, 55, 0.4);
+      }
+
+      /* Navigation */
+      .fortune-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem 2rem;
+        background: rgba(10, 14, 26, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      }
+
+      .fortune-nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .fortune-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--fortune-primary);
+        text-decoration: none;
+      }
+
+      .fortune-nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .fortune-nav-links a {
+        color: #e6f1ff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .fortune-nav-links a:hover {
+        color: var(--fortune-primary);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .featured-cards {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 1rem;
+        }
+
+        .fortune-nav-links {
+          gap: 1rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="fortune-nav">
+      <div class="fortune-nav-content">
+        <a href="fortune-teller.html" class="fortune-logo">🔮 Crypto Tarot</a>
+        <div class="fortune-nav-links">
+          <a href="index.html">Gallery</a>
+          <a href="crypto-tarot-encyclopedia.html">Encyclopedia</a>
+          <a href="test-cards.html">Test Cards</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Disclaimer Banner -->
+    <div
+      id="disclaimerBanner"
+      class="disclaimer-banner"
+      role="alert"
+      style="position: fixed; top: 0; left: 0; right: 0; z-index: 1001"
+    >
+      <div class="disclaimer-content">
+        <span class="disclaimer-icon">⚠️</span>
+        <span class="disclaimer-text">
+          <strong>For entertainment purposes only.</strong> Not financial advice. Cryptocurrency
+          investments carry risk. Always DYOR (Do Your Own Research).
+        </span>
+        <button id="dismissBanner" class="disclaimer-dismiss" aria-label="Dismiss disclaimer">
+          ×
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section class="fortune-hero">
+      <h1 class="fortune-title">The Fortune Teller's Palace</h1>
+      <p class="fortune-subtitle">Enter the mystical realm where blockchain meets destiny</p>
+
+      <!-- Featured Cards Showcase -->
+      <div class="featured-cards" id="featuredCards">
+        <!-- Cards will be dynamically loaded here -->
+      </div>
+
+      <!-- Call to Action -->
+      <div class="fortune-cta">
+        <a href="index.html#reading" class="cta-button">Begin Your Reading 🔮</a>
+      </div>
+    </section>
+
+    <footer
+      style="
+        padding: 40px 20px;
+        text-align: center;
+        color: var(--muted);
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+        margin-top: 60px;
+      "
+    >
+      <p>
+        © <span id="year"></span> Crypto Tarot •
+        <a href="terms-of-service.html" style="color: var(--muted)">Terms</a> •
+        <a href="privacy-policy.html" style="color: var(--muted)">Privacy</a>
+      </p>
+      <p style="margin-top: 8px; font-size: 12px">
+        For entertainment purposes only. Not financial advice.
+      </p>
+    </footer>
+
+    <script src="js/cosmic-data.js" defer></script>
+    <script>
+      if (document.getElementById('year')) {
+        document.getElementById('year').textContent = new Date().getFullYear();
+      }
+      // Create floating particles
+      function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 15 + 's';
+          particle.style.animationDuration = 10 + Math.random() * 10 + 's';
+          container.appendChild(particle);
+        }
+      }
+
+      // Load featured cards from cardmap
+      async function loadFeaturedCards() {
+        try {
+          const response = await fetch('assets/cardmap.json');
+          const data = await response.json();
+
+          // Select a mix of Major Arcana and interesting cards
+          const majorCards = data.cards.filter(
+            c =>
+              c.title.includes('The ') ||
+              c.title.includes('Strength') ||
+              c.title.includes('Wheel') ||
+              c.title.includes('Judgment')
+          );
+          const minorCards = data.cards.filter(c => !majorCards.includes(c));
+
+          // Pick 6 featured cards: 3 major, 3 interesting minor
+          const featured = [
+            ...majorCards.slice(0, 3),
+            ...minorCards
+              .filter(c => ['Ace', 'King', 'Queen'].some(r => c.title.includes(r)))
+              .slice(0, 3),
+          ].slice(0, 6);
+
+          const container = document.getElementById('featuredCards');
+          container.innerHTML = '';
+
+          featured.forEach(card => {
+            // Prioritize custom images from ai-generated folder
+            let imageUrl = null;
+            if (card.variants && card.variants.length > 0) {
+              // Filter for ai-generated images first
+              const aiImages = card.variants.filter(v => v.includes('ai-generated'));
+              if (aiImages.length > 0) {
+                imageUrl = aiImages[Math.floor(Math.random() * aiImages.length)];
+              } else {
+                imageUrl = card.variants[Math.floor(Math.random() * card.variants.length)];
+              }
+            }
+
+            // Fallback to SVG if no custom image
+            if (!imageUrl) {
+              const slug = card.title
+                .toLowerCase()
+                .replace(/the /g, 'the-')
+                .replace(/ /g, '-')
+                .replace(/of-/g, 'of-');
+              imageUrl = `assets/cards/major-${slug}.svg`;
+              // Try minor if major doesn't exist
+              if (!imageUrl.includes('major-')) {
+                imageUrl = `assets/cards/minor-${slug}.svg`;
+              }
+            }
+
+            const cardEl = document.createElement('div');
+            cardEl.className = 'featured-card';
+            cardEl.innerHTML = `
+            <img src="${imageUrl}" alt="${card.title}" onerror="this.src='assets/cosmic-journey-card.svg'">
+            <div class="featured-card-overlay">
+              <div class="featured-card-title">${card.title}</div>
+            </div>
+          `;
+            cardEl.addEventListener('click', () => {
+              window.location.href = `index.html#reading`;
+            });
+            container.appendChild(cardEl);
+          });
+        } catch (error) {
+          console.error('Error loading featured cards:', error);
+        }
+      }
+
+      // Disclaimer banner handling
+      const disclaimerBanner = document.getElementById('disclaimerBanner');
+      const dismissBanner = document.getElementById('dismissBanner');
+
+      dismissBanner?.addEventListener('click', () => {
+        if (disclaimerBanner) {
+          disclaimerBanner.style.transition = 'opacity .3s ease, transform .3s ease';
+          disclaimerBanner.style.opacity = '0';
+          disclaimerBanner.style.transform = 'translateY(-100%)';
+          setTimeout(() => {
+            disclaimerBanner.style.display = 'none';
+            localStorage.setItem('disclaimerDismissed', 'true');
+          }, 300);
+        }
+      });
+
+      if (localStorage.getItem('disclaimerDismissed') === 'true' && disclaimerBanner) {
+        disclaimerBanner.style.display = 'none';
+      }
+
+      // Initialize with smooth entrance
+      document.body.style.opacity = '0';
+      window.addEventListener('load', () => {
+        document.body.style.transition = 'opacity .5s ease';
+        document.body.style.opacity = '1';
+        createParticles();
+        loadFeaturedCards();
+      });
+    </script>
+  </body>
+</html>

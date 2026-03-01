@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">Card Detail - Crypto Tarot</title>
+    <link rel="icon" href="assets/cosmic-journey-card.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav">
+          <a href="index.html" class="brand" style="text-decoration: none; color: inherit"
+            >Crypto Tarot</a
+          >
+          <div class="nav-actions">
+            <a href="index.html" class="btn btn-outline">← Back to Deck</a>
+            <a href="story.html" class="btn btn-outline">📖 Story</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container content" style="padding-top: 40px">
+      <div id="cardDetail" class="card-detail-page">
+        <div class="loading" style="text-align: center; padding: 40px">
+          <p>Loading card details...</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> Crypto Tarot • Neon wisdom for Web3 explorers</p>
+      </div>
+    </footer>
+
+    <script type="module" src="card-detail.js"></script>
+  </body>
+</html>

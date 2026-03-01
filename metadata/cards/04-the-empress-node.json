@@ -1,0 +1,96 @@
+{
+  "name": "Crypto Tarot: The Oracle's Whisper #4",
+  "description": "A complete 78-card mystical oracle reimagined for the blockchain era. Each card is a mirror to the soul of crypto — from genesis blocks to final halving. For entertainment only. Not financial advice.\n\n**CRYPTICAL ULTIMATE** card back: animated neon circuits, gold-foil oracle core, UV-reveal runes, and rotating cosmic rings. The chain remembers.\n\nDYOR • HODL • Never share your seed.",
+  "image": "ipfs://QmYourIPFSHashHere/cards/the-empress-node.png",
+  "animation_url": "ipfs://QmYourIPFSHashHere/cards/the-empress-node.html",
+  "external_url": "https://cryptotarot.app/card/the-empress-node",
+  "attributes": [
+    {
+      "trait_type": "Edition",
+      "value": "CRYPTICAL ULTIMATE"
+    },
+    {
+      "trait_type": "Card Back",
+      "value": "Animated Oracle Core"
+    },
+    {
+      "trait_type": "Border",
+      "value": "Neon Gold Holo"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "UV Reveal",
+      "value": "Runes + Hash"
+    },
+    {
+      "trait_type": "Animation",
+      "value": "Pulsing, Rotating, Hover Glow"
+    },
+    {
+      "trait_type": "Print Ready",
+      "value": true
+    },
+    {
+      "trait_type": "App Compatible",
+      "value": true
+    },
+    {
+      "trait_type": "Arcana",
+      "value": "Major"
+    },
+    {
+      "trait_type": "Planet",
+      "value": "Venus"
+    },
+    {
+      "trait_type": "Numerology",
+      "value": 3
+    },
+    {
+      "trait_type": "Upright",
+      "value": "Abundance, staking rewards, growth."
+    },
+    {
+      "trait_type": "Reversed",
+      "value": "Over-farming, inflation."
+    },
+    {
+      "trait_type": "Crypto Flavor",
+      "value": "Yield farming APY explosion."
+    },
+    {
+      "trait_type": "Cosmic Summary",
+      "value": "Abundance, staking rewards, and lush network growth."
+    },
+    {
+      "trait_type": "Title",
+      "value": "The Empress Node"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/the-empress-node.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "ipfs://QmYourIPFSHashHere/cards/the-empress-node.html",
+        "type": "text/html"
+      }
+    ],
+    "category": "collectibles",
+    "creators": [
+      {
+        "address": "YOUR_WALLET_HERE",
+        "share": 100
+      }
+    ]
+  },
+  "collection": {
+    "name": "Crypto Tarot: The Oracle's Whisper",
+    "family": "Fortune Teller's Palace"
+  }
+}

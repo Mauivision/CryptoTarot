@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Tarot: The Cosmic Journey Card – Navigate Your Web3 Odyssey!</title>
+    <meta
+      name="description"
+      content="Explore the Crypto Tarot Cosmic Journey card. Web3 symbolism, psychological and spiritual meanings, and actionable crypto insights with interactive readings."
+    />
+    <meta
+      name="keywords"
+      content="crypto tarot readings,NFT tarot deck,Web3 tarot,blockchain tarot,DeFi symbolism,tarot card meanings"
+    />
+    <meta property="og:title" content="Crypto Tarot: The Cosmic Journey" />
+    <meta
+      property="og:description"
+      content="A concise, neon, crypto-flavored tarot guide with interactive shuffle and wallet connect."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/cosmic-journey-card.svg" />
+    <link rel="icon" href="assets/cosmic-journey-card.svg" />
+    <link rel="preload" href="styles.css" as="style" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="aurora-layer aurora-layer-1" aria-hidden="true"></div>
+    <div class="aurora-layer aurora-layer-2" aria-hidden="true"></div>
+    <!-- Disclaimer Banner -->
+    <div id="disclaimerBanner" class="disclaimer-banner" role="alert">
+      <div class="disclaimer-content">
+        <span class="disclaimer-icon">⚠️</span>
+        <span class="disclaimer-text">
+          <strong>For entertainment purposes only.</strong> Not financial advice. Cryptocurrency
+          investments carry risk. Always DYOR (Do Your Own Research).
+        </span>
+        <button id="dismissBanner" class="disclaimer-dismiss" aria-label="Dismiss disclaimer">
+          ×
+        </button>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav">
+          <div class="brand">
+            <a href="index.html" style="color: inherit; text-decoration: none">Crypto Tarot</a>
+          </div>
+          <div class="nav-actions">
+            <a class="btn btn-outline" href="fortune-teller.html" aria-label="Open fortune teller"
+              >Fortune Teller</a
+            >
+            <a
+              class="btn btn-outline"
+              href="crypto-tarot-encyclopedia.html"
+              aria-label="Open encyclopedia page"
+              >Encyclopedia</a
+            >
+            <a class="btn btn-outline" href="card-detail.html" aria-label="Browse card details"
+              >Card Details</a
+            >
+            <a class="btn btn-outline" href="card-game.html" aria-label="View Chain Game mechanics"
+              >Chain Game</a
+            >
+            <a class="btn btn-outline" href="story.html" aria-label="Read the Moon-Forge Saga story"
+              >📖 Story</a
+            >
+            <button
+              id="themeToggle"
+              class="btn btn-outline"
+              type="button"
+              aria-pressed="false"
+              aria-label="Toggle light theme"
+            >
+              ☀️ Light Mode
+            </button>
+            <button
+              id="connectWalletBtn"
+              class="btn btn-outline"
+              aria-label="Connect crypto wallet"
+            >
+              Connect Wallet
+            </button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main style="position: relative">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Crypto Tarot</h1>
+          <p class="subtitle">Navigate Your Web3 Odyssey with Cosmic Wisdom</p>
+          <div class="hero-ctas">
+            <a href="fortune-teller.html" class="btn btn-primary">🔮 Get Your Reading</a>
+            <a href="card-game.html" class="btn btn-outline">🎴 Chain Game</a>
+            <a href="card-detail.html" class="btn btn-outline">📚 Card Encyclopedia</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img
+            src="assets/cosmic-journey-card.svg"
+            alt="Crypto Tarot Card"
+            style="
+              max-width: 100%;
+              height: auto;
+              filter: drop-shadow(0 10px 40px rgba(0, 245, 160, 0.2));
+            "
+          />
+        </div>
+      </section>
+
+      <section id="gallery" class="gallery-section" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="gallery-header">
+            <div class="gallery-copy">
+              <h2 id="gallery-title">Explore the Deck</h2>
+              <p>
+                Browse every card in the 78-piece Crypto Tarot deck. Filter by suit or arcana, then
+                dive deeper by opening any card for lore, strategy, and cosmic correspondences.
+              </p>
+            </div>
+            <aside class="card-back-showcase" aria-describedby="card-back-note">
+              <div class="card-back-orbit">
+                <div class="card-back-plate"></div>
+                <div class="card-back-glow"></div>
+              </div>
+              <p id="card-back-note">
+                Hover to see the CRYPTICAL ULTIMATE back shimmer like a living hologram.
+              </p>
+            </aside>
+          </div>
+          <div id="deckStats" class="deck-stats"></div>
+          <div
+            class="gallery-search"
+            role="region"
+            aria-label="Search and refine cards"
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12px;
+              align-items: center;
+              margin: 12px 0 8px;
+            "
+          >
+            <input
+              id="gallerySearch"
+              class="input"
+              type="search"
+              placeholder="Search cards (e.g. 'Oracle', 'Knight', 'Liquidity')"
+              style="
+                flex: 1 1 260px;
+                min-width: 240px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                border: 2px solid rgba(212, 175, 55, 0.2);
+                background: rgba(45, 27, 78, 0.35);
+                color: var(--text);
+              "
+            />
+            <select
+              id="typeFilter"
+              class="select"
+              aria-label="Filter by type"
+              style="
+                min-width: 140px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                border: 2px solid rgba(212, 175, 55, 0.2);
+                background: rgba(45, 27, 78, 0.35);
+                color: var(--text);
+              "
+            >
+              <option value="all">All Types</option>
+              <option value="Major">Major</option>
+              <option value="Minor">Minor</option>
+            </select>
+            <select
+              id="suitFilter"
+              class="select"
+              aria-label="Filter by suit"
+              style="
+                min-width: 160px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                border: 2px solid rgba(212, 175, 55, 0.2);
+                background: rgba(45, 27, 78, 0.35);
+                color: var(--text);
+              "
+            >
+              <option value="all">All Suits</option>
+              <option value="Tokens">Tokens</option>
+              <option value="Liquidity">Liquidity</option>
+              <option value="Security">Security</option>
+              <option value="Nodes">Nodes</option>
+            </select>
+            <select
+              id="rankFilter"
+              class="select"
+              aria-label="Filter by rank"
+              style="
+                min-width: 160px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                border: 2px solid rgba(212, 175, 55, 0.2);
+                background: rgba(45, 27, 78, 0.35);
+                color: var(--text);
+              "
+            >
+              <option value="all">All Ranks</option>
+              <option value="Ace">Ace</option>
+              <option value="Two">Two</option>
+              <option value="Three">Three</option>
+              <option value="Four">Four</option>
+              <option value="Five">Five</option>
+              <option value="Six">Six</option>
+              <option value="Seven">Seven</option>
+              <option value="Eight">Eight</option>
+              <option value="Nine">Nine</option>
+              <option value="Ten">Ten</option>
+              <option value="Page">Page</option>
+              <option value="Knight">Knight</option>
+              <option value="Queen">Queen</option>
+              <option value="King">King</option>
+            </select>
+          </div>
+          <div class="gallery-controls" role="group" aria-label="Filter cards by suit">
+            <button type="button" class="filter-btn active" data-filter="all">All Cards</button>
+            <button type="button" class="filter-btn" data-filter="Major">Major Arcana</button>
+            <button type="button" class="filter-btn" data-filter="Tokens">Tokens (Earth)</button>
+            <button type="button" class="filter-btn" data-filter="Liquidity">
+              Liquidity (Water)
+            </button>
+            <button type="button" class="filter-btn" data-filter="Security">Security (Air)</button>
+            <button type="button" class="filter-btn" data-filter="Nodes">Nodes (Fire)</button>
+          </div>
+          <div id="deckGrid" class="deck-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="launch" class="launch-cta" aria-labelledby="launch-title">
+        <div class="launch-inner">
+          <h2 id="launch-title">🚀 Launch Countdown: Crypto Tarot Live Drop</h2>
+          <p class="launch-subtitle">
+            We unveil the full Oracle experience, signed decks, and NFT mint on
+            <strong>December 1, 2025</strong>.
+          </p>
+          <div class="launch-timer" id="countdownTimer" aria-live="polite">Loading countdown…</div>
+          <ul class="launch-highlights">
+            <li>🔒 Early access readings with Compassion AI v2</li>
+            <li>🃏 Limited Genesis deck pre-orders (first 500)</li>
+            <li>🌐 Solana NFT mint + “Mint Your Spread” utility</li>
+          </ul>
+          <div class="launch-actions">
+            <a
+              id="waitlistCta"
+              class="btn btn-primary magnetic"
+              href="https://cryptotarot.app/signup"
+              target="_blank"
+              rel="noopener"
+              >Join the Waitlist</a
+            >
+            <a
+              id="launchPlanLink"
+              class="btn btn-outline magnetic"
+              href="docs/PROJECT-PLAN.md"
+              target="_blank"
+              rel="noopener"
+              >View Launch Plan</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="cardModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+        <div class="modal-body">
+          <img id="modalImg" alt="Selected tarot card" />
+          <div class="modal-content">
+            <h3 id="modalTitle"></h3>
+            <p id="modalMeta" class="note"></p>
+            <p id="modalCosmic" class="note"></p>
+            <p id="modalCrypto" class="note"></p>
+            <div class="modal-meanings">
+              <p id="modalUpright"></p>
+              <p id="modalReversed"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          © <span id="year"></span> Crypto Tarot •
+          <a href="terms-of-service.html" style="color: var(--muted); text-decoration: none"
+            >Terms</a
+          >
+          •
+          <a href="privacy-policy.html" style="color: var(--muted); text-decoration: none"
+            >Privacy</a
+          >
+        </p>
+        <p style="margin-top: 8px; font-size: 12px; color: var(--muted)">
+          For entertainment purposes only. Not financial advice.
+        </p>
+      </div>
+    </footer>
+
+    <div id="apiKeyModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-dialog" style="max-width: 500px">
+        <button class="modal-close" id="apiKeyClose" aria-label="Close">×</button>
+        <div class="modal-body" style="grid-template-columns: 1fr">
+          <h3>Configure OpenAI API Key</h3>
+          <p class="note" style="margin: 8px 0 16px">
+            Enter your OpenAI API key to enable AI-powered readings. Your key is stored locally in
+            your browser.
+          </p>
+          <input
+            type="password"
+            id="apiKeyInput"
+            class="question-input"
+            placeholder="sk-..."
+            style="margin-bottom: 12px"
+          />
+          <div class="cta-row">
+            <button id="saveApiKeyBtn" class="btn btn-primary">Save Key</button>
+            <a href="https://platform.openai.com/api-keys" target="_blank" class="btn btn-outline"
+              >Get API Key</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/cosmic-data.js" defer></script>
+    <script src="js/shuffle-randomizer.js" defer></script>
+    <script src="js/fortune-teller-content.js" defer></script>
+    <script src="js/enhanced-effects.js" defer></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

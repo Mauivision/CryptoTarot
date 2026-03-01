@@ -34,10 +34,26 @@ A mystical, interactive tarot card reading experience with crypto-themed cards. 
    ```
 
 3. **Navigate**:
-   - `index.html` – Main reading experience with countdown
-   - `crypto-tarot-encyclopedia.html` – Complete card dictionary
-   - `card-detail.html?id=The%20HODLer` – Detailed single-card page
+   - **Home**: `/` or `index.html` – Main landing and deck gallery
+   - **Fortune Teller**: `/fortune-teller.html` or `/fortune-teller` – Get your reading (draw cards, spreads, history)
+   - **Chain Game**: `/card-game.html` – Card mechanics
+   - **Encyclopedia**: `crypto-tarot-encyclopedia.html` – Complete card dictionary
+   - **Card detail**: `card-detail.html?id=The%20HODLer` – Single-card view
    - `docs/PROJECT-PLAN.md` – Development plan & checklist
+
+### Deploy on Vercel (live site)
+
+The app is a **static site** (no build step). To run it on Vercel connected to GitHub:
+
+1. **Push this repo to GitHub** (e.g. [Mauivision/CryptoTarot](https://github.com/Mauivision/CryptoTarot)).
+2. In [Vercel](https://vercel.com), click **Add New Project** and **Import** the GitHub repo.
+3. Leave **Build Command** empty and **Output Directory** as `.` (root). The repo’s `vercel.json` is already set for static deploy.
+4. Deploy. Your live URLs will look like:
+   - `https://your-project.vercel.app/` – Home
+   - `https://your-project.vercel.app/fortune-teller` – Fortune reader card game
+   - `https://your-project.vercel.app/card-game` – Chain game
+
+Every push to the connected branch will trigger a new deployment.
 
 ## 📁 Project Structure
 

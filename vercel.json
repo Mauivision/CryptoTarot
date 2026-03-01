@@ -1,0 +1,20 @@
+{
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "framework": null,
+  "rewrites": [
+    { "source": "/fortune-teller", "destination": "/fortune-teller.html" },
+    { "source": "/card-game", "destination": "/card-game.html" },
+    { "source": "/encyclopedia", "destination": "/crypto-tarot-encyclopedia.html" },
+    { "source": "/story", "destination": "/story.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    }
+  ]
+}

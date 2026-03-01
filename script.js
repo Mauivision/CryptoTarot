@@ -750,17 +750,18 @@ async function loadCardVariants() {
 // Using JPG card back from tools directory (no SVG)
 const CARD_BACK_IMAGE = 'tools/CryptoTarot1-78/Cardback-01.jpg';
 
-// Wait for DOM and cardmap to be fully loaded before allowing draws
+// Don't block draws: wait for cardmap with timeout so reader always works
 let cardmapReady = false;
 async function ensureCardmapLoaded() {
   if (cardmapReady) return true;
   if (!CARDMAP_LOADED) {
-    await loadCardVariants();
-    // Wait a bit for variants to be processed
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await Promise.race([
+      loadCardVariants().then(() => new Promise(r => setTimeout(r, 100))),
+      new Promise(r => setTimeout(r, 2000)),
+    ]);
   }
-  cardmapReady = CARDMAP_LOADED || CARD_VARIANTS.size > 0;
-  if (cardmapReady) {
+  cardmapReady = true; // allow draw even if cardmap failed (fallback to CryptoTarot1-78 paths)
+  if (CARDMAP_LOADED || CARD_VARIANTS.size > 0) {
     console.log(`✅ Cardmap ready: ${CARD_VARIANTS.size} cards loaded`);
   }
   return cardmapReady;
@@ -787,20 +788,10 @@ function resolveCardImage(card, useVariant = true, randomVariant = false) {
     return variants;
   }
 
-  // Priority order:
-  // 1. Try ai-generated directory first (assets/cards/ai-generated/{dirName}/v1.jpg, etc.)
-  // 2. Fallback to CryptoTarot1-78 directory
-  // 3. Final fallback to card back
-
-  // Try ai-generated first (primary source)
-  const aiPath = getCardImagePath(card, randomVariant);
-
-  // Also get CryptoTarot1-78 path as fallback
+  // Priority: CryptoTarot1-78 deck first (game reader deck), then ai-generated, then card back
   const cryptoPath = getCardImagePathFromCryptoTarot(card, randomVariant);
-
-  // Return ai-generated path (browser will handle 404 with onerror fallback)
-  // If ai-generated doesn't exist, the onerror handler will try cryptoPath
-  return aiPath || cryptoPath || CARD_BACK_IMAGE;
+  const aiPath = getCardImagePath(card, randomVariant);
+  return cryptoPath || aiPath || CARD_BACK_IMAGE;
 }
 
 // ========== Gallery Rendering ==========
@@ -1610,12 +1601,22 @@ function renderCardsFaceDown(cards) {
       <div class="rc-meaning" style="display: none;"></div>
     `;
 
-    // Add interaction handlers to flip card
-    el.addEventListener('click', () => flipSingleCard(el));
+    // Click: flip if face-down, open reading modal if already revealed
+    el.addEventListener('click', () => {
+      if (el.getAttribute('data-flipped') === 'true') {
+        if (modal) openModal(el.cardData);
+      } else {
+        flipSingleCard(el);
+      }
+    });
     el.addEventListener('keydown', ev => {
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault();
-        flipSingleCard(el);
+        if (el.getAttribute('data-flipped') === 'true') {
+          if (modal) openModal(el.cardData);
+        } else {
+          flipSingleCard(el);
+        }
       }
     });
 

@@ -247,6 +247,26 @@
       </section>
     </div>
 
+    <!-- Card reading modal: click a revealed card to see full meaning -->
+    <div id="cardModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal-dialog" role="document">
+        <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+        <div class="modal-body">
+          <img id="modalImg" alt="Selected tarot card" />
+          <div class="modal-content">
+            <h3 id="modalTitle"></h3>
+            <p id="modalMeta" class="note"></p>
+            <p id="modalCosmic" class="note"></p>
+            <p id="modalCrypto" class="note"></p>
+            <div class="modal-meanings">
+              <p id="modalUpright"></p>
+              <p id="modalReversed"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="script.js"></script>
   </body>
 </html>

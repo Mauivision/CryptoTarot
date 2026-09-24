@@ -17,7 +17,7 @@ export class ReadingHistory {
     const newReading = {
       id: Date.now().toString(),
       timestamp: new Date().toISOString(),
-      question: reading.question || 'What does my crypto future hold?',
+      question: reading.question || 'An open fortune',
       cards: reading.cards,
       spreadType: reading.spreadType || '3-card',
       reading: reading.reading || null,

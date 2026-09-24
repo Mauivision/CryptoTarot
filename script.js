@@ -45,13 +45,18 @@ const apiKeyModal = document.getElementById('apiKeyModal');
 const apiKeyInput = document.getElementById('apiKeyInput');
 const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
 const apiKeyClose = document.getElementById('apiKeyClose');
-const spreadTypeSelect = document.getElementById('spreadType');
+function chosenSpread() {
+  const picked = document.querySelector('input[name="spreadType"]:checked')?.value;
+  return picked === '1-card' ? '1-card' : '3-card';
+}
 const viewHistoryBtn = document.getElementById('viewHistoryBtn');
 const revealAllBtn = document.getElementById('revealAllBtn');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
 const printReadingBtn = document.getElementById('printReadingBtn');
 const cardCombinations = document.getElementById('cardCombinations');
 const countdownDisplay = document.getElementById('countdownTimer');
+const waitlistCta = document.getElementById('waitlistCta');
+const launchPlanLink = document.getElementById('launchPlanLink');
 const ambientAudioToggle = document.getElementById('ambientAudioToggle');
 
 // Analytics stub
@@ -86,16 +91,6 @@ function applyThemePreference(theme) {
   } catch (error) {
     console.warn('[CryptoTarot] Unable to store theme preference:', error);
   }
-}
-
-if (themeToggle) {
-  updateThemeToggleLabel(bootTheme === 'light');
-  themeToggle.addEventListener('click', () => {
-    const nextTheme =
-      document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    applyThemePreference(nextTheme);
-    trackEvent('theme_toggle', { theme: nextTheme });
-  });
 }
 
 // Initialize year
@@ -152,6 +147,16 @@ try {
   }
 } catch (error) {
   console.warn('[CryptoTarot] Unable to access theme preference:', error);
+}
+
+if (themeToggle) {
+  updateThemeToggleLabel(bootTheme === 'light');
+  themeToggle.addEventListener('click', () => {
+    const nextTheme =
+      document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    applyThemePreference(nextTheme);
+    trackEvent('theme_toggle', { theme: nextTheme });
+  });
 }
 
 let galleryImageObserver = null;
@@ -938,7 +943,9 @@ function openModal(card) {
   };
   modalTitle.textContent = card.title;
   const arcanaLabel = card.type === 'Major' ? 'Major Arcana' : `${card.suit} Suit`;
-  modalMeta.textContent = arcanaLabel;
+  modalMeta.textContent = card.orientation
+    ? `${arcanaLabel} · Drawn ${card.orientation}`
+    : arcanaLabel;
 
   const meta = CARD_MEANINGS[card.title] || {};
   if (modalCosmic) {
@@ -967,6 +974,8 @@ function openModal(card) {
 
   modalUpright.textContent = `Upright: ${uprightMeaning}`;
   modalReversed.textContent = `Reversed: ${reversedMeaning}`;
+  modalUpright.classList.toggle('is-drawn', card.orientation === 'Upright');
+  modalReversed.classList.toggle('is-drawn', card.orientation === 'Reversed');
 
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
@@ -1080,13 +1089,14 @@ function fisherYatesShuffle(array) {
 
 // ========== Reading Functions ==========
 function drawCards(spreadType = '3-card') {
+  const safeType = spreadType === '1-card' ? '1-card' : '3-card';
   if (!FULL_DECK || FULL_DECK.length === 0) {
     console.warn('Deck not loaded yet');
     return [];
   }
 
   try {
-    return drawCardsForSpread(FULL_DECK, spreadType);
+    return drawCardsForSpread(FULL_DECK, safeType);
   } catch (e) {
     console.error('Error drawing cards:', e);
     // Fallback - simple shuffle
@@ -1095,7 +1105,7 @@ function drawCards(spreadType = '3-card') {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    const spread = SPREAD_TYPES[spreadType] || SPREAD_TYPES['3-card'];
+    const spread = SPREAD_TYPES[safeType];
     return shuffled.slice(0, spread.cardCount).map((card, idx) => ({
       ...card,
       orientation: Math.random() > 0.5 ? 'Upright' : 'Reversed',
@@ -1302,7 +1312,6 @@ let currentQuestion = '';
 let currentSpreadType = '3-card';
 let currentReadingId = null;
 let shuffleCount = 0; // Track shuffle count for better randomness
-let currentReadingCards = [];
 
 // Preload a set of images to warm up cache
 function preloadImages(urls = [], timeoutMs = 5000) {
@@ -1329,168 +1338,168 @@ function preloadImages(urls = [], timeoutMs = 5000) {
 
 // Fortune Teller Reading - Draw cards based on selected spread
 async function performFortuneReading() {
-  // Ensure cardmap is loaded before drawing cards
-  await ensureCardmapLoaded();
+  if (performFortuneReading.running) return;
+  performFortuneReading.running = true;
+  if (drawCardsBtn) drawCardsBtn.disabled = true;
+  try {
+    await ensureCardmapLoaded();
 
-  currentQuestion = questionInput?.value.trim() || 'What does my crypto future hold?';
-  currentSpreadType = spreadTypeSelect?.value || '3-card';
+    currentQuestion = questionInput?.value.trim() || '';
+    currentSpreadType = chosenSpread();
 
-  // Increment shuffle count for additional entropy
-  shuffleCount++;
+    // Increment shuffle count for additional entropy
+    shuffleCount++;
 
-  // Show mystical prompt with shuffle animation
-  const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
-  if (!spread) {
-    console.error(`Invalid spread type: ${currentSpreadType}, defaulting to 3-card`);
-    currentSpreadType = '3-card';
-  }
-  // Disable share/print until reveal completes
-  if (copyLinkBtn) copyLinkBtn.disabled = true;
-  if (printReadingBtn) printReadingBtn.disabled = true;
-  if (readingStatus) {
-    readingStatus.textContent = `🔮 Shuffling the deck for ${spread.name}... Focus on your question...`;
-    readingStatus.className = 'reading-status loading';
-  }
-  if (readingCards) {
-    readingCards.innerHTML = '';
-    readingCards.style.display = 'flex';
-    readingCards.style.opacity = '0';
-    readingCards.style.visibility = 'visible';
-  }
-  if (readingSkeleton) {
-    readingSkeleton.classList.add('active');
-  }
-  if (fortuneReading) {
-    fortuneReading.classList.remove('show');
-    fortuneReading.innerHTML = '';
-    fortuneReading.classList.add('loading');
-    fortuneReading.style.display = 'block';
-  }
-  if (aiReading) {
-    aiReading.classList.remove('show');
-    aiReading.innerHTML = '';
-  }
-  if (cardCombinations) {
-    cardCombinations.style.display = 'none';
-    cardCombinations.innerHTML = '';
-  }
-
-  // Draw cards based on spread type
-  console.log(
-    `Drawing ${spread.cardCount} cards for ${currentSpreadType} spread | Shuffle #`,
-    shuffleCount
-  );
-  if (!FULL_DECK || FULL_DECK.length === 0) {
+    const spread = SPREAD_TYPES[currentSpreadType];
+    // Disable share/print until reveal completes
+    if (copyLinkBtn) copyLinkBtn.disabled = true;
+    if (printReadingBtn) printReadingBtn.disabled = true;
     if (readingStatus) {
-      readingStatus.textContent = 'Error: Deck not loaded. Please refresh the page.';
-      readingStatus.className = 'reading-status error';
+      readingStatus.textContent = `Shuffling the ${spread.name}…`;
+      readingStatus.className = 'reading-status loading';
+    }
+    if (readingCards) {
+      readingCards.innerHTML = '';
+      readingCards.style.display = 'flex';
+      readingCards.style.opacity = '0';
+      readingCards.style.visibility = 'visible';
     }
     if (readingSkeleton) {
-      readingSkeleton.classList.remove('active');
+      readingSkeleton.classList.add('active');
     }
+    if (fortuneReading) {
+      fortuneReading.classList.remove('show');
+      fortuneReading.innerHTML = '';
+      fortuneReading.classList.add('loading');
+      fortuneReading.style.display = 'block';
+    }
+    if (aiReading) {
+      aiReading.classList.remove('show');
+      aiReading.innerHTML = '';
+    }
+    if (cardCombinations) {
+      cardCombinations.style.display = 'none';
+      cardCombinations.innerHTML = '';
+    }
+
+    // Draw cards based on spread type
+    console.log(
+      `Drawing ${spread.cardCount} cards for ${currentSpreadType} spread | Shuffle #`,
+      shuffleCount
+    );
+    if (!FULL_DECK || FULL_DECK.length === 0) {
+      if (readingStatus) {
+        readingStatus.textContent = 'Error: Deck not loaded. Please refresh the page.';
+        readingStatus.className = 'reading-status error';
+      }
+      if (readingSkeleton) {
+        readingSkeleton.classList.remove('active');
+      }
+      if (readingCards) {
+        readingCards.style.display = 'flex';
+        readingCards.style.visibility = 'visible';
+        readingCards.style.opacity = '1';
+      }
+      if (fortuneReading) {
+        fortuneReading.classList.remove('loading');
+        fortuneReading.style.removeProperty('display');
+      }
+      if (drawCardsBtn) drawCardsBtn.disabled = false;
+      return;
+    }
+
+    // Add small delay for shuffle animation effect
+    await new Promise(resolve => setTimeout(resolve, 300 + (shuffleCount % 3) * 100));
+
+    const picks = drawCards(currentSpreadType);
+    console.log(
+      'Drew cards:',
+      picks.map(c => `${c.title} (${c.orientation})`)
+    );
+    currentReadingCards = picks;
+    trackEvent('spread_drawn', {
+      spreadType: currentSpreadType,
+      question: currentQuestion,
+      cards: picks.map(card => ({ title: card.title, orientation: card.orientation })),
+    });
+
+    // Add meanings to cards for combination analysis
+    picks.forEach(card => {
+      card.meaning = getCardMeaning(card.title, card.orientation);
+    });
+
+    // Preload images for the picked cards (random variants for uniqueness)
+    try {
+      const toPreload = picks.map(card => resolveCardImage(card, true, true)).filter(Boolean);
+      preloadImages(toPreload);
+    } catch (e) {
+      console.warn('Preload images failed:', e);
+    }
+
+    // Show cards face down initially, then auto-flip to show faces
+    renderCardsFaceDown(picks);
+    readingCards?.classList.remove('is-shuffling');
+    if (readingText) readingText.hidden = true;
+    if (drawCardsBtn) drawCardsBtn.textContent = 'Draw again';
+
+    // Ensure cards are visible immediately
     if (readingCards) {
       readingCards.style.display = 'flex';
       readingCards.style.visibility = 'visible';
       readingCards.style.opacity = '1';
     }
-    if (fortuneReading) {
-      fortuneReading.classList.remove('loading');
-      fortuneReading.style.removeProperty('display');
-    }
-    return;
-  }
 
-  // Add small delay for shuffle animation effect
-  await new Promise(resolve => setTimeout(resolve, 300 + (shuffleCount % 3) * 100));
-
-  const picks = drawCards(currentSpreadType);
-  console.log(
-    'Drew cards:',
-    picks.map(c => `${c.title} (${c.orientation})`)
-  );
-  currentReadingCards = picks;
-  trackEvent('spread_drawn', {
-    spreadType: currentSpreadType,
-    question: currentQuestion,
-    cards: picks.map(card => ({ title: card.title, orientation: card.orientation })),
-  });
-
-  // Add meanings to cards for combination analysis
-  picks.forEach(card => {
-    card.meaning = getCardMeaning(card.title, card.orientation);
-  });
-
-  // Preload images for the picked cards (random variants for uniqueness)
-  try {
-    const toPreload = picks.map(card => resolveCardImage(card, true, true)).filter(Boolean);
-    preloadImages(toPreload);
-  } catch (e) {
-    console.warn('Preload images failed:', e);
-  }
-
-  // Show cards face down initially, then auto-flip to show faces
-  renderCardsFaceDown(picks);
-  readingCards?.classList.remove('is-shuffling');
-
-  // Ensure cards are visible immediately
-  if (readingCards) {
-    readingCards.style.display = 'flex';
-    readingCards.style.visibility = 'visible';
-    readingCards.style.opacity = '1';
-  }
-
-  // Auto-flip cards one at a time for smooth performance
-  const prefersReduced =
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  setTimeout(
-    () => {
-      const cardElements = Array.from(readingCards.querySelectorAll('.reading-card'));
-      let currentIndex = 0;
-
-      function flipNextCard() {
-        if (currentIndex < cardElements.length) {
-          const card = cardElements[currentIndex];
-          if (card.getAttribute('data-flipped') !== 'true') {
-            flipSingleCard(card);
-          }
-          currentIndex++;
-          // Wait for current flip to complete before next
-          if (currentIndex < cardElements.length) {
-            setTimeout(flipNextCard, prefersReduced ? 0 : 600); // One at a time
-          }
-        }
-      }
-
-      flipNextCard();
-    },
-    prefersReduced ? 0 : 800
-  ); // Start after cards appear
-
-  // Smooth scroll to cards
-  setTimeout(() => {
-    readingCards?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
-
-  // Update status to instruct user to click
-  if (readingStatus) {
-    const cardWord = spread.cardCount === 1 ? 'card' : 'cards';
-    readingStatus.textContent = `✨ ${spread.cardCount} ${cardWord} drawn for the ${spread.name} spread. Cards are revealing...`;
-    readingStatus.className = 'reading-status';
-    readingStatus.style.opacity = '0';
-    readingStatus.style.transform = 'translateY(-10px)';
-    setTimeout(() => {
-      readingStatus.style.transition = 'opacity .5s ease, transform .5s ease';
-      readingStatus.style.opacity = '1';
-      readingStatus.style.transform = 'translateY(0)';
-    }, 300);
-
-    // Update message after cards flip (one at a time = cardCount * 600ms)
+    // Auto-flip cards one at a time for smooth performance
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setTimeout(
       () => {
-        readingStatus.textContent = `✨ Your cards are revealed! Click any card to see detailed meanings and insights.`;
+        const cardElements = Array.from(readingCards.querySelectorAll('.reading-card'));
+        let currentIndex = 0;
+
+        function flipNextCard() {
+          if (currentIndex < cardElements.length) {
+            const card = cardElements[currentIndex];
+            if (card.getAttribute('data-flipped') !== 'true') {
+              flipSingleCard(card);
+            }
+            currentIndex++;
+            // Wait for current flip to complete before next
+            if (currentIndex < cardElements.length) {
+              setTimeout(flipNextCard, prefersReduced ? 0 : 600); // One at a time
+            }
+          }
+        }
+
+        flipNextCard();
       },
-      800 + spread.cardCount * 600
-    );
+      prefersReduced ? 0 : 800
+    ); // Start after cards appear
+
+    // Smooth scroll to cards
+    setTimeout(() => {
+      readingCards?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+
+    // Update status to instruct user to click
+    if (readingStatus) {
+      const cardWord = spread.cardCount === 1 ? 'card' : 'cards';
+      readingStatus.textContent = `${spread.cardCount} ${cardWord} drawn. Turning them over…`;
+      readingStatus.className = 'reading-status';
+      readingStatus.style.opacity = '0';
+      readingStatus.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        readingStatus.style.transition = 'opacity .5s ease, transform .5s ease';
+        readingStatus.style.opacity = '1';
+        readingStatus.style.transform = 'translateY(0)';
+      }, 300);
+    }
+  } finally {
+    performFortuneReading.running = false;
+    if (drawCardsBtn) {
+      drawCardsBtn.disabled = false;
+      drawCardsBtn.textContent = 'Draw again';
+    }
   }
 }
 
@@ -1533,6 +1542,7 @@ revealAllBtn?.addEventListener('click', () => {
 function renderCardsFaceDown(cards) {
   if (!readingCards) return;
   readingCards.innerHTML = '';
+  readingCards.classList.toggle('is-single', currentSpreadType === '1-card');
   // Ensure cards container is always visible
   readingCards.style.display = 'flex';
   readingCards.style.visibility = 'visible';
@@ -1585,7 +1595,6 @@ function renderCardsFaceDown(cards) {
             <div style="position: relative; z-index: 2; text-align: center;">
               <div class="card-icon">🔮</div>
               <div style="font-weight: 600; margin-top: 8px;">${escapeHtml(positionLabel)}</div>
-              <div style="font-size: 11px; margin-top: 6px; opacity: 0.7;">Click to reveal</div>
             </div>
           </div>
         </div>
@@ -1670,134 +1679,12 @@ function flipSingleCard(cardElement) {
     const reversedText = meanings.reversed || cardData.meaning || 'Meaning not available';
     const meaningText = cardData.orientation === 'Upright' ? uprightText : reversedText;
 
-    // Get additional card info
-    const cryptoFlavor = meanings.cryptoFlavor || '';
-    const strategy = meanings.strategy || '';
-    const gameMech = meanings.gameMechanics || null;
-
     meaningEl.innerHTML = `
-      <div class="card-meaning-popup">
-        <strong style="color: var(--primary); display: block; margin-bottom: 14px; font-size: 17px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700;">${escapeHtml(cardData.position)}</strong>
-        <div style="margin-bottom: 16px;">
-          <p style="margin: 0 0 12px; color: var(--text); font-size: 16px; line-height: 1.8; font-weight: 500;">${escapeHtml(meaningText)}</p>
-        </div>
-        ${
-          cryptoFlavor
-            ? `
-          <div style="margin-top: 14px; padding: 12px; background: rgba(212, 175, 55, 0.15); border-left: 3px solid var(--primary); border-radius: 8px;">
-            <p style="margin: 0; color: var(--primary); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Crypto Insight:</p>
-            <p style="margin: 6px 0 0; color: var(--text); font-size: 14px; line-height: 1.7;">${escapeHtml(cryptoFlavor)}</p>
-          </div>
-        `
-            : ''
-        }
-        ${
-          strategy
-            ? `
-          <div style="margin-top: 12px; padding: 12px; background: rgba(155, 89, 182, 0.15); border-left: 3px solid var(--accent); border-radius: 8px;">
-            <p style="margin: 0; color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Strategy:</p>
-            <p style="margin: 6px 0 0; color: var(--text); font-size: 14px; line-height: 1.7;">${escapeHtml(strategy)}</p>
-          </div>
-        `
-            : ''
-        }
-        ${
-          gameMech
-            ? `
-          <div style="margin-top: 12px; padding: 12px; background: rgba(108, 92, 231, 0.15); border-left: 3px solid var(--secondary); border-radius: 8px;">
-            <p style="margin: 0; color: var(--secondary); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Game: ${gameMech.rarity || 'N/A'}</p>
-            ${gameMech.type === 'spell' ? `<p style="margin: 6px 0 0; color: var(--text); font-size: 14px; line-height: 1.7;">${gameMech.spellUpright || ''} / ${gameMech.spellReversed || ''}</p>` : ''}
-            ${gameMech.type === 'unit' ? `<p style="margin: 6px 0 0; color: var(--text); font-size: 14px; line-height: 1.7;">Value: ${gameMech.value || 0} | Power: ${gameMech.power || 0}</p>` : ''}
-          </div>
-        `
-            : ''
-        }
-        ${
-          cardData.cosmic
-            ? `
-          <div style="margin-top: 14px; padding-top: 14px; border-top: 2px solid rgba(212, 175, 55, 0.3);">
-            <p style="margin: 0 0 6px; color: var(--primary); font-size: 13px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700;">Cosmic: ${escapeHtml(cardData.cosmic.anchor || '')}</p>
-            ${cardData.cosmic.element ? `<p style="margin: 4px 0; color: var(--text); font-size: 13px; font-weight: 500;">${escapeHtml(cardData.cosmic.element)} • ${escapeHtml(cardData.cosmic.modality || '')}</p>` : ''}
-            ${cardData.cosmic.keywords ? `<p style="margin: 6px 0 0; color: var(--muted); font-size: 13px; font-style: italic; line-height: 1.6;">${escapeHtml(cardData.cosmic.keywords)}</p>` : ''}
-          </div>
-        `
-            : ''
-        }
-      </div>
+      <p class="fortune-caption">
+        <span class="fortune-position">${escapeHtml(cardData.position)}</span>
+        <span class="fortune-line">${escapeHtml(meaningText)}</span>
+      </p>
     `;
-    // Inject TL;DR and Upright/Reversed tabs
-    try {
-      const popup = meaningEl.querySelector('.card-meaning-popup');
-      const firstBlock = popup?.querySelector('strong')?.nextElementSibling;
-      const tldrSource =
-        (meanings.tldr || '').trim() || (uprightText || '').split(/[.!?]/)[0] || '';
-      const tldr =
-        tldrSource.length > 0
-          ? tldrSource.length > 140
-            ? `${tldrSource.slice(0, 140)}…`
-            : tldrSource
-          : '';
-      if (popup && firstBlock) {
-        const tldrDiv = document.createElement('div');
-        tldrDiv.style.marginBottom = '12px';
-        tldrDiv.style.padding = '12px';
-        tldrDiv.style.background = 'rgba(212, 175, 55, 0.12)';
-        tldrDiv.style.borderLeft = '3px solid var(--primary)';
-        tldrDiv.style.borderRadius = '8px';
-        tldrDiv.innerHTML = `
-          <p style="margin:0; color: var(--primary); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;">TL;DR</p>
-          <p style="margin:6px 0 0; color: var(--text); font-size: 14px; line-height: 1.7;">${escapeHtml(tldr)}</p>
-        `;
-        const tabsDiv = document.createElement('div');
-        tabsDiv.className = 'meaning-tabs';
-        tabsDiv.setAttribute('role', 'tablist');
-        tabsDiv.style.display = 'flex';
-        tabsDiv.style.gap = '8px';
-        tabsDiv.style.margin = '12px 0';
-        tabsDiv.innerHTML = `
-          <button class="tab-btn" data-tab="upright" role="tab" aria-selected="false" style="padding:8px 12px; border:1px solid rgba(212,175,55,.4); border-radius:8px; background:transparent; color:var(--text); cursor:pointer;">Upright</button>
-          <button class="tab-btn" data-tab="reversed" role="tab" aria-selected="false" style="padding:8px 12px; border:1px solid rgba(212,175,55,.2); border-radius:8px; background:transparent; color:var(--text); cursor:pointer;">Reversed</button>
-        `;
-        const panesDiv = document.createElement('div');
-        panesDiv.className = 'meaning-panes';
-        const paneU = document.createElement('div');
-        paneU.className = 'pane';
-        paneU.setAttribute('data-pane', 'upright');
-        paneU.style.display = 'none';
-        paneU.style.marginBottom = '12px';
-        paneU.innerHTML = `<p style="margin:0 0 12px; color: var(--text); font-size:16px; line-height:1.8; font-weight:500;">${escapeHtml(uprightText)}</p>`;
-        const paneR = document.createElement('div');
-        paneR.className = 'pane';
-        paneR.setAttribute('data-pane', 'reversed');
-        paneR.style.display = 'none';
-        paneR.style.marginBottom = '12px';
-        paneR.innerHTML = `<p style="margin:0 0 12px; color: var(--text); font-size:16px; line-height:1.8; font-weight:500;">${escapeHtml(reversedText)}</p>`;
-        panesDiv.appendChild(paneU);
-        panesDiv.appendChild(paneR);
-        popup.insertBefore(tldrDiv, firstBlock);
-        popup.insertBefore(tabsDiv, firstBlock);
-        popup.insertBefore(panesDiv, firstBlock);
-        popup.removeChild(firstBlock);
-        const tabs = tabsDiv.querySelectorAll('.tab-btn');
-        const panes = panesDiv.querySelectorAll('.pane');
-        function setActive(tab) {
-          tabs.forEach(b => {
-            const active = b.getAttribute('data-tab') === tab;
-            b.setAttribute('aria-selected', active ? 'true' : 'false');
-            b.style.borderColor = active ? 'var(--primary)' : 'rgba(212,175,55,.2)';
-            b.style.background = active ? 'rgba(212,175,55,.12)' : 'transparent';
-          });
-          panes.forEach(p => {
-            p.style.display = p.getAttribute('data-pane') === tab ? 'block' : 'none';
-          });
-        }
-        const initialTab = cardData.orientation === 'Upright' ? 'upright' : 'reversed';
-        setActive(initialTab);
-        tabs.forEach(b => b.addEventListener('click', () => setActive(b.getAttribute('data-tab'))));
-      }
-    } catch (e) {
-      console.warn('Meaning tabs injection failed:', e);
-    }
     meaningEl.style.display = 'block';
     meaningEl.style.opacity = '0';
     meaningEl.style.transform = 'translateY(10px)';
@@ -1837,7 +1724,7 @@ function flipSingleCard(cardElement) {
       }
 
       if (readingStatus) {
-        readingStatus.textContent = `📖 All ${spread.cardCount} cards revealed! Your reading is below.`;
+        readingStatus.textContent = 'Your fortune is on the table.';
         readingStatus.className = 'reading-status';
         readingStatus.style.opacity = '0';
         readingStatus.style.transform = 'translateY(-5px)';
@@ -1847,13 +1734,8 @@ function flipSingleCard(cardElement) {
           readingStatus.style.transform = 'translateY(0)';
         }, 100);
       }
-      // Enable share/print controls
       if (copyLinkBtn) copyLinkBtn.disabled = false;
       if (printReadingBtn) printReadingBtn.disabled = false;
-      // Smooth scroll to reading after animations
-      setTimeout(() => {
-        fortuneReading?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 1000);
     }, 600); // Reduced delay for faster flow
   }
 }
@@ -1919,59 +1801,25 @@ function displayCardCombinations(combinations) {
 function displayFortuneReading(question, cards) {
   if (!fortuneReading) return;
 
-  const spread = SPREAD_TYPES[currentSpreadType];
+  const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
   const positions = spread.positions;
 
-  // Build simplified, action-oriented readings
   const mysticalOpenings = [
-    'Welcome, seeker of digital destinies... The cards have chosen to reveal their wisdom to you.',
-    'Ah, traveler of the blockchain realm... The oracle has heard your question and the cards respond.',
-    'In this sacred moment, the cards align... Their message flows from the digital ether to your heart.',
-    'The mystical deck awakens... Three cards emerge, each holding a piece of your story.',
-    "Sit in the glow of the fortune teller's palace... The cards sense your energy and prepare to speak.",
+    'The deck has something to show you.',
+    'A hush falls over the table. The cards are ready.',
+    'Fate shuffled. Here is what turned up.',
   ];
   const opening = mysticalOpenings[Math.floor(Math.random() * mysticalOpenings.length)];
 
-  // Build advisory lines for each card
-  function buildAdvisoryLine(title, orientation, position, baseMeaning) {
-    const isUpright = orientation === 'Upright';
-    const verb = isUpright ? 'Do' : 'Avoid';
-    const nudge = isUpright ? 'lean into' : 'reduce exposure to';
-    const focus = baseMeaning ? baseMeaning.toLowerCase() : title;
-    if (position === 'Past')
-      return `${verb}: Keep what works from your past with ${title}; ${nudge} patterns that drain you.`;
-    if (position === 'Present')
-      return `${verb}: Take one clear step today guided by ${title}; ${nudge} distraction—act simply.`;
-    return `${verb}: Prepare for what ${title} signals; ${nudge} rushed decisions—plan now.`;
-  }
-
-  // Build suggestions list
-  function buildSuggestions(cardReadings) {
-    const tips = [];
-    cardReadings.forEach(entry => {
-      const sentence = (entry.advisory || '').split('.').shift();
-      if (sentence && tips.length < 4) tips.push(`${sentence.trim()}.`);
-    });
-    if (tips.length < 4) tips.push('DYOR: Verify claims, read docs, and confirm contract safety.');
-    if (tips.length < 4)
-      tips.push('Risk-manage: Size positions, avoid overexposure, keep dry powder.');
-    return tips;
-  }
-
   const cardReadings = cards.map((card, idx) => {
     const meaning = getCardMeaning(card.title, card.orientation);
-    const cosmic = getCosmicData(card.title);
-    const advisory = buildAdvisoryLine(card.title, card.orientation, positions[idx], meaning);
     const meta = CARD_MEANINGS[card.title] || {};
     return {
       position: positions[idx],
       title: card.title,
       orientation: card.orientation,
       meaning,
-      advisory,
-      cosmic,
-      meta,
-      originalCard: card,
+      flavor: meta.cryptoFlavor || '',
     };
   });
 
@@ -1981,16 +1829,8 @@ function displayFortuneReading(question, cards) {
       ...cards[idx],
       position: entry.position,
       meaning: entry.meaning,
-      cosmic: entry.cosmic,
-      meta: entry.meta,
-      advisory: entry.advisory,
     };
   });
-
-  const safeQuestion =
-    question && question.trim().length
-      ? escapeHtml(question.trim())
-      : 'What does my crypto future hold?';
 
   const introHtml = `
     <div class="fortune-reading-intro">
@@ -1998,65 +1838,24 @@ function displayFortuneReading(question, cards) {
     </div>
   `;
 
-  const questionHtml = `
+  const questionHtml =
+    question && question.trim().length
+      ? `
     <div class="fortune-question">
-      <strong>Question:</strong> <em>"${safeQuestion}"</em>
+      <strong>You asked:</strong> <em>"${escapeHtml(question.trim())}"</em>
     </div>
-  `;
+  `
+      : '';
 
   const cardSections = cardReadings
     .map((entry, index) => {
-      const { meta, cosmic, originalCard } = entry;
       const orientationClass =
         entry.orientation === 'Upright'
           ? 'orientation-chip'
           : 'orientation-chip orientation-reversed';
-
-      const tags = [];
-      if (cosmic?.anchor)
-        tags.push(`<span class="card-tag">Cosmic: ${escapeHtml(cosmic.anchor)}</span>`);
-      if (meta.arcana) tags.push(`<span class="card-tag">${escapeHtml(meta.arcana)}</span>`);
-      if (originalCard?.suit && originalCard.suit !== 'Major') {
-        tags.push(`<span class="card-tag">${escapeHtml(originalCard.suit)} Suit</span>`);
-      }
-
-      const detailLines = [`<p>${escapeHtml(entry.meaning)}</p>`];
-
-      if (meta.cryptoFlavor)
-        detailLines.push(`<p><strong>Crypto Flavor:</strong> ${escapeHtml(meta.cryptoFlavor)}</p>`);
-      if (meta.educationalInsight)
-        detailLines.push(
-          `<p><strong>Educational Insight:</strong> ${escapeHtml(meta.educationalInsight)}</p>`
-        );
-      if (meta.foresight)
-        detailLines.push(`<p><strong>Foresight:</strong> ${escapeHtml(meta.foresight)}</p>`);
-      if (meta.strategy)
-        detailLines.push(`<p><strong>Strategy:</strong> ${escapeHtml(meta.strategy)}</p>`);
-
-      const cosmicDetail = cosmic
-        ? `
-      <div class="card-detail-grid">
-        ${cosmic.anchor ? `<p><strong>Anchor:</strong> ${escapeHtml(cosmic.anchor)}</p>` : ''}
-        ${cosmic.element ? `<p><strong>Element:</strong> ${escapeHtml(cosmic.element)}</p>` : ''}
-        ${cosmic.modality ? `<p><strong>Modality:</strong> ${escapeHtml(cosmic.modality)}</p>` : ''}
-        ${cosmic.numerology ? `<p><strong>Numerology:</strong> ${escapeHtml(cosmic.numerology)}</p>` : ''}
-        ${cosmic.window ? `<p><strong>Window:</strong> ${escapeHtml(cosmic.window)}</p>` : ''}
-      </div>
-      ${cosmic.keywords ? `<p>${escapeHtml(cosmic.keywords)}</p>` : ''}
-    `
+      const flavor = entry.flavor
+        ? `<p class="fortune-flavor">${escapeHtml(entry.flavor)}</p>`
         : '';
-
-      const detailsHtml =
-        detailLines.length || cosmicDetail
-          ? `<details class="card-details">
-          <summary>Detailed meaning & lore</summary>
-          ${detailLines.join('')}
-          ${cosmicDetail}
-        </details>`
-          : '';
-
-      const tagHtml = tags.length ? `<div class="fortune-card-tags">${tags.join('')}</div>` : '';
-
       return `
       <article class="fortune-card-section" data-card-index="${index}">
         <header class="fortune-card-header">
@@ -2066,39 +1865,25 @@ function displayFortuneReading(question, cards) {
           </div>
           <span class="${orientationClass}">${escapeHtml(entry.orientation)}</span>
         </header>
-        ${tagHtml}
-        <p class="card-meaning-main">${escapeHtml(entry.advisory)}</p>
-        ${detailsHtml}
+        <p class="card-meaning-main">${escapeHtml(entry.meaning)}</p>
+        ${flavor}
       </article>
     `;
     })
     .join('');
 
-  const suggestionItems = buildSuggestions(cardReadings);
-  const suggestionsHtml = suggestionItems.length
-    ? `
-    <div class="fortune-synthesis">
-      <h4 class="fortune-synthesis-title">Suggested actions</h4>
-      <ul class="fortune-suggestions">
-        ${suggestionItems.map(tip => `<li>${escapeHtml(tip)}</li>`).join('')}
-      </ul>
-    </div>
-  `
-    : '';
-
   const closingHtml = `
     <div class="fortune-closing">
-      ✨ For entertainment purposes only. Not financial advice. Always DYOR (Do Your Own Research). ✨
+      A playful reading. Entertainment only — not financial advice.
     </div>
   `;
 
   fortuneReading.innerHTML = `
-    <h3>🔮 The Fortune Teller's Reading</h3>
+    <h3>Your fortune</h3>
     <div class="fortune-reading-content">
       ${introHtml}
       ${questionHtml}
       ${cardSections}
-      ${suggestionsHtml}
       ${closingHtml}
     </div>
   `;
@@ -2288,12 +2073,31 @@ function getFallbackReading(question, cards) {
 }
 
 // Event listeners for fortune teller game
+function syncSpreadPreview() {
+  if (!readingCards || readingCards.querySelector('.card-inner')) return;
+  const count = chosenSpread() === '1-card' ? 1 : 3;
+  readingCards.classList.toggle('is-single', count === 1);
+  readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
+    card.hidden = index >= count;
+  });
+}
+
+document.querySelectorAll('input[name="spreadType"]').forEach(input => {
+  input.addEventListener('change', syncSpreadPreview);
+});
+
+questionInput?.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  drawCardsBtn?.click();
+});
+
 if (drawCardsBtn) {
   drawCardsBtn.addEventListener('click', e => {
     e.preventDefault();
     // console.log('Draw cards button clicked');
     trackEvent('draw_button_clicked', {
-      spreadType: spreadTypeSelect?.value || '3-card',
+      spreadType: chosenSpread(),
       question: questionInput?.value?.trim() || '',
     });
     try {
@@ -2380,7 +2184,10 @@ function showReadingHistory() {
   trackEvent('reading_history_opened', { count });
 
   if (count === 0) {
-    alert('No readings saved yet. Draw some cards to create your first reading!');
+    if (readingStatus) {
+      readingStatus.textContent = 'No past readings yet. Draw a fortune and it will be kept here.';
+      readingStatus.className = 'reading-status';
+    }
     return;
   }
 
@@ -2397,12 +2204,18 @@ function showReadingHistory() {
           ${readings
             .map(reading => {
               const date = new Date(reading.timestamp).toLocaleString();
+              const spreadLabel =
+                reading.spreadType === '1-card'
+                  ? 'One card'
+                  : reading.spreadType === '3-card'
+                    ? 'Three cards'
+                    : reading.spreadType;
               return `
-              <div style="margin-bottom: 16px; padding: 16px; background: rgba(45,27,78,.4); border-radius: 12px; border-left: 3px solid var(--primary);">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+              <div class="history-item">
+                <div class="history-item-head">
                   <div>
-                    <strong style="color: var(--primary);">${date}</strong>
-                    <p style="margin: 4px 0; color: var(--muted); font-size: 13px;">${reading.spreadType} • ${reading.question}</p>
+                    <strong>${date}</strong>
+                    <p>${escapeHtml(spreadLabel)} · ${escapeHtml(reading.question || 'An open fortune')}</p>
                   </div>
                   <div style="display: flex; gap: 8px;">
                     <button onclick="window.shareReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">📋</button>
@@ -2410,7 +2223,7 @@ function showReadingHistory() {
                   </div>
                 </div>
                 <div style="color: var(--text); font-size: 13px;">
-                  ${reading.cards.map(c => `${c.position}: ${c.title} (${c.orientation})`).join(' • ')}
+                  ${reading.cards.map(c => `${escapeHtml(c.position)}: ${escapeHtml(c.title)} (${escapeHtml(c.orientation)})`).join(' • ')}
                 </div>
               </div>
             `;
@@ -2481,13 +2294,16 @@ function initializePage() {
 
   // Load card variants
   loadCardVariants();
+  syncSpreadPreview();
 
   // Ensure reading section is visible immediately
   const readingSection = document.getElementById('reading');
   if (readingSection) {
-    readingSection.style.display = 'flex';
     readingSection.style.visibility = 'visible';
     readingSection.style.opacity = '1';
+    if (!document.body.classList.contains('fortune-game')) {
+      readingSection.style.display = 'flex';
+    }
   }
 
   // Render gallery immediately with all cards

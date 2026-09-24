@@ -1868,6 +1868,7 @@ function displayFortuneReading(question, cards) {
       ${askedHtml}
       ${beatsHtml}
       <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.beats[0] ? `Your card is ${parts.beats[0].identity}. ${parts.tie}` : parts.tie)}</p>
+      <p class="fortune-again"><button type="button" class="btn btn-primary" data-draw-again>Draw again</button></p>
       <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
   `;
@@ -2208,6 +2209,11 @@ if (viewHistoryBtn) {
     showReadingHistory();
   });
 }
+
+fortuneReading?.addEventListener('click', event => {
+  if (!event.target.closest('[data-draw-again]')) return;
+  drawCardsBtn?.click();
+});
 
 function showReadingHistory() {
   const readings = readingHistory.getAllReadings();

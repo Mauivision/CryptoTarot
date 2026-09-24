@@ -1030,10 +1030,20 @@ body.fortune-game {
   font-size: 18px;
 }
 
+.fortune-game .fortune-reading {
+  margin-top: 12px;
+  padding: 18px 16px 16px;
+}
+
 .fortune-game .special-ask {
   margin: 0 0 12px;
   text-align: center;
   font-style: italic;
+}
+
+.fortune-game .fortune-again {
+  margin: 16px 0 0;
+  text-align: center;
 }
 
 .fortune-game .fortune-beats {

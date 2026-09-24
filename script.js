@@ -1696,6 +1696,7 @@ function flipSingleCard(cardElement) {
       <p class="fortune-caption">
         <span class="fortune-line">${escapeHtml(cardData.title)}</span>
         <span class="special-meta">${escapeHtml(suitLabel)} · ${escapeHtml(cardData.orientation)}</span>
+        <span class="fortune-meaning">${escapeHtml(cardData.meaning || '')}</span>
       </p>
     `;
     meaningEl.style.display = 'block';
@@ -1848,26 +1849,14 @@ function displayFortuneReading(question, cards) {
   const askedHtml = parts.asked
     ? `<p class="special-ask">You asked, “${escapeHtml(parts.asked)}”</p>`
     : '';
-  const beatsHtml =
-    parts.beats.length > 1
-      ? `<ul class="fortune-beats">${parts.beats
-          .map(
-            beat => `
-        <li>
-          <span class="fortune-position">${escapeHtml(beat.position)}</span>
-          <span class="beat-title">${escapeHtml(beat.title)} · ${escapeHtml(beat.way)}</span>
-          <span>${escapeHtml(beat.meaning)}</span>
-        </li>`
-          )
-          .join('')}</ul>`
-      : '';
+  const story =
+    parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : 'Sit with that picture.';
 
   fortuneReading.innerHTML = `
     <h3>Your fortune</h3>
     <div class="fortune-reading-content">
       ${askedHtml}
-      ${beatsHtml}
-      <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.beats[0] ? `Your card is ${parts.beats[0].identity}. ${parts.tie}` : parts.tie)}</p>
+      <p class="special-fortune">${escapeHtml(story)}</p>
       <p class="fortune-again"><button type="button" class="btn btn-primary" data-draw-again>Draw again</button></p>
       <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
@@ -1887,7 +1876,7 @@ function displayFortuneReading(question, cards) {
     fortuneReading.style.transform = 'translateY(0)';
     const reduceMotion =
       window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    fortuneReading.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+    readingCards?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
 
     // Animate reading sections one by one for fluid flow
     const sections = fortuneReading.querySelectorAll(

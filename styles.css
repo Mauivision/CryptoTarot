@@ -1285,6 +1285,14 @@ body.fortune-game {
   line-height: 1.45;
 }
 
+.fortune-meaning {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
 .reading-hint,
 .fortune-quiet {
   text-align: center;

@@ -752,9 +752,20 @@ async function loadCardVariants() {
   }
 }
 
-// Consistent card back image for all face-down cards
-// Using JPG card back from tools directory (no SVG)
-const CARD_BACK_IMAGE = 'tools/CryptoTarot1-78/Cardback-01.jpg';
+// Face-down backs already painted in the deck folder. A three-card draw uses
+// three of them, in the same order as the waiting table. A one-card draw uses
+// the center back. Cardback-01 stays the fallback when a face is missing.
+const CARD_BACKS = [
+  'tools/CryptoTarot1-78/Cardback-01.jpg',
+  'tools/CryptoTarot1-78/Cardback-03.jpg',
+  'tools/CryptoTarot1-78/Cardback-05.jpg',
+];
+const CARD_BACK_IMAGE = CARD_BACKS[0];
+
+function cardBackForSeat(index, spreadType = currentSpreadType) {
+  if (spreadType === '1-card') return CARD_BACKS[1];
+  return CARD_BACKS[index % CARD_BACKS.length];
+}
 
 // Don't block draws: wait for cardmap with timeout so reader always works
 let cardmapReady = false;
@@ -1610,7 +1621,7 @@ function renderCardsFaceDown(cards) {
       <div class="card-inner">
         <div class="card-front">
           <div class="card-front-content">
-            <img src="${CARD_BACK_IMAGE}" alt="Card Back" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 16px;" />
+            <img src="${cardBackForSeat(idx)}" alt="Card back" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 16px;" />
             <div style="position: relative; z-index: 2; text-align: center;">
               <div class="card-icon">🔮</div>
               <div style="font-weight: 600; margin-top: 8px;">${escapeHtml(positionLabel)}</div>

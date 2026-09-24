@@ -1625,18 +1625,10 @@ function renderCardsFaceDown(cards) {
         <div class="card-front">
           <div class="card-front-content">
             <img src="${cardBackForSeat(idx)}" alt="Card back" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 16px;" />
-            <div style="position: relative; z-index: 2; text-align: center;">
-              <div class="card-icon">🔮</div>
-              <div style="font-weight: 600; margin-top: 8px;">${escapeHtml(positionLabel)}</div>
-            </div>
           </div>
         </div>
         <div class="card-back ${recognized.orientation === 'Reversed' ? 'reversed' : ''}">
           <img src="${cardImageSrc || CARD_BACK_IMAGE}" alt="${escapeHtml(faceAlt)}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackPath}';" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div class="card-back-overlay">
-            <div class="card-title">${escapeHtml(recognized.title)}</div>
-            <div class="card-orientation">${escapeHtml(recognized.orientation)}</div>
-          </div>
         </div>
       </div>
       <div class="rc-meta" style="display: none;"></div>

@@ -49,14 +49,20 @@
           autocomplete="off"
         />
 
-        <div class="fortune-draw-row">
-          <div class="fortune-spread-field">
-            <label class="fortune-label" for="spreadType">How many cards</label>
-            <select id="spreadType" class="fortune-spread">
-              <option value="1-card">One card</option>
-              <option value="3-card" selected>Three cards</option>
-            </select>
+        <fieldset class="spread-choice">
+          <legend class="fortune-label">How many cards</legend>
+          <div class="spread-options">
+            <label class="spread-option">
+              <input type="radio" name="spreadType" value="1-card" />
+              <span>One card</span>
+            </label>
+            <label class="spread-option">
+              <input type="radio" name="spreadType" value="3-card" checked />
+              <span>Three cards</span>
+            </label>
           </div>
+        </fieldset>
+        <div class="fortune-actions">
           <button id="drawCardsBtn" class="btn btn-primary" type="button">Draw my fortune</button>
         </div>
 

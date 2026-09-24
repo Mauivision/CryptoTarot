@@ -45,7 +45,10 @@ const apiKeyModal = document.getElementById('apiKeyModal');
 const apiKeyInput = document.getElementById('apiKeyInput');
 const saveApiKeyBtn = document.getElementById('saveApiKeyBtn');
 const apiKeyClose = document.getElementById('apiKeyClose');
-const spreadTypeSelect = document.getElementById('spreadType');
+function chosenSpread() {
+  const picked = document.querySelector('input[name="spreadType"]:checked')?.value;
+  return picked === '1-card' ? '1-card' : '3-card';
+}
 const viewHistoryBtn = document.getElementById('viewHistoryBtn');
 const revealAllBtn = document.getElementById('revealAllBtn');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
@@ -1342,7 +1345,7 @@ async function performFortuneReading() {
     await ensureCardmapLoaded();
 
     currentQuestion = questionInput?.value.trim() || '';
-    currentSpreadType = spreadTypeSelect?.value === '1-card' ? '1-card' : '3-card';
+    currentSpreadType = chosenSpread();
 
     // Increment shuffle count for additional entropy
     shuffleCount++;
@@ -1539,6 +1542,7 @@ revealAllBtn?.addEventListener('click', () => {
 function renderCardsFaceDown(cards) {
   if (!readingCards) return;
   readingCards.innerHTML = '';
+  readingCards.classList.toggle('is-single', currentSpreadType === '1-card');
   // Ensure cards container is always visible
   readingCards.style.display = 'flex';
   readingCards.style.visibility = 'visible';
@@ -2071,13 +2075,16 @@ function getFallbackReading(question, cards) {
 // Event listeners for fortune teller game
 function syncSpreadPreview() {
   if (!readingCards || readingCards.querySelector('.card-inner')) return;
-  const count = spreadTypeSelect?.value === '1-card' ? 1 : 3;
+  const count = chosenSpread() === '1-card' ? 1 : 3;
+  readingCards.classList.toggle('is-single', count === 1);
   readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
     card.hidden = index >= count;
   });
 }
 
-spreadTypeSelect?.addEventListener('change', syncSpreadPreview);
+document.querySelectorAll('input[name="spreadType"]').forEach(input => {
+  input.addEventListener('change', syncSpreadPreview);
+});
 
 questionInput?.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
@@ -2090,7 +2097,7 @@ if (drawCardsBtn) {
     e.preventDefault();
     // console.log('Draw cards button clicked');
     trackEvent('draw_button_clicked', {
-      spreadType: spreadTypeSelect?.value || '3-card',
+      spreadType: chosenSpread(),
       question: questionInput?.value?.trim() || '',
     });
     try {
@@ -2197,12 +2204,18 @@ function showReadingHistory() {
           ${readings
             .map(reading => {
               const date = new Date(reading.timestamp).toLocaleString();
+              const spreadLabel =
+                reading.spreadType === '1-card'
+                  ? 'One card'
+                  : reading.spreadType === '3-card'
+                    ? 'Three cards'
+                    : reading.spreadType;
               return `
-              <div style="margin-bottom: 16px; padding: 16px; background: rgba(45,27,78,.4); border-radius: 12px; border-left: 3px solid var(--primary);">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+              <div class="history-item">
+                <div class="history-item-head">
                   <div>
-                    <strong style="color: var(--primary);">${date}</strong>
-                    <p style="margin: 4px 0; color: var(--muted); font-size: 13px;">${escapeHtml(reading.spreadType)} • ${escapeHtml(reading.question || 'An open fortune')}</p>
+                    <strong>${date}</strong>
+                    <p>${escapeHtml(spreadLabel)} · ${escapeHtml(reading.question || 'An open fortune')}</p>
                   </div>
                   <div style="display: flex; gap: 8px;">
                     <button onclick="window.shareReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">📋</button>

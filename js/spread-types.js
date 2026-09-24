@@ -16,12 +16,6 @@ export const SPREAD_TYPES = {
     cardCount: 3,
     positions: ['Past', 'Present', 'Future'],
   },
-  '5-card': {
-    name: 'Celtic Cross',
-    description: 'Five cards for deeper insight',
-    cardCount: 5,
-    positions: ['Situation', 'Challenge', 'Past', 'Future', 'Outcome'],
-  },
 };
 
 export function drawCardsForSpread(deck, spreadType) {

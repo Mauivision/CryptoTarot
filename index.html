@@ -30,8 +30,7 @@
         <p class="fortune-kicker">Free to play</p>
         <h1>Crypto Tarot</h1>
         <p class="fortune-lede">
-          Ask the deck a question, or leave it blank and let fate pick. One draw. The cards flip.
-          Then you read the fortune.
+          Choose one card or three. Draw, watch the art turn over, then read what it means.
         </p>
       </header>
 
@@ -52,11 +51,10 @@
 
         <div class="fortune-draw-row">
           <div class="fortune-spread-field">
-            <label class="fortune-label" for="spreadType">Spread</label>
+            <label class="fortune-label" for="spreadType">How many cards</label>
             <select id="spreadType" class="fortune-spread">
               <option value="1-card">One card</option>
-              <option value="3-card" selected>Past, present, future</option>
-              <option value="5-card">Five cards</option>
+              <option value="3-card" selected>Three cards</option>
             </select>
           </div>
           <button id="drawCardsBtn" class="btn btn-primary" type="button">Draw my fortune</button>
@@ -79,7 +77,7 @@
         </div>
 
         <div id="readingSkeleton" class="reading-skeleton" hidden aria-hidden="true"></div>
-        <p id="readingText" class="reading-hint">Tap draw. The cards turn over on their own.</p>
+        <p id="readingText" class="reading-hint">Pick one card or three, then draw.</p>
 
         <div id="fortuneReading" class="fortune-reading"></div>
 

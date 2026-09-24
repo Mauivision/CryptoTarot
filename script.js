@@ -1086,13 +1086,14 @@ function fisherYatesShuffle(array) {
 
 // ========== Reading Functions ==========
 function drawCards(spreadType = '3-card') {
+  const safeType = spreadType === '1-card' ? '1-card' : '3-card';
   if (!FULL_DECK || FULL_DECK.length === 0) {
     console.warn('Deck not loaded yet');
     return [];
   }
 
   try {
-    return drawCardsForSpread(FULL_DECK, spreadType);
+    return drawCardsForSpread(FULL_DECK, safeType);
   } catch (e) {
     console.error('Error drawing cards:', e);
     // Fallback - simple shuffle
@@ -1101,7 +1102,7 @@ function drawCards(spreadType = '3-card') {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    const spread = SPREAD_TYPES[spreadType] || SPREAD_TYPES['3-card'];
+    const spread = SPREAD_TYPES[safeType];
     return shuffled.slice(0, spread.cardCount).map((card, idx) => ({
       ...card,
       orientation: Math.random() > 0.5 ? 'Upright' : 'Reversed',
@@ -1341,17 +1342,12 @@ async function performFortuneReading() {
     await ensureCardmapLoaded();
 
     currentQuestion = questionInput?.value.trim() || '';
-    currentSpreadType = spreadTypeSelect?.value || '3-card';
+    currentSpreadType = spreadTypeSelect?.value === '1-card' ? '1-card' : '3-card';
 
     // Increment shuffle count for additional entropy
     shuffleCount++;
 
-    // Show mystical prompt with shuffle animation
-    const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
-    if (!spread) {
-      console.error(`Invalid spread type: ${currentSpreadType}, defaulting to 3-card`);
-      currentSpreadType = '3-card';
-    }
+    const spread = SPREAD_TYPES[currentSpreadType];
     // Disable share/print until reveal completes
     if (copyLinkBtn) copyLinkBtn.disabled = true;
     if (printReadingBtn) printReadingBtn.disabled = true;
@@ -2073,6 +2069,16 @@ function getFallbackReading(question, cards) {
 }
 
 // Event listeners for fortune teller game
+function syncSpreadPreview() {
+  if (!readingCards || readingCards.querySelector('.card-inner')) return;
+  const count = spreadTypeSelect?.value === '1-card' ? 1 : 3;
+  readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
+    card.hidden = index >= count;
+  });
+}
+
+spreadTypeSelect?.addEventListener('change', syncSpreadPreview);
+
 questionInput?.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   e.preventDefault();
@@ -2275,6 +2281,7 @@ function initializePage() {
 
   // Load card variants
   loadCardVariants();
+  syncSpreadPreview();
 
   // Ensure reading section is visible immediately
   const readingSection = document.getElementById('reading');

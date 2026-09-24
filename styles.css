@@ -969,6 +969,76 @@ body.fortune-game {
   transition: gap 0.5s ease;
 }
 
+.fortune-game .spread-slot {
+  margin: 0 0 8px;
+  text-align: center;
+  color: var(--primary);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fortune-game .special-meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.fortune-game .fortune-reading.is-single .fortune-reading-content,
+.fortune-game .fortune-reading.is-three .fortune-reading-content {
+  position: relative;
+  z-index: 1;
+}
+
+.fortune-game .special-spread {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 4px 0 18px;
+}
+
+.fortune-game .fortune-reading.is-single .special-spread {
+  grid-template-columns: minmax(0, 280px);
+  justify-content: center;
+}
+
+.fortune-game .special-card {
+  margin: 0;
+  text-align: center;
+}
+
+.fortune-game .special-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3.15;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+
+.fortune-game .special-card img.is-reversed {
+  transform: rotate(180deg);
+}
+
+.fortune-game .special-title {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.fortune-game .special-fortune {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.fortune-game .fortune-reading.is-single .special-fortune {
+  max-width: 40rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
 .fortune-game .reading-cards.is-single {
   gap: 0;
 }
@@ -1387,9 +1457,19 @@ body.fortune-game {
     width: 0;
     height: 0;
   }
+
+  .fortune-game .special-spread,
+  .fortune-game .fortune-reading.is-three .special-spread {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .fortune-game .reading-cards {
+    transition: none;
+  }
+
   .spread-option span,
   .spread-option span::after,
   .fortune-game .reading-card,

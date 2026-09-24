@@ -8,6 +8,7 @@ import {
   getCardImagePathFromCryptoTarot,
   escapeHtml,
 } from './js/card-utils.js';
+import { composeSpecialReading, recognizeDrawnCard } from './js/fortune-reading.js';
 
 // Initialize card combinations with meanings
 setCardMeanings(CARD_MEANINGS);
@@ -1583,24 +1584,29 @@ function renderCardsFaceDown(cards) {
     el.style.setProperty('--delay', `${idx * 0.12}s`);
     const positionLabel = positions[idx] || `Card ${idx + 1}`;
 
-    // Store card data on the element
-    el.cardData = {
-      ...card,
-      position: positionLabel,
-      meaning: getCardMeaning(card.title, card.orientation),
-      cosmic: getCosmicData(card.title),
-    };
-
     // For fortune teller: use random variant (one of a kind per draw)
     // This ensures each card in the reading shows a different version
     const cardImageSrc = resolveCardImage(card, true, true);
+    const recognized = recognizeDrawnCard({ ...card, position: positionLabel }, cardImageSrc);
     // Get fallback path from CryptoTarot1-78
     const fallbackPath = getCardImagePathFromCryptoTarot(card, true) || CARD_BACK_IMAGE;
 
     if (!cardImageSrc || cardImageSrc === CARD_BACK_IMAGE) {
       console.warn(`No image found for card: ${card.title}, using fallback`);
     }
+    el.dataset.title = recognized.title;
+    el.dataset.suit = recognized.suit;
+    el.dataset.orientation = recognized.orientation;
+    el.dataset.recognized = recognized.filenameMatches ? 'yes' : 'no';
+    Object.assign(card, recognized, { image: cardImageSrc, position: positionLabel });
+    el.cardData = {
+      ...card,
+      meaning: recognized.meaning || getCardMeaning(card.title, card.orientation),
+      cosmic: getCosmicData(card.title),
+    };
+    const faceAlt = `${recognized.title}, ${recognized.suit}, ${recognized.orientation}`;
     el.innerHTML = `
+      <p class="spread-slot">${escapeHtml(positionLabel)}</p>
       <div class="card-inner">
         <div class="card-front">
           <div class="card-front-content">
@@ -1611,11 +1617,11 @@ function renderCardsFaceDown(cards) {
             </div>
           </div>
         </div>
-        <div class="card-back ${card.orientation === 'Reversed' ? 'reversed' : ''}">
-          <img src="${cardImageSrc || CARD_BACK_IMAGE}" alt="${escapeHtml(card.title)}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackPath}';" style="width: 100%; height: 100%; object-fit: cover;" />
+        <div class="card-back ${recognized.orientation === 'Reversed' ? 'reversed' : ''}">
+          <img src="${cardImageSrc || CARD_BACK_IMAGE}" alt="${escapeHtml(faceAlt)}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackPath}';" style="width: 100%; height: 100%; object-fit: cover;" />
           <div class="card-back-overlay">
-            <div class="card-title">${escapeHtml(card.title)}</div>
-            <div class="card-orientation">${escapeHtml(card.orientation)}</div>
+            <div class="card-title">${escapeHtml(recognized.title)}</div>
+            <div class="card-orientation">${escapeHtml(recognized.orientation)}</div>
           </div>
         </div>
       </div>
@@ -1671,15 +1677,11 @@ function flipSingleCard(cardElement) {
 
   // Show meaning
   if (meaningEl) {
-    const meanings = CARD_MEANINGS[cardData.title] || {};
-    const uprightText = meanings.upright || cardData.meaning || 'Meaning not available';
-    const reversedText = meanings.reversed || cardData.meaning || 'Meaning not available';
-    const meaningText = cardData.orientation === 'Upright' ? uprightText : reversedText;
-
+    const suitLabel = cardData.type === 'Major' ? 'Major Arcana' : cardData.suit;
     meaningEl.innerHTML = `
       <p class="fortune-caption">
-        <span class="fortune-position">${escapeHtml(cardData.position)}</span>
-        <span class="fortune-line">${escapeHtml(meaningText)}</span>
+        <span class="fortune-line">${escapeHtml(cardData.title)}</span>
+        <span class="special-meta">${escapeHtml(suitLabel)} · ${escapeHtml(cardData.orientation)}</span>
       </p>
     `;
     meaningEl.style.display = 'block';
@@ -1699,36 +1701,40 @@ function flipSingleCard(cardElement) {
     // All cards flipped, show full reading with smooth transition
     setTimeout(() => {
       if (readingCards && runAtFlip && readingCards.dataset.fortuneRun !== runAtFlip) return;
-      // Remove loading state first
-      if (fortuneReading) {
-        fortuneReading.classList.remove('loading');
-      }
+      try {
+        // Remove loading state first
+        if (fortuneReading) {
+          fortuneReading.classList.remove('loading');
+        }
 
-      // Display reading with fade-in
-      displayFortuneReading(currentQuestion, currentReadingCards);
+        // Display reading with fade-in. Saving the reading lives in here.
+        displayFortuneReading(currentQuestion, currentReadingCards);
 
-      // Show card combinations with smooth animation
-      const combinations = analyzeCardCombination(currentReadingCards);
-      if (combinations.length > 0 && cardCombinations) {
-        setTimeout(() => {
-          displayCardCombinations(combinations);
-        }, 300);
-      }
+        // Show card combinations with smooth animation
+        const combinations = analyzeCardCombination(currentReadingCards);
+        if (combinations.length > 0 && cardCombinations) {
+          setTimeout(() => {
+            displayCardCombinations(combinations);
+          }, 300);
+        }
 
-      if (readingStatus) {
-        readingStatus.textContent = 'Your fortune is on the table.';
-        readingStatus.className = 'reading-status';
-        readingStatus.style.opacity = '0';
-        readingStatus.style.transform = 'translateY(-5px)';
-        setTimeout(() => {
-          readingStatus.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          readingStatus.style.opacity = '1';
-          readingStatus.style.transform = 'translateY(0)';
-        }, 100);
+        if (readingStatus) {
+          readingStatus.textContent = 'Your fortune is on the table.';
+          readingStatus.className = 'reading-status';
+          readingStatus.style.opacity = '0';
+          readingStatus.style.transform = 'translateY(-5px)';
+          setTimeout(() => {
+            readingStatus.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            readingStatus.style.opacity = '1';
+            readingStatus.style.transform = 'translateY(0)';
+          }, 100);
+        }
+        if (copyLinkBtn) copyLinkBtn.disabled = false;
+        if (printReadingBtn) printReadingBtn.disabled = false;
+      } finally {
+        if (readingCards && runAtFlip && readingCards.dataset.fortuneRun !== runAtFlip) return;
+        releaseFortuneDraw(true);
       }
-      if (copyLinkBtn) copyLinkBtn.disabled = false;
-      if (printReadingBtn) printReadingBtn.disabled = false;
-      releaseFortuneDraw(true);
     }, 900);
   }
 }
@@ -1796,23 +1802,18 @@ function displayFortuneReading(question, cards) {
 
   const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
   const positions = spread.positions;
-
-  const mysticalOpenings = [
-    'The deck has something to show you.',
-    'A hush falls over the table. The cards are ready.',
-    'Fate shuffled. Here is what turned up.',
-  ];
-  const opening = mysticalOpenings[Math.floor(Math.random() * mysticalOpenings.length)];
-
   const cardReadings = cards.map((card, idx) => {
-    const meaning = getCardMeaning(card.title, card.orientation);
-    const meta = CARD_MEANINGS[card.title] || {};
+    const image = card.image || resolveCardImage(card, true, false);
+    const recognized = recognizeDrawnCard(
+      {
+        ...card,
+        position: card.position || positions[idx] || `Card ${idx + 1}`,
+      },
+      image
+    );
     return {
-      position: positions[idx],
-      title: card.title,
-      orientation: card.orientation,
-      meaning,
-      flavor: meta.cryptoFlavor || '',
+      ...recognized,
+      meaning: recognized.meaning || getCardMeaning(card.title, card.orientation),
     };
   });
 
@@ -1820,64 +1821,39 @@ function displayFortuneReading(question, cards) {
     if (!cards[idx]) return;
     cards[idx] = {
       ...cards[idx],
-      position: entry.position,
-      meaning: entry.meaning,
+      ...entry,
     };
   });
 
-  const introHtml = `
-    <div class="fortune-reading-intro">
-      ${escapeHtml(opening)}
-    </div>
-  `;
+  const single = cardReadings.length === 1;
+  fortuneReading.classList.toggle('is-single', single);
+  fortuneReading.classList.toggle('is-three', !single);
 
-  const questionHtml =
-    question && question.trim().length
-      ? `
-    <div class="fortune-question">
-      <strong>You asked:</strong> <em>"${escapeHtml(question.trim())}"</em>
-    </div>
-  `
-      : '';
-
-  const cardSections = cardReadings
-    .map((entry, index) => {
-      const orientationClass =
-        entry.orientation === 'Upright'
-          ? 'orientation-chip'
-          : 'orientation-chip orientation-reversed';
-      const flavor = entry.flavor
-        ? `<p class="fortune-flavor">${escapeHtml(entry.flavor)}</p>`
-        : '';
+  const spreadHtml = cardReadings
+    .map(entry => {
+      const where = entry.type === 'Major' ? 'Major Arcana' : entry.suit;
+      const fallbackPath = getCardImagePathFromCryptoTarot(entry, false) || CARD_BACK_IMAGE;
       return `
-      <article class="fortune-card-section" data-card-index="${index}">
-        <header class="fortune-card-header">
-          <div>
-            <span class="position-chip">${escapeHtml(entry.position)}</span>
-            <h4>${escapeHtml(entry.title)}</h4>
-          </div>
-          <span class="${orientationClass}">${escapeHtml(entry.orientation)}</span>
-        </header>
-        <p class="card-meaning-main">${escapeHtml(entry.meaning)}</p>
-        ${flavor}
-      </article>
+      <figure class="special-card">
+        <img class="${entry.orientation === 'Reversed' ? 'is-reversed' : ''}" src="${escapeHtml(entry.image)}" alt="${escapeHtml(`${entry.title}, ${entry.suit}, ${entry.orientation}`)}" onerror="this.onerror=null; this.src='${fallbackPath}';" />
+        <figcaption>
+          <span class="fortune-position">${escapeHtml(entry.position)}</span>
+          <span class="special-title">${escapeHtml(entry.title)}</span>
+          <span class="special-meta">${escapeHtml(where)} · ${escapeHtml(entry.orientation)}</span>
+        </figcaption>
+      </figure>
     `;
     })
     .join('');
 
-  const closingHtml = `
-    <div class="fortune-closing">
-      A playful reading. Entertainment only — not financial advice.
-    </div>
-  `;
+  const fortuneText = composeSpecialReading(question, cardReadings);
 
   fortuneReading.innerHTML = `
     <h3>Your fortune</h3>
     <div class="fortune-reading-content">
-      ${introHtml}
-      ${questionHtml}
-      ${cardSections}
-      ${closingHtml}
+      <div class="special-spread">${spreadHtml}</div>
+      <p class="special-fortune">${escapeHtml(fortuneText)}</p>
+      <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
   `;
   fortuneReading.classList.remove('loading');
@@ -2082,6 +2058,9 @@ function syncSpreadPreview() {
     }, 620);
   }
 
+  syncSpreadPreview.generation = (syncSpreadPreview.generation || 0) + 1;
+  const generation = syncSpreadPreview.generation;
+
   readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
     const show = count === 3 || index === 1;
     if (!card.dataset.tuckBound) {
@@ -2097,7 +2076,13 @@ function syncSpreadPreview() {
       if (wasHidden && !reduceMotion) {
         card.classList.add('is-tucked');
         requestAnimationFrame(() => {
-          requestAnimationFrame(() => card.classList.remove('is-tucked'));
+          requestAnimationFrame(() => {
+            if (generation !== syncSpreadPreview.generation) return;
+            const latestCount = chosenSpread() === '1-card' ? 1 : 3;
+            const latestShow = latestCount === 3 || index === 1;
+            if (!latestShow) return;
+            card.classList.remove('is-tucked');
+          });
         });
       } else {
         card.classList.remove('is-tucked');

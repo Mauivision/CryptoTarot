@@ -143,17 +143,7 @@ body {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
-  animation: rotate 20s linear infinite;
   pointer-events: none;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .fortune-reading-intro,

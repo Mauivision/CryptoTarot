@@ -1712,15 +1712,8 @@ function flipSingleCard(cardElement) {
         }
 
         if (readingStatus) {
-          readingStatus.textContent = 'Your fortune is on the table.';
+          readingStatus.textContent = '';
           readingStatus.className = 'reading-status';
-          readingStatus.style.opacity = '0';
-          readingStatus.style.transform = 'translateY(-5px)';
-          setTimeout(() => {
-            readingStatus.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            readingStatus.style.opacity = '1';
-            readingStatus.style.transform = 'translateY(0)';
-          }, 100);
         }
         if (copyLinkBtn) copyLinkBtn.disabled = false;
         if (printReadingBtn) printReadingBtn.disabled = false;

@@ -89,12 +89,14 @@ export function fortuneParts(question, cards) {
     meaning: meaningLine(card),
   }));
 
+  const storyName = beat => (beat.way === 'Reversed' ? `${beat.title}, reversed,` : beat.title);
+
   let tie = 'The deck has nothing to show yet.';
   if (beats.length === 1) {
     tie = `The deck reads it as: ${beats[0].meaning} Sit with that picture.`;
   } else if (beats.length > 1) {
     const [past, present, future] = beats;
-    tie = `${past.title} opened this, ${present.title} is here now, and ${future.title} is the turn ahead.`;
+    tie = `${storyName(past)} opened this, ${storyName(present)} is here now, and ${storyName(future)} is the turn ahead.`;
   }
 
   return { asked, beats, tie };

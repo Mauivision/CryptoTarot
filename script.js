@@ -8,7 +8,7 @@ import {
   getCardImagePathFromCryptoTarot,
   escapeHtml,
 } from './js/card-utils.js';
-import { composeSpecialReading, recognizeDrawnCard } from './js/fortune-reading.js';
+import { composeSpecialReading, fortuneParts, recognizeDrawnCard } from './js/fortune-reading.js';
 
 // Initialize card combinations with meanings
 setCardMeanings(CARD_MEANINGS);
@@ -1857,13 +1857,31 @@ function displayFortuneReading(question, cards) {
     })
     .join('');
 
+  const parts = fortuneParts(question, cardReadings);
   const fortuneText = composeSpecialReading(question, cardReadings);
+  const askedHtml = parts.asked
+    ? `<p class="special-ask">You asked, “${escapeHtml(parts.asked)}”</p>`
+    : '';
+  const beatsHtml =
+    parts.beats.length > 1
+      ? `<ul class="fortune-beats">${parts.beats
+          .map(
+            beat => `
+        <li>
+          <span class="fortune-position">${escapeHtml(beat.position)}</span>
+          <span>${escapeHtml(beat.meaning)}</span>
+        </li>`
+          )
+          .join('')}</ul>`
+      : '';
 
   fortuneReading.innerHTML = `
     <h3>Your fortune</h3>
     <div class="fortune-reading-content">
+      ${askedHtml}
       <div class="special-spread">${spreadHtml}</div>
-      <p class="special-fortune">${escapeHtml(fortuneText)}</p>
+      ${beatsHtml}
+      <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.tie)}</p>
       <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
   `;
@@ -1910,6 +1928,7 @@ function displayFortuneReading(question, cards) {
     })),
     spreadType: currentSpreadType,
     reading: fortuneReading.innerHTML,
+    summary: fortuneText,
   });
 
   currentReadingId = savedReading.id;
@@ -2248,6 +2267,7 @@ function showReadingHistory() {
                 <div style="color: var(--text); font-size: 13px;">
                   ${reading.cards.map(c => `${escapeHtml(c.position)}: ${escapeHtml(c.title)} (${escapeHtml(c.orientation)})`).join(' • ')}
                 </div>
+                ${reading.summary ? `<p class="history-fortune">${escapeHtml(reading.summary)}</p>` : ''}
               </div>
             `;
             })

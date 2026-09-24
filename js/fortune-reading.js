@@ -74,21 +74,46 @@ function identity(card) {
 }
 
 /**
+ * Pieces of a fortune: the question, one beat per card, and a single tying line.
+ * @param {string} question
+ * @param {Array<object>} cards
+ */
+export function fortuneParts(question, cards) {
+  const asked = question && String(question).trim() ? String(question).trim() : '';
+  const drawn = (cards || []).filter(Boolean);
+  const beats = drawn.map(card => ({
+    position: card.position || '',
+    title: card.title,
+    identity: identity(card),
+    meaning: meaningLine(card),
+  }));
+
+  let tie = 'The deck has nothing to show yet.';
+  if (beats.length === 1) {
+    tie = `The deck reads it as: ${beats[0].meaning} Sit with that picture.`;
+  } else if (beats.length > 1) {
+    const [past, present, future] = beats;
+    tie = `${past.title} is where this started, ${present.title} is the table now, and ${future.title} is the turn ahead.`;
+  }
+
+  return { asked, beats, tie };
+}
+
+/**
  * A short fortune for this exact draw, using the meanings already on the cards.
  * @param {string} question
  * @param {Array<object>} cards
  * @returns {string}
  */
 export function composeSpecialReading(question, cards) {
-  const asked = question && question.trim() ? `You asked, “${question.trim()}” ` : '';
-  const drawn = cards.filter(Boolean);
-  if (drawn.length <= 1) {
-    const card = drawn[0];
-    if (!card)
-      return `${asked}The deck has nothing to show yet. Entertainment only, not financial advice.`;
-    return `${asked}Your card is ${identity(card)}. The deck reads it as: ${meaningLine(card)} Sit with that picture. This is a fortune for fun, not financial advice.`;
+  const { asked, beats, tie } = fortuneParts(question, cards);
+  const ask = asked ? `You asked, “${asked}” ` : '';
+  if (beats.length <= 1) {
+    const card = beats[0];
+    if (!card) return `${ask}${tie} Entertainment only, not financial advice.`;
+    return `${ask}Your card is ${card.identity}. ${tie} Entertainment only, not financial advice.`;
   }
 
-  const [past, present, future] = drawn;
-  return `${asked}Past is ${identity(past)}: ${meaningLine(past)} Present is ${identity(present)}: ${meaningLine(present)} Future is ${identity(future)}: ${meaningLine(future)} Read as one story, ${past.title} is what you are coming from, ${present.title} is the table you are sitting at, and ${future.title} is the turn ahead. Entertainment only, not financial advice.`;
+  const lines = beats.map(beat => `${beat.position}: ${beat.identity}. ${beat.meaning}`).join(' ');
+  return `${ask}${lines} Read as one story: ${tie} Entertainment only, not financial advice.`;
 }

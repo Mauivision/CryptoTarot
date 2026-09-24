@@ -1026,10 +1026,39 @@ body.fortune-game {
   font-size: 18px;
 }
 
+.fortune-game .special-ask {
+  margin: 0 0 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+.fortune-game .fortune-beats {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.fortune-game .fortune-beats li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(20, 10, 36, 0.45);
+}
+
 .fortune-game .special-fortune {
   margin: 0;
   font-size: 18px;
   line-height: 1.6;
+}
+
+.history-fortune {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .fortune-game .fortune-reading.is-single .special-fortune {

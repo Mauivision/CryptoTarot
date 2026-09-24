@@ -21,6 +21,7 @@ export class ReadingHistory {
       cards: reading.cards,
       spreadType: reading.spreadType || '3-card',
       reading: reading.reading || null,
+      summary: reading.summary || '',
     };
 
     readings.unshift(newReading); // Add to beginning

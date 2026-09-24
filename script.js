@@ -1855,6 +1855,7 @@ function displayFortuneReading(question, cards) {
             beat => `
         <li>
           <span class="fortune-position">${escapeHtml(beat.position)}</span>
+          <span class="beat-title">${escapeHtml(beat.title)} · ${escapeHtml(beat.way)}</span>
           <span>${escapeHtml(beat.meaning)}</span>
         </li>`
           )
@@ -1866,7 +1867,7 @@ function displayFortuneReading(question, cards) {
     <div class="fortune-reading-content">
       ${askedHtml}
       ${beatsHtml}
-      <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.tie)}</p>
+      <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.beats[0] ? `Your card is ${parts.beats[0].identity}. ${parts.tie}` : parts.tie)}</p>
       <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
   `;

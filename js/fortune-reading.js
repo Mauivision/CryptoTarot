@@ -84,6 +84,7 @@ export function fortuneParts(question, cards) {
   const beats = drawn.map(card => ({
     position: card.position || '',
     title: card.title,
+    way: card.orientation === 'Reversed' ? 'Reversed' : 'Upright',
     identity: identity(card),
     meaning: meaningLine(card),
   }));
@@ -93,7 +94,7 @@ export function fortuneParts(question, cards) {
     tie = `The deck reads it as: ${beats[0].meaning} Sit with that picture.`;
   } else if (beats.length > 1) {
     const [past, present, future] = beats;
-    tie = `${past.title} is where this started, ${present.title} is the table now, and ${future.title} is the turn ahead.`;
+    tie = `${past.title} opened this, ${present.title} is here now, and ${future.title} is the turn ahead.`;
   }
 
   return { asked, beats, tie };

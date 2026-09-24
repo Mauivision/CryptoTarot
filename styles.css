@@ -1052,6 +1052,10 @@ body.fortune-game {
   background: rgba(20, 10, 36, 0.45);
 }
 
+.fortune-game .beat-title {
+  font-size: 18px;
+}
+
 .fortune-game .special-fortune {
   margin: 0;
   font-size: 18px;

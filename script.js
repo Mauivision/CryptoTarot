@@ -8,6 +8,7 @@ import {
   getCardImagePathFromCryptoTarot,
   escapeHtml,
 } from './js/card-utils.js';
+import { composeSpecialReading, fortuneParts, recognizeDrawnCard } from './js/fortune-reading.js';
 
 // Initialize card combinations with meanings
 setCardMeanings(CARD_MEANINGS);
@@ -751,9 +752,20 @@ async function loadCardVariants() {
   }
 }
 
-// Consistent card back image for all face-down cards
-// Using JPG card back from tools directory (no SVG)
-const CARD_BACK_IMAGE = 'tools/CryptoTarot1-78/Cardback-01.jpg';
+// Face-down backs already painted in the deck folder. A three-card draw uses
+// three of them, in the same order as the waiting table. A one-card draw uses
+// the center back. Cardback-01 stays the fallback when a face is missing.
+const CARD_BACKS = [
+  'tools/CryptoTarot1-78/Cardback-01.jpg',
+  'tools/CryptoTarot1-78/Cardback-03.jpg',
+  'tools/CryptoTarot1-78/Cardback-05.jpg',
+];
+const CARD_BACK_IMAGE = CARD_BACKS[0];
+
+function cardBackForSeat(index, spreadType = currentSpreadType) {
+  if (spreadType === '1-card') return CARD_BACKS[1];
+  return CARD_BACKS[index % CARD_BACKS.length];
+}
 
 // Don't block draws: wait for cardmap with timeout so reader always works
 let cardmapReady = false;
@@ -935,11 +947,14 @@ rankFilter?.addEventListener('change', e => {
 // ========== Modal Functions ==========
 function openModal(card) {
   if (!modal || !card) return;
-  modalImg.src = resolveCardImage(card, true) || CARD_BACK_IMAGE;
-  modalImg.alt = `${card.title} card`;
+  const face = card.image || resolveCardImage(card, true, false) || CARD_BACK_IMAGE;
+  modalImg.src = face;
+  modalImg.alt = [card.title, card.suit, card.orientation].filter(Boolean).join(', ');
+  modalImg.classList.toggle('is-reversed', card.orientation === 'Reversed');
   modalImg.onerror = () => {
     modalImg.src = CARD_BACK_IMAGE;
     modalImg.alt = 'Card image placeholder';
+    modalImg.classList.remove('is-reversed');
   };
   modalTitle.textContent = card.title;
   const arcanaLabel = card.type === 'Major' ? 'Major Arcana' : `${card.suit} Suit`;
@@ -947,35 +962,21 @@ function openModal(card) {
     ? `${arcanaLabel} · Drawn ${card.orientation}`
     : arcanaLabel;
 
-  const meta = CARD_MEANINGS[card.title] || {};
   if (modalCosmic) {
-    if (meta.cosmicRuler) {
-      const summary = meta.cosmicSummary ? ` — ${meta.cosmicSummary}` : '';
-      modalCosmic.textContent = `Cosmic Ruler: ${meta.cosmicRuler}${summary}`;
-      modalCosmic.style.display = 'block';
-    } else {
-      modalCosmic.textContent = '';
-      modalCosmic.style.display = 'none';
-    }
+    modalCosmic.textContent = '';
+    modalCosmic.style.display = 'none';
   }
   if (modalCrypto) {
-    if (meta.cryptoFlavor) {
-      modalCrypto.textContent = `Crypto Flavor: ${meta.cryptoFlavor}`;
-      modalCrypto.style.display = 'block';
-    } else {
-      modalCrypto.textContent = '';
-      modalCrypto.style.display = 'none';
-    }
+    modalCrypto.textContent = '';
+    modalCrypto.style.display = 'none';
   }
 
-  // Get actual meanings from Book of Crypto Tarot Life Meanings
-  const uprightMeaning = getCardMeaning(card.title, 'Upright');
-  const reversedMeaning = getCardMeaning(card.title, 'Reversed');
-
-  modalUpright.textContent = `Upright: ${uprightMeaning}`;
-  modalReversed.textContent = `Reversed: ${reversedMeaning}`;
-  modalUpright.classList.toggle('is-drawn', card.orientation === 'Upright');
-  modalReversed.classList.toggle('is-drawn', card.orientation === 'Reversed');
+  const drawnMeaning = card.meaning || getCardMeaning(card.title, card.orientation || 'Upright');
+  modalUpright.textContent = drawnMeaning;
+  modalUpright.classList.add('is-drawn');
+  modalReversed.textContent = '';
+  modalReversed.style.display = 'none';
+  modalReversed.classList.remove('is-drawn');
 
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
@@ -1340,6 +1341,7 @@ function preloadImages(urls = [], timeoutMs = 5000) {
 async function performFortuneReading() {
   if (performFortuneReading.running) return;
   performFortuneReading.running = true;
+  performFortuneReading.revealScheduled = false;
   if (drawCardsBtn) drawCardsBtn.disabled = true;
   try {
     await ensureCardmapLoaded();
@@ -1358,10 +1360,13 @@ async function performFortuneReading() {
       readingStatus.textContent = `Shuffling the ${spread.name}…`;
       readingStatus.className = 'reading-status loading';
     }
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (readingCards) {
-      readingCards.innerHTML = '';
+      readingCards.classList.add('is-shuffling');
       readingCards.style.display = 'flex';
-      readingCards.style.opacity = '0';
+      readingCards.style.opacity = '1';
       readingCards.style.visibility = 'visible';
     }
     if (readingSkeleton) {
@@ -1396,6 +1401,7 @@ async function performFortuneReading() {
         readingSkeleton.classList.remove('active');
       }
       if (readingCards) {
+        readingCards.classList.remove('is-shuffling');
         readingCards.style.display = 'flex';
         readingCards.style.visibility = 'visible';
         readingCards.style.opacity = '1';
@@ -1408,8 +1414,9 @@ async function performFortuneReading() {
       return;
     }
 
-    // Add small delay for shuffle animation effect
-    await new Promise(resolve => setTimeout(resolve, 300 + (shuffleCount % 3) * 100));
+    // Let the cards on the table riffle before the new hand is dealt
+    await new Promise(resolve => setTimeout(resolve, prefersReduced ? 0 : 520));
+    readingCards?.classList.remove('is-shuffling');
 
     const picks = drawCards(currentSpreadType);
     console.log(
@@ -1449,32 +1456,34 @@ async function performFortuneReading() {
       readingCards.style.opacity = '1';
     }
 
-    // Auto-flip cards one at a time for smooth performance
-    const prefersReduced =
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(
-      () => {
+    // Turn the dealt cards over one at a time, after they have landed
+    if (readingCards) {
+      const runId = ++fortuneRunId;
+      readingCards.dataset.fortuneRun = String(runId);
+      const dealWait = prefersReduced ? 0 : 700 + picks.length * 140;
+      performFortuneReading.revealScheduled = true;
+      setTimeout(() => {
+        if (readingCards.dataset.fortuneRun !== String(runId)) return;
         const cardElements = Array.from(readingCards.querySelectorAll('.reading-card'));
         let currentIndex = 0;
 
         function flipNextCard() {
+          if (readingCards.dataset.fortuneRun !== String(runId)) return;
           if (currentIndex < cardElements.length) {
             const card = cardElements[currentIndex];
             if (card.getAttribute('data-flipped') !== 'true') {
               flipSingleCard(card);
             }
             currentIndex++;
-            // Wait for current flip to complete before next
             if (currentIndex < cardElements.length) {
-              setTimeout(flipNextCard, prefersReduced ? 0 : 600); // One at a time
+              setTimeout(flipNextCard, prefersReduced ? 0 : 980);
             }
           }
         }
 
         flipNextCard();
-      },
-      prefersReduced ? 0 : 800
-    ); // Start after cards appear
+      }, dealWait);
+    }
 
     // Smooth scroll to cards
     setTimeout(() => {
@@ -1495,12 +1504,18 @@ async function performFortuneReading() {
       }, 300);
     }
   } finally {
-    performFortuneReading.running = false;
-    if (drawCardsBtn) {
-      drawCardsBtn.disabled = false;
-      drawCardsBtn.textContent = 'Draw again';
-    }
+    if (!performFortuneReading.revealScheduled) releaseFortuneDraw(false);
   }
+}
+
+let fortuneRunId = 0;
+
+function releaseFortuneDraw(drew) {
+  performFortuneReading.running = false;
+  performFortuneReading.revealScheduled = false;
+  if (!drawCardsBtn) return;
+  drawCardsBtn.disabled = false;
+  if (drew) drawCardsBtn.textContent = 'Draw again';
 }
 
 // Reveal all remaining cards (respects reduced-motion)
@@ -1550,7 +1565,6 @@ function renderCardsFaceDown(cards) {
   readingCards.style.flexDirection = 'row';
   readingCards.style.flexWrap = 'wrap';
   readingCards.style.justifyContent = 'center';
-  readingCards.style.gap = '20px';
   readingCards.style.alignItems = 'flex-start';
   readingCards.style.minHeight = '200px';
   if (readingSkeleton) {
@@ -1562,7 +1576,7 @@ function renderCardsFaceDown(cards) {
 
   cards.forEach((card, idx) => {
     const el = document.createElement('div');
-    el.className = 'reading-card';
+    el.className = 'reading-card is-dealt';
     el.setAttribute('role', 'listitem');
     el.setAttribute('tabindex', '0');
     el.setAttribute('data-card-index', idx);
@@ -1570,40 +1584,37 @@ function renderCardsFaceDown(cards) {
     el.style.setProperty('--delay', `${idx * 0.12}s`);
     const positionLabel = positions[idx] || `Card ${idx + 1}`;
 
-    // Store card data on the element
-    el.cardData = {
-      ...card,
-      position: positionLabel,
-      meaning: getCardMeaning(card.title, card.orientation),
-      cosmic: getCosmicData(card.title),
-    };
-
     // For fortune teller: use random variant (one of a kind per draw)
     // This ensures each card in the reading shows a different version
     const cardImageSrc = resolveCardImage(card, true, true);
+    const recognized = recognizeDrawnCard({ ...card, position: positionLabel }, cardImageSrc);
     // Get fallback path from CryptoTarot1-78
     const fallbackPath = getCardImagePathFromCryptoTarot(card, true) || CARD_BACK_IMAGE;
 
     if (!cardImageSrc || cardImageSrc === CARD_BACK_IMAGE) {
       console.warn(`No image found for card: ${card.title}, using fallback`);
     }
+    el.dataset.title = recognized.title;
+    el.dataset.suit = recognized.suit;
+    el.dataset.orientation = recognized.orientation;
+    el.dataset.recognized = recognized.filenameMatches ? 'yes' : 'no';
+    Object.assign(card, recognized, { image: cardImageSrc, position: positionLabel });
+    el.cardData = {
+      ...card,
+      meaning: recognized.meaning || getCardMeaning(card.title, card.orientation),
+      cosmic: getCosmicData(card.title),
+    };
+    const faceAlt = `${recognized.title}, ${recognized.suit}, ${recognized.orientation}`;
     el.innerHTML = `
+      <p class="spread-slot">${escapeHtml(positionLabel)}</p>
       <div class="card-inner">
         <div class="card-front">
           <div class="card-front-content">
-            <img src="${CARD_BACK_IMAGE}" alt="Card Back" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 16px;" />
-            <div style="position: relative; z-index: 2; text-align: center;">
-              <div class="card-icon">🔮</div>
-              <div style="font-weight: 600; margin-top: 8px;">${escapeHtml(positionLabel)}</div>
-            </div>
+            <img src="${cardBackForSeat(idx)}" alt="Card back" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 16px;" />
           </div>
         </div>
-        <div class="card-back ${card.orientation === 'Reversed' ? 'reversed' : ''}">
-          <img src="${cardImageSrc || CARD_BACK_IMAGE}" alt="${escapeHtml(card.title)}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackPath}';" style="width: 100%; height: 100%; object-fit: cover;" />
-          <div class="card-back-overlay">
-            <div class="card-title">${escapeHtml(card.title)}</div>
-            <div class="card-orientation">${escapeHtml(card.orientation)}</div>
-          </div>
+        <div class="card-back ${recognized.orientation === 'Reversed' ? 'reversed' : ''}">
+          <img src="${cardImageSrc || CARD_BACK_IMAGE}" alt="${escapeHtml(faceAlt)}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackPath}';" style="width: 100%; height: 100%; object-fit: cover;" />
         </div>
       </div>
       <div class="rc-meta" style="display: none;"></div>
@@ -1632,25 +1643,9 @@ function renderCardsFaceDown(cards) {
     readingCards.appendChild(el);
   });
 
-  // Ensure cards are visible with simple animation
-  setTimeout(() => {
-    readingCards.style.display = 'flex';
-    readingCards.style.visibility = 'visible';
-    readingCards.style.opacity = '1';
-    // Simple fade-in animation (no complex transforms)
-    const cardElements = readingCards.querySelectorAll('.reading-card');
-    cardElements.forEach((card, idx) => {
-      card.style.opacity = '0';
-      card.style.transition = 'opacity 0.4s ease';
-      // Simple fade in with slight stagger
-      setTimeout(
-        () => {
-          card.style.opacity = '1';
-        },
-        idx * 80 + 100
-      );
-    });
-  }, 50);
+  readingCards.style.display = 'flex';
+  readingCards.style.visibility = 'visible';
+  readingCards.style.opacity = '1';
 }
 
 function flipSingleCard(cardElement) {
@@ -1674,27 +1669,17 @@ function flipSingleCard(cardElement) {
 
   // Show meaning
   if (meaningEl) {
-    const meanings = CARD_MEANINGS[cardData.title] || {};
-    const uprightText = meanings.upright || cardData.meaning || 'Meaning not available';
-    const reversedText = meanings.reversed || cardData.meaning || 'Meaning not available';
-    const meaningText = cardData.orientation === 'Upright' ? uprightText : reversedText;
-
+    const suitLabel = cardData.type === 'Major' ? 'Major Arcana' : cardData.suit;
     meaningEl.innerHTML = `
       <p class="fortune-caption">
-        <span class="fortune-position">${escapeHtml(cardData.position)}</span>
-        <span class="fortune-line">${escapeHtml(meaningText)}</span>
+        <span class="fortune-line">${escapeHtml(cardData.title)}</span>
+        <span class="special-meta">${escapeHtml(suitLabel)} · ${escapeHtml(cardData.orientation)}</span>
+        <span class="fortune-meaning">${escapeHtml(cardData.meaning || '')}</span>
       </p>
     `;
     meaningEl.style.display = 'block';
-    meaningEl.style.opacity = '0';
-    meaningEl.style.transform = 'translateY(10px)';
     meaningEl.style.width = '100%';
     meaningEl.style.maxWidth = '100%';
-    setTimeout(() => {
-      meaningEl.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      meaningEl.style.opacity = '1';
-      meaningEl.style.transform = 'translateY(0)';
-    }, 400);
   }
 
   // Check if all cards are flipped, then show full reading
@@ -1705,38 +1690,38 @@ function flipSingleCard(cardElement) {
   const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
 
   if (spread && flippedCount === spread.cardCount) {
+    const runAtFlip = readingCards?.dataset.fortuneRun;
     // All cards flipped, show full reading with smooth transition
     setTimeout(() => {
-      // Remove loading state first
-      if (fortuneReading) {
-        fortuneReading.classList.remove('loading');
-      }
+      if (readingCards && runAtFlip && readingCards.dataset.fortuneRun !== runAtFlip) return;
+      try {
+        // Remove loading state first
+        if (fortuneReading) {
+          fortuneReading.classList.remove('loading');
+        }
 
-      // Display reading with fade-in
-      displayFortuneReading(currentQuestion, currentReadingCards);
+        // Display reading with fade-in. Saving the reading lives in here.
+        displayFortuneReading(currentQuestion, currentReadingCards);
 
-      // Show card combinations with smooth animation
-      const combinations = analyzeCardCombination(currentReadingCards);
-      if (combinations.length > 0 && cardCombinations) {
-        setTimeout(() => {
-          displayCardCombinations(combinations);
-        }, 300);
-      }
+        // Show card combinations with smooth animation
+        const combinations = analyzeCardCombination(currentReadingCards);
+        if (combinations.length > 0 && cardCombinations) {
+          setTimeout(() => {
+            displayCardCombinations(combinations);
+          }, 300);
+        }
 
-      if (readingStatus) {
-        readingStatus.textContent = 'Your fortune is on the table.';
-        readingStatus.className = 'reading-status';
-        readingStatus.style.opacity = '0';
-        readingStatus.style.transform = 'translateY(-5px)';
-        setTimeout(() => {
-          readingStatus.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          readingStatus.style.opacity = '1';
-          readingStatus.style.transform = 'translateY(0)';
-        }, 100);
+        if (readingStatus) {
+          readingStatus.textContent = '';
+          readingStatus.className = 'reading-status';
+        }
+        if (copyLinkBtn) copyLinkBtn.disabled = false;
+        if (printReadingBtn) printReadingBtn.disabled = false;
+      } finally {
+        if (readingCards && runAtFlip && readingCards.dataset.fortuneRun !== runAtFlip) return;
+        releaseFortuneDraw(true);
       }
-      if (copyLinkBtn) copyLinkBtn.disabled = false;
-      if (printReadingBtn) printReadingBtn.disabled = false;
-    }, 600); // Reduced delay for faster flow
+    }, 900);
   }
 }
 
@@ -1803,23 +1788,18 @@ function displayFortuneReading(question, cards) {
 
   const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
   const positions = spread.positions;
-
-  const mysticalOpenings = [
-    'The deck has something to show you.',
-    'A hush falls over the table. The cards are ready.',
-    'Fate shuffled. Here is what turned up.',
-  ];
-  const opening = mysticalOpenings[Math.floor(Math.random() * mysticalOpenings.length)];
-
   const cardReadings = cards.map((card, idx) => {
-    const meaning = getCardMeaning(card.title, card.orientation);
-    const meta = CARD_MEANINGS[card.title] || {};
+    const image = card.image || resolveCardImage(card, true, false);
+    const recognized = recognizeDrawnCard(
+      {
+        ...card,
+        position: card.position || positions[idx] || `Card ${idx + 1}`,
+      },
+      image
+    );
     return {
-      position: positions[idx],
-      title: card.title,
-      orientation: card.orientation,
-      meaning,
-      flavor: meta.cryptoFlavor || '',
+      ...recognized,
+      meaning: recognized.meaning || getCardMeaning(card.title, card.orientation),
     };
   });
 
@@ -1827,64 +1807,29 @@ function displayFortuneReading(question, cards) {
     if (!cards[idx]) return;
     cards[idx] = {
       ...cards[idx],
-      position: entry.position,
-      meaning: entry.meaning,
+      ...entry,
     };
   });
 
-  const introHtml = `
-    <div class="fortune-reading-intro">
-      ${escapeHtml(opening)}
-    </div>
-  `;
+  const single = cardReadings.length === 1;
+  fortuneReading.classList.toggle('is-single', single);
+  fortuneReading.classList.toggle('is-three', !single);
 
-  const questionHtml =
-    question && question.trim().length
-      ? `
-    <div class="fortune-question">
-      <strong>You asked:</strong> <em>"${escapeHtml(question.trim())}"</em>
-    </div>
-  `
-      : '';
-
-  const cardSections = cardReadings
-    .map((entry, index) => {
-      const orientationClass =
-        entry.orientation === 'Upright'
-          ? 'orientation-chip'
-          : 'orientation-chip orientation-reversed';
-      const flavor = entry.flavor
-        ? `<p class="fortune-flavor">${escapeHtml(entry.flavor)}</p>`
-        : '';
-      return `
-      <article class="fortune-card-section" data-card-index="${index}">
-        <header class="fortune-card-header">
-          <div>
-            <span class="position-chip">${escapeHtml(entry.position)}</span>
-            <h4>${escapeHtml(entry.title)}</h4>
-          </div>
-          <span class="${orientationClass}">${escapeHtml(entry.orientation)}</span>
-        </header>
-        <p class="card-meaning-main">${escapeHtml(entry.meaning)}</p>
-        ${flavor}
-      </article>
-    `;
-    })
-    .join('');
-
-  const closingHtml = `
-    <div class="fortune-closing">
-      A playful reading. Entertainment only — not financial advice.
-    </div>
-  `;
+  const parts = fortuneParts(question, cardReadings);
+  const fortuneText = composeSpecialReading(question, cardReadings);
+  const askedHtml = parts.asked
+    ? `<p class="special-ask">You asked, “${escapeHtml(parts.asked)}”</p>`
+    : '';
+  const story =
+    parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : 'Sit with that picture.';
 
   fortuneReading.innerHTML = `
     <h3>Your fortune</h3>
     <div class="fortune-reading-content">
-      ${introHtml}
-      ${questionHtml}
-      ${cardSections}
-      ${closingHtml}
+      ${askedHtml}
+      <p class="special-fortune">${escapeHtml(story)}</p>
+      <p class="fortune-again"><button type="button" class="btn btn-primary" data-draw-again>Draw again</button></p>
+      <p class="fortune-closing">Entertainment only. Not financial advice.</p>
     </div>
   `;
   fortuneReading.classList.remove('loading');
@@ -1900,6 +1845,9 @@ function displayFortuneReading(question, cards) {
     fortuneReading.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     fortuneReading.style.opacity = '1';
     fortuneReading.style.transform = 'translateY(0)';
+    const reduceMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    readingCards?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
 
     // Animate reading sections one by one for fluid flow
     const sections = fortuneReading.querySelectorAll(
@@ -1930,6 +1878,7 @@ function displayFortuneReading(question, cards) {
     })),
     spreadType: currentSpreadType,
     reading: fortuneReading.innerHTML,
+    summary: fortuneText,
   });
 
   currentReadingId = savedReading.id;
@@ -2076,9 +2025,52 @@ function getFallbackReading(question, cards) {
 function syncSpreadPreview() {
   if (!readingCards || readingCards.querySelector('.card-inner')) return;
   const count = chosenSpread() === '1-card' ? 1 : 3;
+  const reduceMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   readingCards.classList.toggle('is-single', count === 1);
+  readingCards.classList.remove('is-choosing');
+  if (!reduceMotion) {
+    void readingCards.offsetWidth;
+    readingCards.classList.add('is-choosing');
+    clearTimeout(syncSpreadPreview.timer);
+    syncSpreadPreview.timer = setTimeout(() => {
+      readingCards.classList.remove('is-choosing');
+    }, 620);
+  }
+
+  syncSpreadPreview.generation = (syncSpreadPreview.generation || 0) + 1;
+  const generation = syncSpreadPreview.generation;
+
   readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
-    card.hidden = index >= count;
+    const show = count === 3 || index === 1;
+    if (!card.dataset.tuckBound) {
+      card.dataset.tuckBound = 'true';
+      card.addEventListener('transitionend', event => {
+        if (event.propertyName !== 'opacity') return;
+        if (card.classList.contains('is-tucked')) card.hidden = true;
+      });
+    }
+    if (show) {
+      const wasHidden = card.hidden;
+      card.hidden = false;
+      if (wasHidden && !reduceMotion) {
+        card.classList.add('is-tucked');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (generation !== syncSpreadPreview.generation) return;
+            const latestCount = chosenSpread() === '1-card' ? 1 : 3;
+            const latestShow = latestCount === 3 || index === 1;
+            if (!latestShow) return;
+            card.classList.remove('is-tucked');
+          });
+        });
+      } else {
+        card.classList.remove('is-tucked');
+      }
+      return;
+    }
+    card.classList.add('is-tucked');
+    if (reduceMotion) card.hidden = true;
   });
 }
 
@@ -2178,10 +2170,27 @@ if (viewHistoryBtn) {
   });
 }
 
+fortuneReading?.addEventListener('click', event => {
+  if (!event.target.closest('[data-draw-again]')) return;
+  drawCardsBtn?.click();
+});
+
+let historyKeyHandler = null;
+
+function closeHistoryModal() {
+  document.querySelector('.history-modal')?.remove();
+  document.body.style.overflow = '';
+  if (historyKeyHandler) {
+    document.removeEventListener('keydown', historyKeyHandler);
+    historyKeyHandler = null;
+  }
+}
+
 function showReadingHistory() {
   const readings = readingHistory.getAllReadings();
   const count = readings.length;
   trackEvent('reading_history_opened', { count });
+  closeHistoryModal();
 
   if (count === 0) {
     if (readingStatus) {
@@ -2191,16 +2200,18 @@ function showReadingHistory() {
     return;
   }
 
-  // Create modal for history
   const historyModal = document.createElement('div');
-  historyModal.className = 'modal show';
-  historyModal.setAttribute('aria-hidden', 'false');
+  historyModal.className = 'modal show history-modal';
+  historyModal.setAttribute('role', 'dialog');
+  historyModal.setAttribute('aria-modal', 'true');
+  historyModal.setAttribute('aria-labelledby', 'historyTitle');
   historyModal.innerHTML = `
-    <div class="modal-dialog" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
-      <button class="modal-close" onclick="this.closest('.modal').remove()" aria-label="Close">×</button>
-      <div class="modal-body" style="grid-template-columns: 1fr;">
-        <h3>📜 Reading History (${count})</h3>
-        <div style="margin-top: 16px;">
+    <div class="modal-dialog">
+      <button class="modal-close" type="button" data-history-close aria-label="Close">×</button>
+      <div class="modal-body">
+        <h3 id="historyTitle">Past readings (${count})</h3>
+        <p class="history-note" data-history-note hidden></p>
+        <div class="history-list">
           ${readings
             .map(reading => {
               const date = new Date(reading.timestamp).toLocaleString();
@@ -2210,75 +2221,110 @@ function showReadingHistory() {
                   : reading.spreadType === '3-card'
                     ? 'Three cards'
                     : reading.spreadType;
+              const cards = Array.isArray(reading.cards) ? reading.cards : [];
               return `
-              <div class="history-item">
+              <article class="history-item">
                 <div class="history-item-head">
                   <div>
-                    <strong>${date}</strong>
+                    <strong>${escapeHtml(date)}</strong>
                     <p>${escapeHtml(spreadLabel)} · ${escapeHtml(reading.question || 'An open fortune')}</p>
                   </div>
-                  <div style="display: flex; gap: 8px;">
-                    <button onclick="window.shareReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">📋</button>
-                    <button onclick="window.deleteReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">🗑️</button>
+                  <div class="history-actions">
+                    <button type="button" class="btn btn-outline" data-copy-reading="${escapeHtml(reading.id)}">Copy</button>
+                    <button type="button" class="btn btn-outline" data-delete-reading="${escapeHtml(reading.id)}">Delete</button>
                   </div>
                 </div>
-                <div style="color: var(--text); font-size: 13px;">
-                  ${reading.cards.map(c => `${escapeHtml(c.position)}: ${escapeHtml(c.title)} (${escapeHtml(c.orientation)})`).join(' • ')}
-                </div>
-              </div>
+                <p class="history-cards">${cards.map(card => `${escapeHtml(card.position)}: ${escapeHtml(card.title)} (${escapeHtml(card.orientation)})`).join(' · ')}</p>
+                ${reading.summary ? `<p class="history-fortune">${escapeHtml(reading.summary)}</p>` : ''}
+              </article>
             `;
             })
             .join('')}
         </div>
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(212,175,55,.2);">
-          <button onclick="window.clearAllReadings()" class="btn btn-outline" style="width: 100%;">Clear All History</button>
-        </div>
+        <button type="button" class="btn btn-outline history-clear" data-clear-history>Clear past readings</button>
       </div>
     </div>
   `;
 
-  document.body.appendChild(historyModal);
-  document.body.style.overflow = 'hidden';
+  historyKeyHandler = event => {
+    if (event.key === 'Escape') closeHistoryModal();
+  };
+  document.addEventListener('keydown', historyKeyHandler);
 
-  historyModal.addEventListener('click', e => {
-    if (e.target === historyModal) {
-      historyModal.remove();
-      document.body.style.overflow = '';
+  historyModal.addEventListener('click', async event => {
+    if (event.target === historyModal || event.target.closest('[data-history-close]')) {
+      closeHistoryModal();
+      return;
+    }
+
+    const note = historyModal.querySelector('[data-history-note]');
+    const copyId = event.target.closest('[data-copy-reading]')?.getAttribute('data-copy-reading');
+    if (copyId) {
+      const reading = readingHistory.getReading(copyId);
+      const copied = reading ? await readingHistory.copyToClipboard(reading) : false;
+      if (note) {
+        note.hidden = false;
+        note.textContent = copied ? 'Copied this fortune.' : 'Could not copy this fortune.';
+      }
+      if (copied) trackEvent('reading_shared', { id: copyId });
+      return;
+    }
+
+    const deleteBtn = event.target.closest('[data-delete-reading]');
+    if (deleteBtn) {
+      const deleteId = deleteBtn.getAttribute('data-delete-reading');
+      if (deleteBtn.dataset.confirmDelete !== 'yes') {
+        historyModal.querySelectorAll('[data-confirm-delete="yes"]').forEach(btn => {
+          btn.dataset.confirmDelete = '';
+          btn.textContent = 'Delete';
+        });
+        const clearBtn = historyModal.querySelector('[data-clear-history]');
+        if (clearBtn) {
+          clearBtn.dataset.confirmClear = '';
+          clearBtn.textContent = 'Clear past readings';
+        }
+        deleteBtn.dataset.confirmDelete = 'yes';
+        deleteBtn.textContent = 'Delete it';
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Click Delete it to remove this fortune.';
+        }
+        return;
+      }
+      trackEvent('reading_deleted', { id: deleteId });
+      readingHistory.deleteReading(deleteId);
+      showReadingHistory();
+      return;
+    }
+
+    const clearBtn = event.target.closest('[data-clear-history]');
+    if (clearBtn) {
+      if (clearBtn.dataset.confirmClear !== 'yes') {
+        historyModal.querySelectorAll('[data-confirm-delete="yes"]').forEach(btn => {
+          btn.dataset.confirmDelete = '';
+          btn.textContent = 'Delete';
+        });
+        clearBtn.dataset.confirmClear = 'yes';
+        clearBtn.textContent = 'Clear them';
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Click Clear them to erase every past reading.';
+        }
+        return;
+      }
+      trackEvent('reading_history_cleared', {});
+      readingHistory.clearAll();
+      closeHistoryModal();
+      if (readingStatus) {
+        readingStatus.textContent = 'Past readings cleared.';
+        readingStatus.className = 'reading-status';
+      }
     }
   });
+
+  document.body.appendChild(historyModal);
+  document.body.style.overflow = 'hidden';
 }
-
-// Global functions for history modal buttons
-window.shareReading = async function (id) {
-  const reading = readingHistory.getReading(id);
-  if (reading) {
-    trackEvent('reading_shared', { id });
-    const success = await readingHistory.copyToClipboard(reading);
-    if (success) {
-      alert('Reading copied to clipboard!');
-    }
-  }
-};
-
-window.deleteReading = function (id) {
-  if (confirm('Delete this reading?')) {
-    trackEvent('reading_deleted', { id });
-    readingHistory.deleteReading(id);
-    document.querySelector('.modal.show')?.remove();
-    document.body.style.overflow = '';
-    showReadingHistory();
-  }
-};
-
-window.clearAllReadings = function () {
-  if (confirm('Clear all reading history? This cannot be undone.')) {
-    trackEvent('reading_history_cleared', {});
-    readingHistory.clearAll();
-    document.querySelector('.modal.show')?.remove();
-    document.body.style.overflow = '';
-    alert('All readings cleared.');
-  }
-};
 
 const ambientSoundscape = new AmbientSoundscape(ambientAudioToggle);
 window.cryptoTarotAmbient = ambientSoundscape;

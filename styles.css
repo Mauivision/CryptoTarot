@@ -143,17 +143,7 @@ body {
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
-  animation: rotate 20s linear infinite;
   pointer-events: none;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .fortune-reading-intro,
@@ -463,6 +453,12 @@ body {
   transform-origin: center center;
 }
 
+.fortune-game .card-back.reversed img,
+.fortune-game .modal-body img.is-reversed,
+.fortune-game .special-card img.is-reversed {
+  transform: none;
+}
+
 .card-back img {
   width: 100%;
   height: 100%;
@@ -520,6 +516,10 @@ body {
   color: rgba(231, 76, 60, 0.8);
   z-index: 3;
   text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.fortune-game .card-back.reversed::after {
+  content: none;
 }
 
 .card-front-content {
@@ -638,6 +638,10 @@ body {
   height: auto;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.modal-body img.is-reversed {
+  transform: rotate(180deg);
 }
 
 .modal-content {
@@ -880,7 +884,9 @@ body.fortune-game {
 }
 
 .spread-option span {
+  position: relative;
   display: block;
+  overflow: hidden;
   text-align: center;
   padding: 12px 10px;
   border-radius: 14px;
@@ -889,13 +895,46 @@ body.fortune-game {
   color: var(--text);
   font-size: 18px;
   cursor: pointer;
+  transition:
+    transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
+}
+
+.spread-option span::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 28%,
+    rgba(255, 236, 180, 0.42) 50%,
+    transparent 72%
+  );
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.spread-option:hover span,
+.spread-option:focus-within span {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.75);
 }
 
 .spread-option input:checked + span {
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.22);
   border-color: var(--primary);
   color: #f8e7b0;
-  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.35);
+  box-shadow:
+    0 10px 24px rgba(212, 175, 55, 0.16),
+    inset 0 0 0 1px rgba(212, 175, 55, 0.45);
+  animation: spreadPick 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.spread-option input:checked + span::after {
+  animation: choiceSheen 0.7s ease;
 }
 
 .spread-option input:focus-visible + span {
@@ -928,13 +967,130 @@ body.fortune-game {
 }
 
 .fortune-game .reading-cards {
+  position: relative;
   gap: 18px;
-  padding-top: 8px;
+  padding-top: 12px;
+  transition: gap 0.5s ease;
+}
+
+.fortune-game .spread-slot {
+  margin: 0 0 8px;
+  text-align: center;
+  color: var(--primary);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.fortune-game .special-meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.fortune-game .fortune-reading.is-single .fortune-reading-content,
+.fortune-game .fortune-reading.is-three .fortune-reading-content {
+  position: relative;
+  z-index: 1;
+}
+
+.fortune-game .special-spread {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 4px 0 18px;
+}
+
+.fortune-game .fortune-reading.is-single .special-spread {
+  grid-template-columns: minmax(0, 280px);
+  justify-content: center;
+}
+
+.fortune-game .special-card {
+  margin: 0;
+  text-align: center;
+}
+
+.fortune-game .special-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3.15;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+
+.fortune-game .special-title {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.fortune-game .fortune-reading {
+  margin-top: 12px;
+  padding: 18px 16px 16px;
+}
+
+.fortune-game .special-ask {
+  margin: 0 0 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+.fortune-game .fortune-again {
+  margin: 16px 0 0;
+  text-align: center;
+}
+
+.fortune-game .fortune-beats {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.fortune-game .fortune-beats li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(20, 10, 36, 0.45);
+}
+
+.fortune-game .beat-title {
+  font-size: 18px;
+}
+
+.fortune-game .special-fortune {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.history-fortune {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.fortune-game .fortune-reading.is-single .special-fortune {
+  max-width: 40rem;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.fortune-game .reading-cards.is-single {
+  gap: 0;
 }
 
 .fortune-game .reading-card {
   width: min(230px, 100%);
   min-width: 0;
+  animation: none;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .fortune-game .reading-cards.is-single .reading-card {
@@ -948,12 +1104,71 @@ body.fortune-game {
 
 .fortune-game .card-inner {
   height: 360px;
+  transition: transform 0.95s cubic-bezier(0.65, 0.02, 0.15, 1);
+}
+
+.fortune-game .card-front,
+.fortune-game .card-back {
+  transform: translateZ(1px);
+}
+
+.fortune-game .card-back {
+  transform: rotateY(180deg) translateZ(1px);
 }
 
 .fortune-game .reading-card.is-preview {
   height: 360px;
   cursor: default;
   margin-bottom: 0;
+  transform-origin: center bottom;
+  --fan: 0deg;
+  animation: previewDrift 5.6s ease-in-out infinite;
+  transition:
+    opacity 0.4s ease,
+    width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin 0.5s ease,
+    box-shadow 0.4s ease;
+}
+
+.fortune-game .reading-card.is-preview:nth-child(1) {
+  --fan: -8deg;
+}
+
+.fortune-game .reading-card.is-preview:nth-child(2) {
+  animation-delay: -1.8s;
+}
+
+.fortune-game .reading-card.is-preview:nth-child(3) {
+  --fan: 8deg;
+  animation-delay: -3.4s;
+}
+
+.fortune-game .reading-cards.is-choosing .reading-card.is-preview:not(.is-tucked) {
+  animation: previewHop 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.fortune-game .reading-card.is-preview.is-tucked {
+  width: 0;
+  min-width: 0;
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  animation: none;
+  transform: translateY(22px) scale(0.78);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin 0.5s ease;
+}
+
+.fortune-game .reading-cards.is-single .reading-card.is-preview.is-tucked {
+  width: 0;
+  height: 0;
 }
 
 .fortune-game .reading-card.is-preview img {
@@ -962,6 +1177,78 @@ body.fortune-game {
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.4s ease;
+}
+
+.fortune-game .reading-cards.is-choosing .reading-card.is-preview:not(.is-tucked) img {
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(212, 175, 55, 0.9),
+    0 0 28px rgba(212, 175, 55, 0.45);
+}
+
+.fortune-game .reading-card.is-dealt {
+  animation: cardDeal 0.78s cubic-bezier(0.16, 0.84, 0.24, 1) backwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.fortune-game .reading-cards.is-shuffling .reading-card {
+  animation: shuffleWiggle 0.24s ease-in-out 2;
+}
+
+.fortune-game .reading-card:not(.is-preview):not(.flipping):hover,
+.fortune-game .reading-card:not(.is-preview):not(.flipping):focus-visible {
+  transform: translateY(-10px);
+  z-index: 2;
+}
+
+.fortune-game .reading-card:not(.is-preview):not(.flipping):hover .card-inner,
+.fortune-game .reading-card:not(.is-preview):not(.flipping):focus-visible .card-inner {
+  transform: rotateY(-16deg) translateY(-4px);
+}
+
+.fortune-game .reading-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 5px;
+}
+
+.fortune-game .reading-card.flipping {
+  z-index: 3;
+  animation: revealLift 0.95s ease;
+}
+
+.fortune-game .reading-card.flipping .card-inner,
+.fortune-game .reading-card.flipping:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.fortune-game .reading-card.flipping .card-back {
+  animation: faceGlow 0.95s ease;
+}
+
+.fortune-game .reading-card.flipping .card-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 22%,
+    rgba(255, 244, 214, 0.62) 48%,
+    transparent 72%
+  );
+  transform: translateX(-140%);
+  animation: cardSheen 0.75s ease 0.32s both;
+}
+
+.fortune-game .rc-meaning {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.fortune-game .reading-card.flipping .rc-meaning {
+  animation: meaningRise 0.55s ease 0.62s forwards;
 }
 
 .fortune-game .card-back-overlay {
@@ -991,6 +1278,14 @@ body.fortune-game {
   margin-top: 4px;
   color: var(--text);
   font-size: 16px;
+  line-height: 1.45;
+}
+
+.fortune-meaning {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+  font-size: 15px;
   line-height: 1.45;
 }
 
@@ -1032,12 +1327,54 @@ body.fortune-game {
   color: #fff8e8;
 }
 
+.history-modal .modal-dialog {
+  max-width: 720px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.history-modal .modal-body {
+  grid-template-columns: 1fr;
+}
+
+.history-list {
+  margin-top: 16px;
+}
+
 .history-item {
   margin-bottom: 12px;
   padding: 14px;
   background: rgba(45, 27, 78, 0.4);
   border-radius: 12px;
   border-left: 3px solid var(--primary);
+}
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.history-actions .btn,
+.history-clear {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.history-cards {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.history-note {
+  margin: 8px 0 0;
+  color: var(--primary);
+}
+
+.history-clear {
+  width: 100%;
+  margin-top: 8px;
 }
 
 .history-item-head {
@@ -1052,10 +1389,130 @@ body.fortune-game {
   color: var(--primary);
 }
 
-.history-item p {
+.history-item-head p {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 14px;
+}
+
+@keyframes spreadPick {
+  0% {
+    transform: scale(0.96);
+  }
+  55% {
+    transform: translateY(-3px) scale(1.04);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes choiceSheen {
+  from {
+    transform: translateX(-130%);
+  }
+  to {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes previewDrift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--fan, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--fan, 0deg));
+  }
+}
+
+@keyframes previewHop {
+  0% {
+    transform: translateY(0) rotate(var(--fan, 0deg)) scale(1);
+  }
+  45% {
+    transform: translateY(-16px) rotate(var(--fan, 0deg)) scale(1.045);
+  }
+  100% {
+    transform: translateY(0) rotate(var(--fan, 0deg)) scale(1);
+  }
+}
+
+@keyframes shuffleWiggle {
+  0%,
+  100% {
+    transform: translateX(0) rotate(var(--fan, 0deg));
+  }
+  35% {
+    transform: translateX(-12px) rotate(calc(var(--fan, 0deg) - 7deg));
+  }
+  70% {
+    transform: translateX(12px) rotate(calc(var(--fan, 0deg) + 7deg));
+  }
+}
+
+@keyframes cardDeal {
+  0% {
+    opacity: 0;
+    transform: translateY(70px) rotate(-9deg) scale(0.88);
+  }
+  64% {
+    opacity: 1;
+    transform: translateY(-14px) rotate(3deg) scale(1.035);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes revealLift {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  42% {
+    transform: translateY(-20px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes faceGlow {
+  0%,
+  34% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+  58% {
+    box-shadow:
+      0 22px 46px rgba(212, 175, 55, 0.5),
+      0 0 0 2px rgba(255, 226, 150, 0.8);
+  }
+  100% {
+    box-shadow:
+      0 14px 32px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(212, 175, 55, 0.3);
+  }
+}
+
+@keyframes cardSheen {
+  from {
+    transform: translateX(-140%);
+  }
+  to {
+    transform: translateX(140%);
+  }
+}
+
+@keyframes meaningRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 720px) {
@@ -1086,5 +1543,46 @@ body.fortune-game {
   .fortune-panel {
     padding: 16px 12px 12px;
     border-radius: 20px;
+  }
+
+  .fortune-game .reading-cards.is-single .reading-card.is-preview.is-tucked,
+  .fortune-game .reading-card.is-preview.is-tucked {
+    width: 0;
+    height: 0;
+  }
+
+  .fortune-game .special-spread,
+  .fortune-game .fortune-reading.is-three .special-spread {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fortune-game .reading-cards {
+    transition: none;
+  }
+
+  .spread-option span,
+  .spread-option span::after,
+  .fortune-game .reading-card,
+  .fortune-game .reading-card.is-preview,
+  .fortune-game .card-inner,
+  .fortune-game .reading-card.flipping,
+  .fortune-game .reading-card.flipping .card-back,
+  .fortune-game .reading-card.flipping .card-back::before,
+  .fortune-game .reading-card.flipping .rc-meaning {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .fortune-game .reading-card.flipping .rc-meaning,
+  .fortune-game .rc-meaning {
+    opacity: 1;
+    transform: none;
+  }
+
+  .fortune-game .reading-card.flipping .card-inner {
+    transform: rotateY(180deg);
   }
 }

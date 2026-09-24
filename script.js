@@ -1340,6 +1340,7 @@ function preloadImages(urls = [], timeoutMs = 5000) {
 async function performFortuneReading() {
   if (performFortuneReading.running) return;
   performFortuneReading.running = true;
+  performFortuneReading.revealScheduled = false;
   if (drawCardsBtn) drawCardsBtn.disabled = true;
   try {
     await ensureCardmapLoaded();
@@ -1358,10 +1359,13 @@ async function performFortuneReading() {
       readingStatus.textContent = `Shuffling the ${spread.name}…`;
       readingStatus.className = 'reading-status loading';
     }
+    const prefersReduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (readingCards) {
-      readingCards.innerHTML = '';
+      readingCards.classList.add('is-shuffling');
       readingCards.style.display = 'flex';
-      readingCards.style.opacity = '0';
+      readingCards.style.opacity = '1';
       readingCards.style.visibility = 'visible';
     }
     if (readingSkeleton) {
@@ -1396,6 +1400,7 @@ async function performFortuneReading() {
         readingSkeleton.classList.remove('active');
       }
       if (readingCards) {
+        readingCards.classList.remove('is-shuffling');
         readingCards.style.display = 'flex';
         readingCards.style.visibility = 'visible';
         readingCards.style.opacity = '1';
@@ -1408,8 +1413,9 @@ async function performFortuneReading() {
       return;
     }
 
-    // Add small delay for shuffle animation effect
-    await new Promise(resolve => setTimeout(resolve, 300 + (shuffleCount % 3) * 100));
+    // Let the cards on the table riffle before the new hand is dealt
+    await new Promise(resolve => setTimeout(resolve, prefersReduced ? 0 : 520));
+    readingCards?.classList.remove('is-shuffling');
 
     const picks = drawCards(currentSpreadType);
     console.log(
@@ -1449,32 +1455,34 @@ async function performFortuneReading() {
       readingCards.style.opacity = '1';
     }
 
-    // Auto-flip cards one at a time for smooth performance
-    const prefersReduced =
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(
-      () => {
+    // Turn the dealt cards over one at a time, after they have landed
+    if (readingCards) {
+      const runId = ++fortuneRunId;
+      readingCards.dataset.fortuneRun = String(runId);
+      const dealWait = prefersReduced ? 0 : 700 + picks.length * 140;
+      performFortuneReading.revealScheduled = true;
+      setTimeout(() => {
+        if (readingCards.dataset.fortuneRun !== String(runId)) return;
         const cardElements = Array.from(readingCards.querySelectorAll('.reading-card'));
         let currentIndex = 0;
 
         function flipNextCard() {
+          if (readingCards.dataset.fortuneRun !== String(runId)) return;
           if (currentIndex < cardElements.length) {
             const card = cardElements[currentIndex];
             if (card.getAttribute('data-flipped') !== 'true') {
               flipSingleCard(card);
             }
             currentIndex++;
-            // Wait for current flip to complete before next
             if (currentIndex < cardElements.length) {
-              setTimeout(flipNextCard, prefersReduced ? 0 : 600); // One at a time
+              setTimeout(flipNextCard, prefersReduced ? 0 : 980);
             }
           }
         }
 
         flipNextCard();
-      },
-      prefersReduced ? 0 : 800
-    ); // Start after cards appear
+      }, dealWait);
+    }
 
     // Smooth scroll to cards
     setTimeout(() => {
@@ -1495,12 +1503,18 @@ async function performFortuneReading() {
       }, 300);
     }
   } finally {
-    performFortuneReading.running = false;
-    if (drawCardsBtn) {
-      drawCardsBtn.disabled = false;
-      drawCardsBtn.textContent = 'Draw again';
-    }
+    if (!performFortuneReading.revealScheduled) releaseFortuneDraw(false);
   }
+}
+
+let fortuneRunId = 0;
+
+function releaseFortuneDraw(drew) {
+  performFortuneReading.running = false;
+  performFortuneReading.revealScheduled = false;
+  if (!drawCardsBtn) return;
+  drawCardsBtn.disabled = false;
+  if (drew) drawCardsBtn.textContent = 'Draw again';
 }
 
 // Reveal all remaining cards (respects reduced-motion)
@@ -1550,7 +1564,6 @@ function renderCardsFaceDown(cards) {
   readingCards.style.flexDirection = 'row';
   readingCards.style.flexWrap = 'wrap';
   readingCards.style.justifyContent = 'center';
-  readingCards.style.gap = '20px';
   readingCards.style.alignItems = 'flex-start';
   readingCards.style.minHeight = '200px';
   if (readingSkeleton) {
@@ -1562,7 +1575,7 @@ function renderCardsFaceDown(cards) {
 
   cards.forEach((card, idx) => {
     const el = document.createElement('div');
-    el.className = 'reading-card';
+    el.className = 'reading-card is-dealt';
     el.setAttribute('role', 'listitem');
     el.setAttribute('tabindex', '0');
     el.setAttribute('data-card-index', idx);
@@ -1632,25 +1645,9 @@ function renderCardsFaceDown(cards) {
     readingCards.appendChild(el);
   });
 
-  // Ensure cards are visible with simple animation
-  setTimeout(() => {
-    readingCards.style.display = 'flex';
-    readingCards.style.visibility = 'visible';
-    readingCards.style.opacity = '1';
-    // Simple fade-in animation (no complex transforms)
-    const cardElements = readingCards.querySelectorAll('.reading-card');
-    cardElements.forEach((card, idx) => {
-      card.style.opacity = '0';
-      card.style.transition = 'opacity 0.4s ease';
-      // Simple fade in with slight stagger
-      setTimeout(
-        () => {
-          card.style.opacity = '1';
-        },
-        idx * 80 + 100
-      );
-    });
-  }, 50);
+  readingCards.style.display = 'flex';
+  readingCards.style.visibility = 'visible';
+  readingCards.style.opacity = '1';
 }
 
 function flipSingleCard(cardElement) {
@@ -1686,15 +1683,8 @@ function flipSingleCard(cardElement) {
       </p>
     `;
     meaningEl.style.display = 'block';
-    meaningEl.style.opacity = '0';
-    meaningEl.style.transform = 'translateY(10px)';
     meaningEl.style.width = '100%';
     meaningEl.style.maxWidth = '100%';
-    setTimeout(() => {
-      meaningEl.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      meaningEl.style.opacity = '1';
-      meaningEl.style.transform = 'translateY(0)';
-    }, 400);
   }
 
   // Check if all cards are flipped, then show full reading
@@ -1705,8 +1695,10 @@ function flipSingleCard(cardElement) {
   const spread = SPREAD_TYPES[currentSpreadType] || SPREAD_TYPES['3-card'];
 
   if (spread && flippedCount === spread.cardCount) {
+    const runAtFlip = readingCards?.dataset.fortuneRun;
     // All cards flipped, show full reading with smooth transition
     setTimeout(() => {
+      if (readingCards && runAtFlip && readingCards.dataset.fortuneRun !== runAtFlip) return;
       // Remove loading state first
       if (fortuneReading) {
         fortuneReading.classList.remove('loading');
@@ -1736,7 +1728,8 @@ function flipSingleCard(cardElement) {
       }
       if (copyLinkBtn) copyLinkBtn.disabled = false;
       if (printReadingBtn) printReadingBtn.disabled = false;
-    }, 600); // Reduced delay for faster flow
+      releaseFortuneDraw(true);
+    }, 900);
   }
 }
 
@@ -2076,9 +2069,43 @@ function getFallbackReading(question, cards) {
 function syncSpreadPreview() {
   if (!readingCards || readingCards.querySelector('.card-inner')) return;
   const count = chosenSpread() === '1-card' ? 1 : 3;
+  const reduceMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   readingCards.classList.toggle('is-single', count === 1);
+  readingCards.classList.remove('is-choosing');
+  if (!reduceMotion) {
+    void readingCards.offsetWidth;
+    readingCards.classList.add('is-choosing');
+    clearTimeout(syncSpreadPreview.timer);
+    syncSpreadPreview.timer = setTimeout(() => {
+      readingCards.classList.remove('is-choosing');
+    }, 620);
+  }
+
   readingCards.querySelectorAll('.is-preview').forEach((card, index) => {
-    card.hidden = index >= count;
+    const show = count === 3 || index === 1;
+    if (!card.dataset.tuckBound) {
+      card.dataset.tuckBound = 'true';
+      card.addEventListener('transitionend', event => {
+        if (event.propertyName !== 'opacity') return;
+        if (card.classList.contains('is-tucked')) card.hidden = true;
+      });
+    }
+    if (show) {
+      const wasHidden = card.hidden;
+      card.hidden = false;
+      if (wasHidden && !reduceMotion) {
+        card.classList.add('is-tucked');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => card.classList.remove('is-tucked'));
+        });
+      } else {
+        card.classList.remove('is-tucked');
+      }
+      return;
+    }
+    card.classList.add('is-tucked');
+    if (reduceMotion) card.hidden = true;
   });
 }
 

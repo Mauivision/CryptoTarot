@@ -34,7 +34,12 @@ export function parseCardImagePath(imagePath) {
  */
 export function recognizeDrawnCard(card, imagePath) {
   const title = card?.title || 'Unknown card';
-  const type = card?.type === 'Minor' || title.includes(' of ') ? 'Minor' : 'Major';
+  const type =
+    card?.type === 'Major'
+      ? 'Major'
+      : card?.type === 'Minor' || title.includes(' of ')
+        ? 'Minor'
+        : 'Major';
   const suit = type === 'Major' ? 'Major' : card?.suit || title.split(' of ')[1] || '';
   const orientation = card?.orientation === 'Reversed' ? 'Reversed' : 'Upright';
   const parsed = parseCardImagePath(imagePath);

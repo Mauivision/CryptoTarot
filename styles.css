@@ -522,6 +522,10 @@ body {
   text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
 }
 
+.fortune-game .card-back.reversed::after {
+  content: none;
+}
+
 .card-front-content {
   text-align: center;
   padding: 24px;

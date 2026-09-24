@@ -962,35 +962,21 @@ function openModal(card) {
     ? `${arcanaLabel} · Drawn ${card.orientation}`
     : arcanaLabel;
 
-  const meta = CARD_MEANINGS[card.title] || {};
   if (modalCosmic) {
-    if (meta.cosmicRuler) {
-      const summary = meta.cosmicSummary ? ` — ${meta.cosmicSummary}` : '';
-      modalCosmic.textContent = `Cosmic Ruler: ${meta.cosmicRuler}${summary}`;
-      modalCosmic.style.display = 'block';
-    } else {
-      modalCosmic.textContent = '';
-      modalCosmic.style.display = 'none';
-    }
+    modalCosmic.textContent = '';
+    modalCosmic.style.display = 'none';
   }
   if (modalCrypto) {
-    if (meta.cryptoFlavor) {
-      modalCrypto.textContent = `Crypto Flavor: ${meta.cryptoFlavor}`;
-      modalCrypto.style.display = 'block';
-    } else {
-      modalCrypto.textContent = '';
-      modalCrypto.style.display = 'none';
-    }
+    modalCrypto.textContent = '';
+    modalCrypto.style.display = 'none';
   }
 
-  // Get actual meanings from Book of Crypto Tarot Life Meanings
-  const uprightMeaning = getCardMeaning(card.title, 'Upright');
-  const reversedMeaning = getCardMeaning(card.title, 'Reversed');
-
-  modalUpright.textContent = `Upright: ${uprightMeaning}`;
-  modalReversed.textContent = `Reversed: ${reversedMeaning}`;
-  modalUpright.classList.toggle('is-drawn', card.orientation === 'Upright');
-  modalReversed.classList.toggle('is-drawn', card.orientation === 'Reversed');
+  const drawnMeaning = card.meaning || getCardMeaning(card.title, card.orientation || 'Upright');
+  modalUpright.textContent = drawnMeaning;
+  modalUpright.classList.add('is-drawn');
+  modalReversed.textContent = '';
+  modalReversed.style.display = 'none';
+  modalReversed.classList.remove('is-drawn');
 
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
@@ -2291,17 +2277,48 @@ function showReadingHistory() {
       return;
     }
 
-    const deleteId = event.target
-      .closest('[data-delete-reading]')
-      ?.getAttribute('data-delete-reading');
-    if (deleteId && confirm('Delete this reading?')) {
+    const deleteBtn = event.target.closest('[data-delete-reading]');
+    if (deleteBtn) {
+      const deleteId = deleteBtn.getAttribute('data-delete-reading');
+      if (deleteBtn.dataset.confirmDelete !== 'yes') {
+        historyModal.querySelectorAll('[data-confirm-delete="yes"]').forEach(btn => {
+          btn.dataset.confirmDelete = '';
+          btn.textContent = 'Delete';
+        });
+        const clearBtn = historyModal.querySelector('[data-clear-history]');
+        if (clearBtn) {
+          clearBtn.dataset.confirmClear = '';
+          clearBtn.textContent = 'Clear past readings';
+        }
+        deleteBtn.dataset.confirmDelete = 'yes';
+        deleteBtn.textContent = 'Delete it';
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Click Delete it to remove this fortune.';
+        }
+        return;
+      }
       trackEvent('reading_deleted', { id: deleteId });
       readingHistory.deleteReading(deleteId);
       showReadingHistory();
       return;
     }
 
-    if (event.target.closest('[data-clear-history]') && confirm('Clear all past readings?')) {
+    const clearBtn = event.target.closest('[data-clear-history]');
+    if (clearBtn) {
+      if (clearBtn.dataset.confirmClear !== 'yes') {
+        historyModal.querySelectorAll('[data-confirm-delete="yes"]').forEach(btn => {
+          btn.dataset.confirmDelete = '';
+          btn.textContent = 'Delete';
+        });
+        clearBtn.dataset.confirmClear = 'yes';
+        clearBtn.textContent = 'Clear them';
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Click Clear them to erase every past reading.';
+        }
+        return;
+      }
       trackEvent('reading_history_cleared', {});
       readingHistory.clearAll();
       closeHistoryModal();

@@ -2215,10 +2215,22 @@ fortuneReading?.addEventListener('click', event => {
   drawCardsBtn?.click();
 });
 
+let historyKeyHandler = null;
+
+function closeHistoryModal() {
+  document.querySelector('.history-modal')?.remove();
+  document.body.style.overflow = '';
+  if (historyKeyHandler) {
+    document.removeEventListener('keydown', historyKeyHandler);
+    historyKeyHandler = null;
+  }
+}
+
 function showReadingHistory() {
   const readings = readingHistory.getAllReadings();
   const count = readings.length;
   trackEvent('reading_history_opened', { count });
+  closeHistoryModal();
 
   if (count === 0) {
     if (readingStatus) {
@@ -2228,16 +2240,18 @@ function showReadingHistory() {
     return;
   }
 
-  // Create modal for history
   const historyModal = document.createElement('div');
-  historyModal.className = 'modal show';
-  historyModal.setAttribute('aria-hidden', 'false');
+  historyModal.className = 'modal show history-modal';
+  historyModal.setAttribute('role', 'dialog');
+  historyModal.setAttribute('aria-modal', 'true');
+  historyModal.setAttribute('aria-labelledby', 'historyTitle');
   historyModal.innerHTML = `
-    <div class="modal-dialog" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
-      <button class="modal-close" onclick="this.closest('.modal').remove()" aria-label="Close">×</button>
-      <div class="modal-body" style="grid-template-columns: 1fr;">
-        <h3>📜 Reading History (${count})</h3>
-        <div style="margin-top: 16px;">
+    <div class="modal-dialog">
+      <button class="modal-close" type="button" data-history-close aria-label="Close">×</button>
+      <div class="modal-body">
+        <h3 id="historyTitle">Past readings (${count})</h3>
+        <p class="history-note" data-history-note hidden></p>
+        <div class="history-list">
           ${readings
             .map(reading => {
               const date = new Date(reading.timestamp).toLocaleString();
@@ -2247,76 +2261,79 @@ function showReadingHistory() {
                   : reading.spreadType === '3-card'
                     ? 'Three cards'
                     : reading.spreadType;
+              const cards = Array.isArray(reading.cards) ? reading.cards : [];
               return `
-              <div class="history-item">
+              <article class="history-item">
                 <div class="history-item-head">
                   <div>
-                    <strong>${date}</strong>
+                    <strong>${escapeHtml(date)}</strong>
                     <p>${escapeHtml(spreadLabel)} · ${escapeHtml(reading.question || 'An open fortune')}</p>
                   </div>
-                  <div style="display: flex; gap: 8px;">
-                    <button onclick="window.shareReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">📋</button>
-                    <button onclick="window.deleteReading('${reading.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">🗑️</button>
+                  <div class="history-actions">
+                    <button type="button" class="btn btn-outline" data-copy-reading="${escapeHtml(reading.id)}">Copy</button>
+                    <button type="button" class="btn btn-outline" data-delete-reading="${escapeHtml(reading.id)}">Delete</button>
                   </div>
                 </div>
-                <div style="color: var(--text); font-size: 13px;">
-                  ${reading.cards.map(c => `${escapeHtml(c.position)}: ${escapeHtml(c.title)} (${escapeHtml(c.orientation)})`).join(' • ')}
-                </div>
+                <p class="history-cards">${cards.map(card => `${escapeHtml(card.position)}: ${escapeHtml(card.title)} (${escapeHtml(card.orientation)})`).join(' · ')}</p>
                 ${reading.summary ? `<p class="history-fortune">${escapeHtml(reading.summary)}</p>` : ''}
-              </div>
+              </article>
             `;
             })
             .join('')}
         </div>
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(212,175,55,.2);">
-          <button onclick="window.clearAllReadings()" class="btn btn-outline" style="width: 100%;">Clear All History</button>
-        </div>
+        <button type="button" class="btn btn-outline history-clear" data-clear-history>Clear past readings</button>
       </div>
     </div>
   `;
 
-  document.body.appendChild(historyModal);
-  document.body.style.overflow = 'hidden';
+  historyKeyHandler = event => {
+    if (event.key === 'Escape') closeHistoryModal();
+  };
+  document.addEventListener('keydown', historyKeyHandler);
 
-  historyModal.addEventListener('click', e => {
-    if (e.target === historyModal) {
-      historyModal.remove();
-      document.body.style.overflow = '';
+  historyModal.addEventListener('click', async event => {
+    if (event.target === historyModal || event.target.closest('[data-history-close]')) {
+      closeHistoryModal();
+      return;
+    }
+
+    const note = historyModal.querySelector('[data-history-note]');
+    const copyId = event.target.closest('[data-copy-reading]')?.getAttribute('data-copy-reading');
+    if (copyId) {
+      const reading = readingHistory.getReading(copyId);
+      const copied = reading ? await readingHistory.copyToClipboard(reading) : false;
+      if (note) {
+        note.hidden = false;
+        note.textContent = copied ? 'Copied this fortune.' : 'Could not copy this fortune.';
+      }
+      if (copied) trackEvent('reading_shared', { id: copyId });
+      return;
+    }
+
+    const deleteId = event.target
+      .closest('[data-delete-reading]')
+      ?.getAttribute('data-delete-reading');
+    if (deleteId && confirm('Delete this reading?')) {
+      trackEvent('reading_deleted', { id: deleteId });
+      readingHistory.deleteReading(deleteId);
+      showReadingHistory();
+      return;
+    }
+
+    if (event.target.closest('[data-clear-history]') && confirm('Clear all past readings?')) {
+      trackEvent('reading_history_cleared', {});
+      readingHistory.clearAll();
+      closeHistoryModal();
+      if (readingStatus) {
+        readingStatus.textContent = 'Past readings cleared.';
+        readingStatus.className = 'reading-status';
+      }
     }
   });
+
+  document.body.appendChild(historyModal);
+  document.body.style.overflow = 'hidden';
 }
-
-// Global functions for history modal buttons
-window.shareReading = async function (id) {
-  const reading = readingHistory.getReading(id);
-  if (reading) {
-    trackEvent('reading_shared', { id });
-    const success = await readingHistory.copyToClipboard(reading);
-    if (success) {
-      alert('Reading copied to clipboard!');
-    }
-  }
-};
-
-window.deleteReading = function (id) {
-  if (confirm('Delete this reading?')) {
-    trackEvent('reading_deleted', { id });
-    readingHistory.deleteReading(id);
-    document.querySelector('.modal.show')?.remove();
-    document.body.style.overflow = '';
-    showReadingHistory();
-  }
-};
-
-window.clearAllReadings = function () {
-  if (confirm('Clear all reading history? This cannot be undone.')) {
-    trackEvent('reading_history_cleared', {});
-    readingHistory.clearAll();
-    document.querySelector('.modal.show')?.remove();
-    document.body.style.overflow = '';
-    alert('All readings cleared.');
-  }
-};
 
 const ambientSoundscape = new AmbientSoundscape(ambientAudioToggle);
 window.cryptoTarotAmbient = ambientSoundscape;

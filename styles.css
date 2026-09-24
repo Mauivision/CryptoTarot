@@ -1323,12 +1323,54 @@ body.fortune-game {
   color: #fff8e8;
 }
 
+.history-modal .modal-dialog {
+  max-width: 720px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.history-modal .modal-body {
+  grid-template-columns: 1fr;
+}
+
+.history-list {
+  margin-top: 16px;
+}
+
 .history-item {
   margin-bottom: 12px;
   padding: 14px;
   background: rgba(45, 27, 78, 0.4);
   border-radius: 12px;
   border-left: 3px solid var(--primary);
+}
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.history-actions .btn,
+.history-clear {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.history-cards {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.history-note {
+  margin: 8px 0 0;
+  color: var(--primary);
+}
+
+.history-clear {
+  width: 100%;
+  margin-top: 8px;
 }
 
 .history-item-head {
@@ -1343,7 +1385,7 @@ body.fortune-game {
   color: var(--primary);
 }
 
-.history-item p {
+.history-item-head p {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 14px;

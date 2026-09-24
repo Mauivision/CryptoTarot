@@ -947,11 +947,14 @@ rankFilter?.addEventListener('change', e => {
 // ========== Modal Functions ==========
 function openModal(card) {
   if (!modal || !card) return;
-  modalImg.src = resolveCardImage(card, true) || CARD_BACK_IMAGE;
-  modalImg.alt = `${card.title} card`;
+  const face = card.image || resolveCardImage(card, true, false) || CARD_BACK_IMAGE;
+  modalImg.src = face;
+  modalImg.alt = [card.title, card.suit, card.orientation].filter(Boolean).join(', ');
+  modalImg.classList.toggle('is-reversed', card.orientation === 'Reversed');
   modalImg.onerror = () => {
     modalImg.src = CARD_BACK_IMAGE;
     modalImg.alt = 'Card image placeholder';
+    modalImg.classList.remove('is-reversed');
   };
   modalTitle.textContent = card.title;
   const arcanaLabel = card.type === 'Major' ? 'Major Arcana' : `${card.suit} Suit`;
@@ -1840,23 +1843,6 @@ function displayFortuneReading(question, cards) {
   fortuneReading.classList.toggle('is-single', single);
   fortuneReading.classList.toggle('is-three', !single);
 
-  const spreadHtml = cardReadings
-    .map(entry => {
-      const where = entry.type === 'Major' ? 'Major Arcana' : entry.suit;
-      const fallbackPath = getCardImagePathFromCryptoTarot(entry, false) || CARD_BACK_IMAGE;
-      return `
-      <figure class="special-card">
-        <img class="${entry.orientation === 'Reversed' ? 'is-reversed' : ''}" src="${escapeHtml(entry.image)}" alt="${escapeHtml(`${entry.title}, ${entry.suit}, ${entry.orientation}`)}" onerror="this.onerror=null; this.src='${fallbackPath}';" />
-        <figcaption>
-          <span class="fortune-position">${escapeHtml(entry.position)}</span>
-          <span class="special-title">${escapeHtml(entry.title)}</span>
-          <span class="special-meta">${escapeHtml(where)} · ${escapeHtml(entry.orientation)}</span>
-        </figcaption>
-      </figure>
-    `;
-    })
-    .join('');
-
   const parts = fortuneParts(question, cardReadings);
   const fortuneText = composeSpecialReading(question, cardReadings);
   const askedHtml = parts.asked
@@ -1879,7 +1865,6 @@ function displayFortuneReading(question, cards) {
     <h3>Your fortune</h3>
     <div class="fortune-reading-content">
       ${askedHtml}
-      <div class="special-spread">${spreadHtml}</div>
       ${beatsHtml}
       <p class="special-fortune">${escapeHtml(parts.beats.length > 1 ? `Read as one story: ${parts.tie}` : parts.tie)}</p>
       <p class="fortune-closing">Entertainment only. Not financial advice.</p>
@@ -1898,6 +1883,9 @@ function displayFortuneReading(question, cards) {
     fortuneReading.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     fortuneReading.style.opacity = '1';
     fortuneReading.style.transform = 'translateY(0)';
+    const reduceMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    fortuneReading.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
 
     // Animate reading sections one by one for fluid flow
     const sections = fortuneReading.querySelectorAll(

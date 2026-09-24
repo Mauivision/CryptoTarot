@@ -640,6 +640,10 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
+.modal-body img.is-reversed {
+  transform: rotate(180deg);
+}
+
 .modal-content {
   min-width: 0;
 }
